@@ -20,6 +20,13 @@
             <artifactId>org.sat4j.core</artifactId>
             <version>2.3.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.tweetyproject</groupId>
+            <artifactId>tweety-full</artifactId>
+            <version>1.22</version>
+        </dependency>
+
     </dependencies>
 
 </project>
