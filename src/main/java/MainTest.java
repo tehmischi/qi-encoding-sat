@@ -18,6 +18,7 @@
          */
 
         import java.io.IOException;
+        import java.util.Set;
 
         import org.tweetyproject.commons.ParserException;
         import org.tweetyproject.logics.pl.parser.DimacsParser;
@@ -25,9 +26,10 @@
         import org.tweetyproject.logics.pl.sat.CmdLineSatSolver;
         import org.tweetyproject.logics.pl.sat.DimacsSatSolver;
         import org.tweetyproject.logics.pl.sat.SatSolver;
-        import org.tweetyproject.logics.pl.syntax.PlBeliefSet;
+        import org.tweetyproject.logics.pl.semantics.PossibleWorld;
+        import org.tweetyproject.logics.pl.syntax.*;
 
-/**
+        /**
  * Example code illustrating the use of external SAT solvers such as Lingeling
  * and CaDicaL, and related utilities. Most other modern SAT solvers that use the
  * Dimacs format can be used the same way as the solvers in this example by
@@ -59,7 +61,7 @@ public class MainTest {
         PlBeliefSet kb1 = new PlBeliefSet();
         PlParser tweetyParser = new PlParser();
         kb1.add(tweetyParser.parseFormula("a || b || c"));
-        kb1.add(tweetyParser.parseFormula("!a || b && d"));
+        kb1.add(tweetyParser.parseFormula("(!a && c) || b && d && a"));
         kb1.add(tweetyParser.parseFormula("a"));
         kb1.add(tweetyParser.parseFormula("!c"));
         kb1.add(tweetyParser.parseFormula("a || -"));
