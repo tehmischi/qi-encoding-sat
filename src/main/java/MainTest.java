@@ -18,6 +18,8 @@
          */
 
         import java.io.IOException;
+        import java.util.ArrayList;
+        import java.util.HashMap;
         import java.util.Set;
 
         import org.tweetyproject.commons.ParserException;
@@ -46,9 +48,9 @@
 public class MainTest {
 
     // Insert the paths to your solver binaries here
-    private static String lingeling_path = "C:/lingeling/lingeling";
+    private static String lingeling_path = "C:/sat/lingeling/lingeling.exe";
     private static String cadical_path = "/home/anna/snap/sat/cadical/build/cadical";
-    private static String kissat_path = "/home/anna/snap/sat/kissat/build/kissat";
+    private static String kissat_path = "C:/sat/kissat/build/kissat.exe";
     private static String slime_path = "/home/anna/snap/sat/slime/slime/bin/slime_cli";
     /**
      * main
@@ -58,14 +60,21 @@ public class MainTest {
      */
     public static void main(String[] args) throws ParserException, IOException {
         // Creating a belief base manually
+        BusinessRuleFileParser parser = new BusinessRuleFileParser("C:\\sat\\RuleBase.txt");
+        RuleBase base = parser.readFile();
         PlBeliefSet kb1 = new PlBeliefSet();
+        SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
+        setInclusion.addSetInclusionConstraints(kb1);
+
+        /*
         PlParser tweetyParser = new PlParser();
         kb1.add(tweetyParser.parseFormula("a || b || c"));
         kb1.add(tweetyParser.parseFormula("(!a && c) || b && d && a"));
         kb1.add(tweetyParser.parseFormula("a"));
         kb1.add(tweetyParser.parseFormula("!c"));
         kb1.add(tweetyParser.parseFormula("a || -"));
-        System.out.println(kb1);
+         */
+        System.out.println(kb1.toCnf());
 
 
 
@@ -86,8 +95,16 @@ public class MainTest {
         // add a cmd line parameter
         lingelingSolver.addOption("--reduce");
         System.out.println("\n" + lingelingSolver.isSatisfiable(kb1));
-        System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
+        //System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
         System.out.println(lingelingSolver.isSatisfiable(kb1));
+
+        // Using the SAT solver Kissat
+        CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
+        // add a cmd line parameter
+        kissatSolver.addOption("--unsat");
+        System.out.println("\n" + kissatSolver.isSatisfiable(kb1));
+        //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
+        System.out.println(kissatSolver.isSatisfiable(kb1));
 
         /*
         // Using the SAT solver CaDiCaL
@@ -96,13 +113,7 @@ public class MainTest {
         System.out.println("Witness: " + cadicalSolver.getWitness(kb1));
         System.out.println(cadicalSolver.isSatisfiable(kb1));
 
-        // Using the SAT solver Kissat
-        CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
-        // add a cmd line parameter
-        kissatSolver.addOption("--unsat");
-        System.out.println("\n" + kissatSolver.isSatisfiable(kb1));
-        System.out.println("Witness: " + kissatSolver.getWitness(kb1));
-        System.out.println(kissatSolver.isSatisfiable(kb1));
+
 
         // Using the SAT solver Slime
         CmdLineSatSolver slimeSolver = new CmdLineSatSolver(slime_path);
