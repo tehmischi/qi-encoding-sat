@@ -100,7 +100,7 @@ public class ConsistencyEncoding {
             overallConj12.add(m,p);
         });
 
-        beliefSet.add(overallConj1,overallConj2, overallConj12);
+        beliefSet.add(overallConj1,overallConj2, new Negation(overallConj12));
 
         return beliefSet;
     }
