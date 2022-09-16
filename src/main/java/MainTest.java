@@ -44,9 +44,9 @@
 public class MainTest {
 
     // Insert the paths to your solver binaries here
-    private static final String lingeling_path = "C:/sat/lingeling/lingeling.exe";
+    private static String lingeling_path;
     //private static String cadical_path = "/home/anna/snap/sat/cadical/build/cadical";
-    private static final String kissat_path = "C:/sat/kissat/build/kissat.exe";
+    private static String kissat_path;
     //private static String slime_path = "/home/anna/snap/sat/slime/slime/bin/slime_cli";
     /**
      * main
@@ -56,7 +56,17 @@ public class MainTest {
      */
     public static void main(String[] args) throws ParserException, IOException {
         // Creating a belief base manually
-        BusinessRuleFileParser parser = new BusinessRuleFileParser("C:\\sat\\RuleBase.txt");
+        boolean unixOS = true;
+        BusinessRuleFileParser parser;
+        if (unixOS) {
+            parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase.txt");
+            MainTest.lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
+            MainTest.kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
+        } else {
+            parser = new BusinessRuleFileParser("C:\\sat\\RuleBase.txt");
+            MainTest.lingeling_path = "C:/sat/lingeling/lingeling.exe";
+            MainTest.kissat_path = "C:/sat/kissat/build/kissat.exe";
+        }
         RuleBase base = parser.readFile();
         PlBeliefSet kb1 = new PlBeliefSet();
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
