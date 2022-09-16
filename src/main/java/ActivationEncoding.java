@@ -60,7 +60,6 @@ public class ActivationEncoding {
                 activationList1.add(new Proposition(id + "_Act(1," + listItem + ")"));
                 activationList2.add(new Proposition(id + "_Act(2," + listItem + ")"));
             });
-            System.out.println("Größe der Liste mit id " + id +" = " + activationList1.size());
             if (activationList1.isEmpty()){
                 overallConj.add(new Implication(activator1, new Contradiction()));
                 overallConj.add(new Implication(activator2, new Contradiction()));

@@ -29,8 +29,8 @@ public class ConsistencyEncoding {
             Disjunction ruleClauseBase2 = new Disjunction();
             Disjunction ruleClauseBaseBoth = new Disjunction();
             Literal headAtom = ruleFromBase.getHead();
-            String headString1 = headAtom.atomName() + "_r1";
-            String headString2 = headAtom.atomName() + "_r2";
+            String headString1 = "x_1," + headAtom.atomName();
+            String headString2 = "x_2," + headAtom.atomName();
             String headStringBoth = headAtom.atomName() + "_both";
             Proposition head1 = new Proposition(headString1);
             Proposition head2 = new Proposition(headString2);
@@ -38,7 +38,7 @@ public class ConsistencyEncoding {
             Negation headNeg1 = new Negation(head1);
             Negation headNeg2 = new Negation(head2);
             Negation headNegBoth = new Negation(headBoth);
-            if (headAtom.negated()) {
+            if (!headAtom.negated()) {
                 ruleClauseBase1.add(head1);
                 ruleClauseBase2.add(head2);
                 ruleClauseBaseBoth.add(headBoth);
@@ -49,13 +49,13 @@ public class ConsistencyEncoding {
             }
 
             ruleFromBase.getBody().forEach(literal ->{
-                String literalString1 = literal.atomName() + "_r1";
-                String literalString2 = literal.atomName() + "_r2";
+                String literalString1 = "x_1," + literal.atomName();
+                String literalString2 = "x_2," + literal.atomName();
                 String literalStringBoth = literal.atomName() + "_both";
                 Proposition bodyAtom1 = new Proposition(literalString1);
                 Proposition bodyAtom2 = new Proposition(literalString2);
                 Proposition bodyAtomBoth = new Proposition(literalStringBoth);
-                if (literal.negated()) {
+                if (!literal.negated()) {
                     ruleClauseBase1.add(new Negation(bodyAtom1));
                     ruleClauseBase2.add(new Negation(bodyAtom2));
                     ruleClauseBaseBoth.add(new Negation(bodyAtomBoth));
@@ -79,17 +79,6 @@ public class ConsistencyEncoding {
             Proposition b = new Proposition("x_2," + atom);
             Proposition c = new Proposition("x_1,-" + atom);
             Proposition d = new Proposition("x_2,-" + atom);
-            Negation e = new Negation(a);
-            Negation f = new Negation(b);
-            Negation g = new Negation(c);
-            Negation h = new Negation(d);
-            Disjunction u = new Disjunction(e, new Proposition(atom + "_1"));
-            Disjunction v = new Disjunction(f, new Proposition(atom + "_2"));
-            //TODO überlegen wie negative "Literale" überprüft werden.., Stimmt das so?
-            Disjunction w = new Disjunction(g, new Negation(new Proposition(atom + "_1")));
-            Disjunction x = new Disjunction(h, new Negation(new Proposition(atom + "_2")));
-            overallConj1.add(u,w);
-            overallConj2.add(v,x);
             //TODO Facts zu Vereinigungsmenge hinzufügen, Negation richtig, extra Variablen (oben auch)??
             Disjunction k = new Disjunction(a,b);
             Negation l = new Negation(k);
