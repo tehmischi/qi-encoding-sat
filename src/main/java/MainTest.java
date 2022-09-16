@@ -77,7 +77,6 @@ public class MainTest {
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
         ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        //TODO Consistency Encoding fixen...
         kb1 = consistencyEncoding.addConsistencyRestraints(kb1);
         kb1 = setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
