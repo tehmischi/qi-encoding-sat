@@ -55,8 +55,13 @@ public class MainTest {
      * @throws IOException IOException
      */
     public static void main(String[] args) throws ParserException, IOException {
-        // Creating a belief base manually
-        boolean unixOS = true;
+        String os = System.getProperty("os.name");
+        boolean unixOS;
+        if (os.contains("Windows")) {
+            unixOS = false;
+        } else {
+            unixOS = true;
+        }
         BusinessRuleFileParser parser;
         if (unixOS) {
             parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase.txt");
