@@ -31,10 +31,9 @@ public class ConsistencyEncoding {
             Literal headAtom = ruleFromBase.getHead();
             String headString1 = "x_1," + headAtom.atomName();
             String headString2 = "x_2," + headAtom.atomName();
-            String headStringBoth = headAtom.atomName() + "_both";
             Proposition head1 = new Proposition(headString1);
             Proposition head2 = new Proposition(headString2);
-            Proposition headBoth = new Proposition(headStringBoth);
+            Disjunction headBoth = new Disjunction(head1, head2);
             Negation headNeg1 = new Negation(head1);
             Negation headNeg2 = new Negation(head2);
             Negation headNegBoth = new Negation(headBoth);
@@ -51,10 +50,9 @@ public class ConsistencyEncoding {
             ruleFromBase.getBody().forEach(literal ->{
                 String literalString1 = "x_1," + literal.atomName();
                 String literalString2 = "x_2," + literal.atomName();
-                String literalStringBoth = literal.atomName() + "_both";
                 Proposition bodyAtom1 = new Proposition(literalString1);
                 Proposition bodyAtom2 = new Proposition(literalString2);
-                Proposition bodyAtomBoth = new Proposition(literalStringBoth);
+                Disjunction bodyAtomBoth = new Disjunction(bodyAtom1, bodyAtom2);
                 if (!literal.negated()) {
                     ruleClauseBase1.add(new Negation(bodyAtom1));
                     ruleClauseBase2.add(new Negation(bodyAtom2));
@@ -74,6 +72,7 @@ public class ConsistencyEncoding {
 
         });
         //add facts from X_1 and X_2 to the rule base
+        /*
         ruleBase.getPossibleAtoms().forEach(atom -> {
             Proposition a = new Proposition("x_1," + atom);
             Proposition b = new Proposition("x_2," + atom);
@@ -88,6 +87,8 @@ public class ConsistencyEncoding {
             Disjunction p = new Disjunction(o, new Negation(new Proposition(atom + "_-both")));
             overallConj12.add(m,p);
         });
+
+         */
 
         beliefSet.add(overallConj1,overallConj2, new Negation(overallConj12));
 

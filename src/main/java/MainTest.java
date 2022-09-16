@@ -79,79 +79,38 @@ public class MainTest {
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
         //TODO Consistency Encoding fixen...
         kb1 = consistencyEncoding.addConsistencyRestraints(kb1);
-        //kb1 = setInclusion.addSetInclusionConstraints(kb1);
-        //activationEncoding.addActivationConstraints(kb1);
+        kb1 = setInclusion.addSetInclusionConstraints(kb1);
+        activationEncoding.addActivationConstraints(kb1);
         //kb1.add(new Negation(new Proposition("x_1,a")));
         //kb1.add(new Proposition("r_1,1"));
 
-        /*
-        PlParser tweetyParser = new PlParser();
-        kb1.add(tweetyParser.parseFormula("a || b || c"));
-        kb1.add(tweetyParser.parseFormula("(!a && c) || b && d && a"));
-        kb1.add(tweetyParser.parseFormula("a"));
-        kb1.add(tweetyParser.parseFormula("!c"));
-        kb1.add(tweetyParser.parseFormula("a || -"));
-         */
         System.out.println("Input: " + kb1);
-        System.out.println("CNF: " + kb1.toCnf());
+        System.out.println("CNF: " + kb1.toCnf() + "\n");
 
-        SatSolver.setDefaultSolver(new Sat4jSolver());
-        SatSolver defaultSolver = SatSolver.getDefaultSolver();
-        System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
-        System.out.println("Witness: " + defaultSolver.getWitness(kb1));
-
-        // The conversion into dimacs format is done automatically by CmdLineSatSolver,
-        // but the method can also be called manually:
         String re = DimacsSatSolver.convertToDimacs(kb1);
         System.out.println(re);
 
-        /*
-        // Parsing a belief base in dimacs format
-        DimacsParser dimacsParser = new DimacsParser();
-        PlBeliefSet kb2 = dimacsParser.parseBeliefBaseFromFile("src/main/resources/dimacs_ex4.cnf");
-        System.out.println(kb2);
-        */
+        if (unixOS) {
+            // Using the SAT solver Lingeling
+            CmdLineSatSolver lingelingSolver = new CmdLineSatSolver(lingeling_path);
+            // add a cmd line parameter
+            lingelingSolver.addOption("--reduce");
+            System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
+            //System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
+            //System.out.println(lingelingSolver.isSatisfiable(kb1));
 
-        // Using the SAT solver Lingeling
-        CmdLineSatSolver lingelingSolver = new CmdLineSatSolver(lingeling_path);
-        // add a cmd line parameter
-        lingelingSolver.addOption("--reduce");
-        System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
-        //System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
-        //System.out.println(lingelingSolver.isSatisfiable(kb1));
-
-        // Using the SAT solver Kissat
-        CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
-        // add a cmd line parameter
-        kissatSolver.addOption("--unsat");
-        System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
-        //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
-        //System.out.println(kissatSolver.isSatisfiable(kb1));
-
-        /*
-        // Using the SAT solver CaDiCaL
-        CmdLineSatSolver cadicalSolver = new CmdLineSatSolver(cadical_path);
-        System.out.println("\n" + cadicalSolver.isSatisfiable(kb1));
-        System.out.println("Witness: " + cadicalSolver.getWitness(kb1));
-        System.out.println(cadicalSolver.isSatisfiable(kb1));
-
-
-
-        // Using the SAT solver Slime
-        CmdLineSatSolver slimeSolver = new CmdLineSatSolver(slime_path);
-        System.out.println("\n" + slimeSolver.isSatisfiable(kb1));
-        System.out.println("Witness: " + slimeSolver.getWitness(kb1));
-        System.out.println(slimeSolver.isSatisfiable(kb1));
-
-        // For easier switching of solvers and when using classes that use
-        // a sat solver internally, you can set the default solver
-        // for your whole program once and call getDefaultSolver in all other places of
-        // usage
-        SatSolver.setDefaultSolver(kissatSolver);
-        SatSolver defaultSolver = SatSolver.getDefaultSolver();
-        System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
-
-         */
-
+            // Using the SAT solver Kissat
+            CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
+            // add a cmd line parameter
+            kissatSolver.addOption("--unsat");
+            System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
+            //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
+            //System.out.println(kissatSolver.isSatisfiable(kb1));
+        } else {
+            SatSolver.setDefaultSolver(new Sat4jSolver());
+            SatSolver defaultSolver = SatSolver.getDefaultSolver();
+            System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
+            System.out.println("Witness: " + defaultSolver.getWitness(kb1));
+        }
     }
 }
