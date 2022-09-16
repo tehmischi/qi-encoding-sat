@@ -31,7 +31,7 @@ public class BusinessRuleFileParser implements InputFileParser {
         while(scanner.hasNext()){
             String rule = scanner.next();
             rule = rule.replace("\n", "").replace("\r", "");
-            if (!rule.isEmpty()){
+            if (!rule.trim().isEmpty()){
                 rules.add(rule);
             }
         }

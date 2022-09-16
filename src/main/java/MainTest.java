@@ -27,37 +27,17 @@
         import org.tweetyproject.logics.pl.sat.SatSolver;
         import org.tweetyproject.logics.pl.syntax.*;
 
-        /**
- * Example code illustrating the use of external SAT solvers such as Lingeling
- * and CaDicaL, and related utilities. Most other modern SAT solvers that use the
- * Dimacs format can be used the same way as the solvers in this example by
- * providing the path to the solver's binary.
+/**
  *
- * <br>
- * Note: You need to download the respective solvers and replace the paths to
- * their binaries in the example, otherwise it won't run. See
- * {@link org.tweetyproject.logics.pl.sat.CmdLineSatSolver} for download links.
- *
- * @author Matthias Thimm
- * @author Anna Gessler
  */
 public class MainTest {
 
-    // Insert the paths to your solver binaries here
     private static String lingeling_path;
-    //private static String cadical_path = "/home/anna/snap/sat/cadical/build/cadical";
     private static String kissat_path;
-    //private static String slime_path = "/home/anna/snap/sat/slime/slime/bin/slime_cli";
-    /**
-     * main
-     * @param args arguments
-     * @throws ParserException ParserException
-     * @throws IOException IOException
-     */
+
     public static void main(String[] args) throws ParserException, IOException {
         String os = System.getProperty("os.name");
-        boolean unixOS;
-        unixOS = !os.contains("Windows");
+        boolean unixOS = !os.contains("Windows");
         BusinessRuleFileParser parser;
         if (unixOS) {
             parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase.txt");
@@ -76,8 +56,8 @@ public class MainTest {
         kb1 = consistencyEncoding.addConsistencyRestraints(kb1);
         kb1 = setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
-        //kb1.add(new Negation(new Proposition("x_1,a")));
-        //kb1.add(new Proposition("r_1,1"));
+        kb1.add(new Negation(new Proposition("x_1,a")));
+        kb1.add(new Proposition("r_1,1"));
 
         System.out.println("Input: " + kb1);
         System.out.println("CNF: " + kb1.toCnf() + "\n");
@@ -92,7 +72,6 @@ public class MainTest {
             lingelingSolver.addOption("--reduce");
             System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
             //System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
-            //System.out.println(lingelingSolver.isSatisfiable(kb1));
 
             // Using the SAT solver Kissat
             CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
@@ -100,7 +79,6 @@ public class MainTest {
             kissatSolver.addOption("--unsat");
             System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
             //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
-            //System.out.println(kissatSolver.isSatisfiable(kb1));
         } else {
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();

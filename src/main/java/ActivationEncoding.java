@@ -15,7 +15,9 @@ public class ActivationEncoding {
         //
         Conjunction overallConj = new Conjunction();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> alle c_Act(1,i)
-        ruleBase.getPossibleAtoms().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
+        ruleBase.getPossibleAtoms().forEach(literalString -> {
+            heads.put(literalString, new LinkedList<>());
+        });
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.getHead().toString();
             heads.get(headString).add(id);
@@ -47,6 +49,13 @@ public class ActivationEncoding {
             Disjunction activationDisj1 = new Disjunction(activationEq1, presentNegation1);
             Disjunction activationDisj2 = new Disjunction(activationEq2, presentNegation2);
             overallConj.add(activationDisj2, activationDisj1);
+            //Act Sets können nur aktiviert werden wenn rules dafür vorhanden sind.
+            heads.forEach((name,list) -> {
+                if (!name.equals(headString)) {
+                    overallConj.add(new Negation(new Proposition(name + "_Act(1,"+ id + ")")));
+                    overallConj.add(new Negation(new Proposition(name + "_Act(2,"+ id + ")")));
+                }
+            });
         });
         // c_Act(1) -> Disj (alle c_Act(1,i))
         heads.forEach((id, list) -> {
@@ -58,10 +67,8 @@ public class ActivationEncoding {
                 activationList1.add(new Proposition(id + "_Act(1," + listItem + ")"));
                 activationList2.add(new Proposition(id + "_Act(2," + listItem + ")"));
             });
-            if (activationList1.isEmpty()){
-                overallConj.add(new Implication(activator1, new Contradiction()));
-                overallConj.add(new Implication(activator2, new Contradiction()));
-            } else {
+            if (!activationList1.isEmpty()){
+                System.out.println("Liste war nicht leer: " + id);
                 overallConj.add(new Implication(activator1, activationList1));
                 overallConj.add(new Implication(activator2, activationList2));
             }

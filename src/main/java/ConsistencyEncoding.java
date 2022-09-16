@@ -71,26 +71,9 @@ public class ConsistencyEncoding {
             overallConj12.add(overallClause12);
 
         });
-        //add facts from X_1 and X_2 to the rule base
-        /*
-        ruleBase.getPossibleAtoms().forEach(atom -> {
-            Proposition a = new Proposition("x_1," + atom);
-            Proposition b = new Proposition("x_2," + atom);
-            Proposition c = new Proposition("x_1,-" + atom);
-            Proposition d = new Proposition("x_2,-" + atom);
-            //TODO Facts zu Vereinigungsmenge hinzufügen, Negation richtig, extra Variablen (oben auch)??
-            Disjunction k = new Disjunction(a,b);
-            Negation l = new Negation(k);
-            Disjunction m = new Disjunction(l, new Proposition(atom + "_both"));
-            Disjunction n = new Disjunction(c,d);
-            Negation o = new Negation(n);
-            Disjunction p = new Disjunction(o, new Negation(new Proposition(atom + "_-both")));
-            overallConj12.add(m,p);
-        });
 
-         */
-
-        beliefSet.add(overallConj1,overallConj2, new Negation(overallConj12));
+        beliefSet.add(overallConj1,overallConj2);
+        //beliefSet.add(new Negation(overallConj12));
 
         return beliefSet;
     }
