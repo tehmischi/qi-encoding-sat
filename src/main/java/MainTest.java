@@ -66,8 +66,8 @@ public class MainTest {
         //kb1 = consistencyEncoding.addConsistencyRestraints(kb1);
         //kb1 = setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
-        //kb1.add(new Negation(new Proposition("x_1,a")));
-        //kb1.add(new Proposition("r_1,1"));
+        kb1.add(new Negation(new Proposition("x_1,a")));
+        kb1.add(new Proposition("r_1,1"));
 
         /*
         PlParser tweetyParser = new PlParser();

@@ -15,14 +15,12 @@ public class ActivationEncoding {
         //
         Conjunction overallConj = new Conjunction();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> alle c_Act(1,i)
+        ruleBase.getPossibleAtoms().forEach(literalString ->{
+            heads.put(literalString, new LinkedList<>());
+        });
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.getHead().toString();
-            if (heads.containsKey(headString)){
-                heads.get(headString).add(id);
-            } else {
-                heads.put(headString, new LinkedList<>());
-                heads.get(headString).add(id);
-            }
+            heads.get(headString).add(id);
             Proposition rulePresent1 = new Proposition("r_1," + id);
             Negation presentNegation1 = new Negation(rulePresent1);
             Proposition rulePresent2 = new Proposition("r_2," + id);
@@ -65,7 +63,7 @@ public class ActivationEncoding {
             System.out.println("Größe der Liste mit id " + id +" = " + activationList1.size());
             if (activationList1.isEmpty()){
                 overallConj.add(new Implication(activator1, new Contradiction()));
-                overallConj.add(new Implication(activator2, new Proposition("asdf")));
+                overallConj.add(new Implication(activator2, new Contradiction()));
             } else {
                 overallConj.add(new Implication(activator1, activationList1));
                 overallConj.add(new Implication(activator2, activationList2));
