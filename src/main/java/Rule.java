@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rule {
@@ -23,11 +22,11 @@ public class Rule {
     public String toString(){
         String headString;
         StringBuilder bodyString = new StringBuilder();
-        headString = "Head ist: " + head + "\n";
-        bodyString.append("Body ist: ");
-        body.forEach(x -> {
-            bodyString.append(x+ " ");
-        });
-        return headString + bodyString.toString();
+        headString = head + " -> ";
+        body.forEach(x -> bodyString.append(x+ " & "));
+        int bodySize = bodyString.length();
+        //Todo checken ob richtig deleted wird..
+        bodyString.delete(bodySize - 4, bodySize -1);
+        return headString + bodyString;
     }
 }

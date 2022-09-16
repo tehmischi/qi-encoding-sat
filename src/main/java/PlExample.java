@@ -17,13 +17,10 @@
  *  Copyright 2020 The TweetyProject Team <http://tweetyproject.org/contact/>
  */
 
-import java.io.IOException;
-import java.util.List;
-
 import org.tweetyproject.commons.ParserException;
 import org.tweetyproject.logics.pl.syntax.*;
-import org.tweetyproject.logics.pl.parser.PlParser;
-import org.tweetyproject.logics.pl.reasoner.SimplePlReasoner;
+
+import java.io.IOException;
 
 /**
  * Some general examples for using basic propositional logic classes like PlParser and SimplePlReasoner.

@@ -15,11 +15,9 @@ public class RuleBase {
     public void addRuleToBase (Rule newRule){
         maxIndex++;
         rules.put(String.valueOf(maxIndex), newRule);
-        possibleAtoms.add(newRule.getHead().getAtomName());
+        possibleAtoms.add(newRule.getHead().atomName());
         List<Literal> ruleBody = newRule.getBody();
-        ruleBody.forEach(literal ->{
-            possibleAtoms.add(literal.getAtomName());
-        });
+        ruleBody.forEach(literal -> possibleAtoms.add(literal.atomName()));
     }
 
     public int getSize() {

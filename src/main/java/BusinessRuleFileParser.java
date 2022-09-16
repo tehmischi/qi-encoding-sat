@@ -48,11 +48,9 @@ public class BusinessRuleFileParser implements InputFileParser {
         Literal headLiteral = generateLiteral(headString);
         ArrayList<Literal> ruleBodyLiterals = new ArrayList<>();
         for (String s: ruleBody){
-            s.trim();
-            ruleBodyLiterals.add(generateLiteral(s));
+            ruleBodyLiterals.add(generateLiteral(s.trim()));
         }
-        Rule returnRule = new Rule (headLiteral, ruleBodyLiterals);
-        return returnRule;
+        return new Rule (headLiteral, ruleBodyLiterals);
     }
 
     private Literal generateLiteral(String literalString){

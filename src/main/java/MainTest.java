@@ -18,17 +18,13 @@
          */
 
         import java.io.IOException;
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.Set;
+
 
         import org.tweetyproject.commons.ParserException;
-        import org.tweetyproject.logics.pl.parser.DimacsParser;
-        import org.tweetyproject.logics.pl.parser.PlParser;
         import org.tweetyproject.logics.pl.sat.CmdLineSatSolver;
         import org.tweetyproject.logics.pl.sat.DimacsSatSolver;
+        import org.tweetyproject.logics.pl.sat.Sat4jSolver;
         import org.tweetyproject.logics.pl.sat.SatSolver;
-        import org.tweetyproject.logics.pl.semantics.PossibleWorld;
         import org.tweetyproject.logics.pl.syntax.*;
 
         /**
@@ -48,10 +44,10 @@
 public class MainTest {
 
     // Insert the paths to your solver binaries here
-    private static String lingeling_path = "C:/sat/lingeling/lingeling.exe";
-    private static String cadical_path = "/home/anna/snap/sat/cadical/build/cadical";
-    private static String kissat_path = "C:/sat/kissat/build/kissat.exe";
-    private static String slime_path = "/home/anna/snap/sat/slime/slime/bin/slime_cli";
+    private static final String lingeling_path = "C:/sat/lingeling/lingeling.exe";
+    //private static String cadical_path = "/home/anna/snap/sat/cadical/build/cadical";
+    private static final String kissat_path = "C:/sat/kissat/build/kissat.exe";
+    //private static String slime_path = "/home/anna/snap/sat/slime/slime/bin/slime_cli";
     /**
      * main
      * @param args arguments
@@ -64,7 +60,14 @@ public class MainTest {
         RuleBase base = parser.readFile();
         PlBeliefSet kb1 = new PlBeliefSet();
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
-        setInclusion.addSetInclusionConstraints(kb1);
+        ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
+        ActivationEncoding activationEncoding = new ActivationEncoding(base);
+        //TODO Consistency Encoding fixen...
+        //kb1 = consistencyEncoding.addConsistencyRestraints(kb1);
+        //kb1 = setInclusion.addSetInclusionConstraints(kb1);
+        activationEncoding.addActivationConstraints(kb1);
+        //kb1.add(new Negation(new Proposition("x_1,a")));
+        //kb1.add(new Proposition("r_1,1"));
 
         /*
         PlParser tweetyParser = new PlParser();
@@ -74,9 +77,13 @@ public class MainTest {
         kb1.add(tweetyParser.parseFormula("!c"));
         kb1.add(tweetyParser.parseFormula("a || -"));
          */
-        System.out.println(kb1.toCnf());
+        System.out.println("Input: " + kb1);
+        System.out.println("CNF: " + kb1.toCnf());
 
-
+        SatSolver.setDefaultSolver(new Sat4jSolver());
+        SatSolver defaultSolver = SatSolver.getDefaultSolver();
+        System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
+        System.out.println("Witness: " + defaultSolver.getWitness(kb1));
 
         // The conversion into dimacs format is done automatically by CmdLineSatSolver,
         // but the method can also be called manually:
@@ -94,17 +101,17 @@ public class MainTest {
         CmdLineSatSolver lingelingSolver = new CmdLineSatSolver(lingeling_path);
         // add a cmd line parameter
         lingelingSolver.addOption("--reduce");
-        System.out.println("\n" + lingelingSolver.isSatisfiable(kb1));
+        System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
         //System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
-        System.out.println(lingelingSolver.isSatisfiable(kb1));
+        //System.out.println(lingelingSolver.isSatisfiable(kb1));
 
         // Using the SAT solver Kissat
         CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
         // add a cmd line parameter
         kissatSolver.addOption("--unsat");
-        System.out.println("\n" + kissatSolver.isSatisfiable(kb1));
+        System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
         //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
-        System.out.println(kissatSolver.isSatisfiable(kb1));
+        //System.out.println(kissatSolver.isSatisfiable(kb1));
 
         /*
         // Using the SAT solver CaDiCaL
