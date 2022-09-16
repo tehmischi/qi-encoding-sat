@@ -57,11 +57,7 @@ public class MainTest {
     public static void main(String[] args) throws ParserException, IOException {
         String os = System.getProperty("os.name");
         boolean unixOS;
-        if (os.contains("Windows")) {
-            unixOS = false;
-        } else {
-            unixOS = true;
-        }
+        unixOS = !os.contains("Windows");
         BusinessRuleFileParser parser;
         if (unixOS) {
             parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase.txt");

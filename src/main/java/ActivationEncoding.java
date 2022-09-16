@@ -15,9 +15,7 @@ public class ActivationEncoding {
         //
         Conjunction overallConj = new Conjunction();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> alle c_Act(1,i)
-        ruleBase.getPossibleAtoms().forEach(literalString ->{
-            heads.put(literalString, new LinkedList<>());
-        });
+        ruleBase.getPossibleAtoms().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.getHead().toString();
             heads.get(headString).add(id);

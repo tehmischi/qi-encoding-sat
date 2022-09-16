@@ -20,8 +20,15 @@ public class SetInclusionEncoding {
         atomsInBase.forEach(atom ->{
             Proposition a = new Proposition("x_1," + atom);
             Proposition b = new Proposition("x_2," + atom);
-            Proposition c = new Proposition("x_1,-" + atom);
-            Proposition d = new Proposition("x_2,-" + atom);
+            Proposition c;
+            Proposition d;
+            if (atom.startsWith("-")){
+                c = new Proposition("x_1," + atom.replaceFirst("-", ""));
+                d = new Proposition("x_2," + atom.replaceFirst("-", ""));
+            } else {
+                c = new Proposition("x_1,-" + atom);
+                d = new Proposition("x_2,-" + atom);
+            }
             Negation e = new Negation(a);
             Negation f = new Negation(b);
             Negation g = new Negation(c);
