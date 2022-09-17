@@ -23,7 +23,7 @@ public class ConsistencyEncoding {
             Disjunction ruleClauseBase1 = new Disjunction();
             Disjunction ruleClauseBase2 = new Disjunction();
             Disjunction ruleClauseBaseBoth = new Disjunction();
-            Literal headAtom = ruleFromBase.getHead();
+            Literal headAtom = ruleFromBase.head();
             String headString1 = "x_1." + headAtom.atomName();
             String headString2 = "x_2." + headAtom.atomName();
             Proposition head1 = new Proposition(headString1);
@@ -41,7 +41,7 @@ public class ConsistencyEncoding {
                 ruleClauseBase2.add(headNeg2);
                 ruleClauseBaseBoth.add(headNegBoth);
             }
-            ruleFromBase.getBody().forEach(literal ->{
+            ruleFromBase.body().forEach(literal ->{
                 String literalString1 = "x_1." + literal.atomName();
                 String literalString2 = "x_2." + literal.atomName();
                 Proposition bodyAtom1 = new Proposition(literalString1);

@@ -15,11 +15,9 @@ public class ActivationEncoding {
         //
         Conjunction overallConj = new Conjunction();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> alle c_Act(1,i)
-        ruleBase.getPossibleAtoms().forEach(literalString -> {
-            heads.put(literalString, new LinkedList<>());
-        });
+        ruleBase.getPossibleAtoms().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
         ruleBase.getRuleBase().forEach((id, rule) -> {
-            String headString = rule.getHead().toString();
+            String headString = rule.head().toString();
             heads.get(headString).add(id);
             Proposition rulePresent1 = new Proposition("r_1." + id);
             Negation presentNegation1 = new Negation(rulePresent1);
@@ -36,7 +34,7 @@ public class ActivationEncoding {
             //Hauptregel für Hinzufügen von Activation Sets
             Conjunction activationRuleBody1 = new Conjunction();
             Conjunction activationRuleBody2 = new Conjunction();
-            rule.getBody().forEach(bodyLiteral ->{
+            rule.body().forEach(bodyLiteral ->{
                 Proposition e = new Proposition("x_1." + bodyLiteral);
                 Proposition f = new Proposition("x_2." + bodyLiteral);
                 Proposition g = new Proposition(bodyLiteral + "_Act(R1)");

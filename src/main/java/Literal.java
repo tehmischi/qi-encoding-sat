@@ -10,8 +10,4 @@ public record Literal(String atomName, boolean negated) {
         }
         return returnString;
     }
-
-    public boolean isNegated (){
-        return negated;
-    }
 }

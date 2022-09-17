@@ -17,7 +17,6 @@
          *  Copyright 2016 The TweetyProject Team <http://tweetyproject.org/contact/>
          */
 
-        import java.io.IOException;
         import org.tweetyproject.commons.ParserException;
         import org.tweetyproject.logics.pl.sat.CmdLineSatSolver;
         import org.tweetyproject.logics.pl.sat.Sat4jSolver;
@@ -32,7 +31,7 @@ public class MainTest {
     private static String lingeling_path;
     private static String kissat_path;
 
-    public static void main(String[] args) throws ParserException, IOException {
+    public static void main(String[] args) throws ParserException {
         String os = System.getProperty("os.name");
         boolean unixOS = !os.contains("Windows");
         BusinessRuleFileParser parser;
@@ -53,13 +52,12 @@ public class MainTest {
         consistencyEncoding.addConsistencyRestraints(kb1);
         setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
-        //kb1.add(new Negation(new Proposition("x_(r1.a)")));
-        //kb1.add(new Proposition("r_(1.1)"));
         System.out.println("Input: " + kb1);
         System.out.println("CNF: " + kb1.toCnf() + "\n");
         OutputStringFormatter formatter = new OutputStringFormatter(base);
+
         //for outputting all return values and not just X1,X2,R1,R2
-        //formatter.setDebugMode(true);
+        formatter.setDebugMode(false);
 
         //String re = DimacsSatSolver.convertToDimacs(kb1);
         //System.out.println(re);

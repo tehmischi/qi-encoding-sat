@@ -1,10 +1,8 @@
-import javax.ws.rs.core.Link;
 import java.util.*;
 
 public class OutputStringFormatter {
 
     private boolean debugMode = false;
-    private boolean fullRules = true;
     private final RuleBase ruleBase;
 
     public OutputStringFormatter (RuleBase ruleBase) {
@@ -23,19 +21,19 @@ public class OutputStringFormatter {
             value = value.trim();
             String id = value.substring(0,3);
             String item = value.substring(3);
-            item = item.trim().replaceAll("[\\[\\]\\.]","");
-            if (id.equals("x_1")) {
-                returnList.get("X1").add(item);
-            } else if (id.equals("x_2")){
-                returnList.get("X2").add(item);
-            } else if (id.equals("r_1")){
-                String rule = ruleBase.getRuleBase().get(item).toString();
-                returnList.get("R1").add(rule);
-            } else if (id.equals("r_2")){
-                String rule = ruleBase.getRuleBase().get(item).toString();
-                returnList.get("R2").add(rule);
-            } else {
-                returnList.get("debug").add(value.trim().replaceAll("[\\[\\]]",""));
+            item = item.trim().replaceAll("[\\[\\].]","");
+            switch (id) {
+                case "x_1" -> returnList.get("X1").add(item);
+                case "x_2" -> returnList.get("X2").add(item);
+                case "r_1" -> {
+                    String rule = ruleBase.getRuleBase().get(item).toString();
+                    returnList.get("R1").add(rule);
+                }
+                case "r_2" -> {
+                    String rule = ruleBase.getRuleBase().get(item).toString();
+                    returnList.get("R2").add(rule);
+                }
+                default -> returnList.get("debug").add(value.trim().replaceAll("[\\[\\]]", ""));
             }
         }
         StringBuilder line = new StringBuilder();
@@ -46,17 +44,16 @@ public class OutputStringFormatter {
         if (debugMode){
             formatLine("debug", returnList.get("debug"), line);
         }
-        String result = line.toString();
-        return result;
+        return line.toString();
     }
 
     private void formatLine (String id, TreeSet<String> tree, StringBuilder line) {
-        line.append(id + ": {");
+        line.append(id).append(": {");
         tree.forEach(value ->{
             if (id.startsWith("X")) {
-                line.append(value + ", ");
+                line.append(value).append(", ");
             } else {
-                line.append(value + "; ");
+                line.append(value).append("; ");
             }
         });
         boolean empty = line.charAt(line.length()-1) == '{';
@@ -69,10 +66,5 @@ public class OutputStringFormatter {
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
     }
-
-    public void setFullRules(boolean fullRules) {
-        this.fullRules = fullRules;
-    }
-
 
 }

@@ -1,4 +1,3 @@
-import org.tweetyproject.commons.BeliefSet;
 import org.tweetyproject.logics.pl.syntax.*;
 
 import java.util.HashSet;
