@@ -71,7 +71,7 @@ public class MainTest {
             // add a cmd line parameter
             lingelingSolver.addOption("--reduce");
             System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
-            //System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
+            System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
 
             // Using the SAT solver Kissat
             CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
@@ -79,7 +79,7 @@ public class MainTest {
             //kissatSolver.addOption("--unsat");
             kissatSolver.addOption("--default");
             System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
-            //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
+            System.out.println("Witness: " + kissatSolver.getWitness(kb1));
         } else {
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();

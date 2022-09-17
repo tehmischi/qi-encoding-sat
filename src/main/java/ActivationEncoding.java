@@ -50,6 +50,7 @@ public class ActivationEncoding {
             Disjunction activationDisj2 = new Disjunction(activationEq2, presentNegation2);
             overallConj.add(activationDisj2, activationDisj1);
             //Act Sets können nur aktiviert werden wenn rules dafür vorhanden sind.
+            //TODO hier zur overall Conj hinzufügen richtig?? Ich glaube nicht..?
             heads.forEach((name,list) -> {
                 if (!name.equals(headString)) {
                     overallConj.add(new Negation(new Proposition(name + "_Act(R1."+ id + ")")));
@@ -70,6 +71,9 @@ public class ActivationEncoding {
             if (!activationList1.isEmpty()){
                 overallConj.add(new Implication(activator1, activationList1));
                 overallConj.add(new Implication(activator2, activationList2));
+            } else {
+                overallConj.add(new Negation(activator1));
+                overallConj.add(new Negation(activator2));
             }
         });
         beliefSet.add(overallConj);
