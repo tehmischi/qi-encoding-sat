@@ -56,8 +56,8 @@ public class MainTest {
         consistencyEncoding.addConsistencyRestraints(kb1);
         setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
-        kb1.add(new Negation(new Proposition("x_1,a")));
-        kb1.add(new Proposition("r_1,1"));
+        //kb1.add(new Negation(new Proposition("x_(r1.a)")));
+        //kb1.add(new Proposition("r_(1.1)"));
 
         System.out.println("Input: " + kb1);
         System.out.println("CNF: " + kb1.toCnf() + "\n");

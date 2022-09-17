@@ -18,9 +18,9 @@ public class ConsistencyEncoding {
         Conjunction overallConj12 = new Conjunction();
         ruleBase.getRuleBase().forEach((id, ruleFromBase) -> {
             //Rules Present in R_1 and R_2
-            Proposition rulePresent1 = new Proposition("r_1," + id);
+            Proposition rulePresent1 = new Proposition("r_1." + id);
             Negation presentNegation1 = new Negation(rulePresent1);
-            Proposition rulePresent2 = new Proposition("r_2," + id);
+            Proposition rulePresent2 = new Proposition("r_2." + id);
             Negation presentNegation2 = new Negation(rulePresent2);
             Disjunction bothBases = new Disjunction(rulePresent1, rulePresent2);
             Negation eitherPresent = new Negation(bothBases);
@@ -29,8 +29,8 @@ public class ConsistencyEncoding {
             Disjunction ruleClauseBase2 = new Disjunction();
             Disjunction ruleClauseBaseBoth = new Disjunction();
             Literal headAtom = ruleFromBase.getHead();
-            String headString1 = "x_1," + headAtom.atomName();
-            String headString2 = "x_2," + headAtom.atomName();
+            String headString1 = "x_1." + headAtom.atomName();
+            String headString2 = "x_2." + headAtom.atomName();
             Proposition head1 = new Proposition(headString1);
             Proposition head2 = new Proposition(headString2);
             Disjunction headBoth = new Disjunction(head1, head2);
@@ -48,8 +48,8 @@ public class ConsistencyEncoding {
             }
 
             ruleFromBase.getBody().forEach(literal ->{
-                String literalString1 = "x_1," + literal.atomName();
-                String literalString2 = "x_2," + literal.atomName();
+                String literalString1 = "x_1." + literal.atomName();
+                String literalString2 = "x_2." + literal.atomName();
                 Proposition bodyAtom1 = new Proposition(literalString1);
                 Proposition bodyAtom2 = new Proposition(literalString2);
                 Disjunction bodyAtomBoth = new Disjunction(bodyAtom1, bodyAtom2);

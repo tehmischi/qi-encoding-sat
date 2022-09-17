@@ -16,16 +16,16 @@ public class SetInclusionEncoding {
         HashSet<String> keepTrackOfDoubles = new HashSet<>();
         atomsInBase.forEach(atom ->{
             if (!keepTrackOfDoubles.contains(atom.replaceFirst("-", ""))){
-                Proposition a = new Proposition("x_1," + atom);
-                Proposition b = new Proposition("x_2," + atom);
+                Proposition a = new Proposition("x_1." + atom);
+                Proposition b = new Proposition("x_2." + atom);
                 Proposition c;
                 Proposition d;
                 if (atom.startsWith("-")){
-                    c = new Proposition("x_1," + atom.replaceFirst("-", ""));
-                    d = new Proposition("x_2," + atom.replaceFirst("-", ""));
+                    c = new Proposition("x_1." + atom.replaceFirst("-", ""));
+                    d = new Proposition("x_2." + atom.replaceFirst("-", ""));
                 } else {
-                    c = new Proposition("x_1,-" + atom);
-                    d = new Proposition("x_2,-" + atom);
+                    c = new Proposition("x_1.-" + atom);
+                    d = new Proposition("x_2.-" + atom);
                 }
                 // Set Inclusion X_1 -> X_2
                 Implication t = new Implication(a,b);
