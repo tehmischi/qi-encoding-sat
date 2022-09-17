@@ -11,8 +11,7 @@ public class SetInclusionEncoding {
         this.ruleBase = rulebase;
     }
 
-    public PlBeliefSet addSetInclusionConstraints (PlBeliefSet beliefSet){
-        PlBeliefSet returnBeliefSet = beliefSet;
+    public void addSetInclusionConstraints (PlBeliefSet beliefSet){
         HashSet<String> atomsInBase = ruleBase.getPossibleAtoms();
         HashSet<String> keepTrackOfDoubles = new HashSet<>();
         atomsInBase.forEach(atom ->{
@@ -37,9 +36,8 @@ public class SetInclusionEncoding {
                 Negation g = new Negation(e);
                 Negation h = new Negation(f);
                 keepTrackOfDoubles.add(atom);
-                returnBeliefSet.add(t,u,g,h);
+                beliefSet.add(t,u,g,h);
             }
         });
-        return returnBeliefSet;
     }
 }

@@ -9,7 +9,7 @@ public class ConsistencyEncoding {
         this.ruleBase = ruleBase;
     }
 
-    public PlBeliefSet addConsistencyRestraints (PlBeliefSet beliefSet) {
+    public void addConsistencyRestraints (PlBeliefSet beliefSet) {
         Disjunction overallClause1 = new Disjunction();
         Disjunction overallClause2 = new Disjunction();
         Disjunction overallClause12 = new Disjunction();
@@ -74,7 +74,5 @@ public class ConsistencyEncoding {
 
         beliefSet.add(overallConj1,overallConj2);
         //beliefSet.add(new Negation(overallConj12));
-
-        return beliefSet;
     }
 }

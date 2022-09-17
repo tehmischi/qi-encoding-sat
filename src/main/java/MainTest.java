@@ -53,8 +53,8 @@ public class MainTest {
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
         ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        kb1 = consistencyEncoding.addConsistencyRestraints(kb1);
-        kb1 = setInclusion.addSetInclusionConstraints(kb1);
+        consistencyEncoding.addConsistencyRestraints(kb1);
+        setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
         kb1.add(new Negation(new Proposition("x_1,a")));
         kb1.add(new Proposition("r_1,1"));
@@ -76,7 +76,8 @@ public class MainTest {
             // Using the SAT solver Kissat
             CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
             // add a cmd line parameter
-            kissatSolver.addOption("--unsat");
+            //kissatSolver.addOption("--unsat");
+            kissatSolver.addOption("--default");
             System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
             //System.out.println("Witness: " + kissatSolver.getWitness(kb1));
         } else {

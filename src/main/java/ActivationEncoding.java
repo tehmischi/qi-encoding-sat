@@ -68,7 +68,6 @@ public class ActivationEncoding {
                 activationList2.add(new Proposition(id + "_Act(2," + listItem + ")"));
             });
             if (!activationList1.isEmpty()){
-                System.out.println("Liste war nicht leer: " + id);
                 overallConj.add(new Implication(activator1, activationList1));
                 overallConj.add(new Implication(activator2, activationList2));
             }
