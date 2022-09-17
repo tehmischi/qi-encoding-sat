@@ -22,7 +22,7 @@ public class Rule {
     public String toString(){
         String headString;
         StringBuilder bodyString = new StringBuilder();
-        headString = head + " -> ";
+        headString = head + " <- ";
         body.forEach(x -> bodyString.append(x+ " & "));
         int bodySize = bodyString.length();
         return headString + bodyString.substring(0,bodySize-2);

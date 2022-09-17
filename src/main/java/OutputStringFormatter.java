@@ -59,7 +59,10 @@ public class OutputStringFormatter {
                 line.append(value + "; ");
             }
         });
-        line.setLength(line.length() - 2);
+        boolean empty = line.charAt(line.length()-1) == '{';
+        if (!empty) {
+            line.setLength(line.length() - 2);
+        }
         line.append("}" + "\n");
     }
 
