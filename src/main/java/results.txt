@@ -1,0 +1,13 @@
+c, a b;
+a, -c;
+b, -c;
+
+
+Lingeling: true
+Witness: [b_Act(R2), x_2.a, r_2.3, a_Act(R2), x_1.a, b_Act(R2.3), x_2.-c, x_2.-b, c_Act(R2.1), x_1.-c, -c_Act(R2), -c_Act(R1), a_Act(R2.2), r_2.1, c_Act(R2), r_2.2]
+
+Kissat: true
+Witness: [b_Act(R1), r_2.3, a_Act(R1), x_1.-b, b_Act(R1.3), x_1.-a, c_Act(R2.1), a_Act(R1.2), -c_Act(R1), r_1.2, r_2.1, c_Act(R2), r_1.3, r_2.2, r_1.1, x_2.c, b_Act(R2), x_1.c, a_Act(R2), b_Act(R2.3), x_2.-b, x_2.-a, c_Act(R1.1), -c_Act(R2), a_Act(R2.2), c_Act(R1)]
+
+
+Input: { (!r_1.1||(x_1.c||!x_1.a||!x_1.b)||!r_1.2||(x_1.a||x_1.c)||!r_1.3||(x_1.b||x_1.c))&&(!r_1.1||(x_1.c||!x_1.a||!x_1.b)||!r_1.2||(x_1.a||x_1.c)||!r_1.3||(x_1.b||x_1.c))&&(!r_1.1||(x_1.c||!x_1.a||!x_1.b)||!r_1.2||(x_1.a||x_1.c)||!r_1.3||(x_1.b||x_1.c)), (!r_2.1||(x_2.c||!x_2.a||!x_2.b)||!r_2.2||(x_2.a||x_2.c)||!r_2.3||(x_2.b||x_2.c))&&(!r_2.1||(x_2.c||!x_2.a||!x_2.b)||!r_2.2||(x_2.a||x_2.c)||!r_2.3||(x_2.b||x_2.c))&&(!r_2.1||(x_2.c||!x_2.a||!x_2.b)||!r_2.2||(x_2.a||x_2.c)||!r_2.3||(x_2.b||x_2.c)), (c_Act(R1.1)=>c_Act(R1))&&(c_Act(R2.1)=>c_Act(R2))&&(c_Act(R1.1)<=>r_1.1)&&(c_Act(R2.1)<=>r_2.1)&&(((x_2.a||a_Act(R2))&&(x_2.b||b_Act(R2))<=>c_Act(R2.1))||!r_2.1)&&(((x_1.a||a_Act(R1))&&(x_1.b||b_Act(R1))<=>c_Act(R1.1))||!r_1.1)&&!a_Act(R1.1)&&!a_Act(R2.1)&&!b_Act(R1.1)&&!b_Act(R2.1)&&!-c_Act(R1.1)&&!-c_Act(R2.1)&&(a_Act(R1.2)=>a_Act(R1))&&(a_Act(R2.2)=>a_Act(R2))&&(a_Act(R1.2)<=>r_1.2)&&(a_Act(R2.2)<=>r_2.2)&&(((x_2.-c||-c_Act(R2))<=>a_Act(R2.2))||!r_2.2)&&(((x_1.-c||-c_Act(R1))<=>a_Act(R1.2))||!r_1.2)&&!b_Act(R1.2)&&!b_Act(R2.2)&&!c_Act(R1.2)&&!c_Act(R2.2)&&!-c_Act(R1.2)&&!-c_Act(R2.2)&&(b_Act(R1.3)=>b_Act(R1))&&(b_Act(R2.3)=>b_Act(R2))&&(b_Act(R1.3)<=>r_1.3)&&(b_Act(R2.3)<=>r_2.3)&&(((x_2.-c||-c_Act(R2))<=>b_Act(R2.3))||!r_2.3)&&(((x_1.-c||-c_Act(R1))<=>b_Act(R1.3))||!r_1.3)&&!a_Act(R1.3)&&!a_Act(R2.3)&&!c_Act(R1.3)&&!c_Act(R2.3)&&!-c_Act(R1.3)&&!-c_Act(R2.3)&&(a_Act(R1)=>a_Act(R1.2))&&(a_Act(R2)=>a_Act(R2.2))&&(b_Act(R1)=>b_Act(R1.3))&&(b_Act(R2)=>b_Act(R2.3))&&(c_Act(R1)=>c_Act(R1.1))&&(c_Act(R2)=>c_Act(R2.1)), !(x_1.a&&x_1.-a), !(x_1.b&&x_1.-b), !(x_1.c&&x_1.-c), (x_1.-a=>x_2.-a), !(x_2.a&&x_2.-a), (x_1.-b=>x_2.-b), !(x_2.b&&x_2.-b), (x_1.-c=>x_2.-c), !(x_2.c&&x_2.-c), (x_1.a=>x_2.a), (x_1.b=>x_2.b), (x_1.c=>x_2.c) }
