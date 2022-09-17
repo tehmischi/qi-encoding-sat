@@ -10,11 +10,6 @@ public class ConsistencyEncoding {
     }
 
     public void addConsistencyRestraints (PlBeliefSet beliefSet) {
-        Disjunction overallClause1 = new Disjunction();
-        Disjunction overallClause2 = new Disjunction();
-        Disjunction overallClause12 = new Disjunction();
-        Conjunction overallConj1 = new Conjunction();
-        Conjunction overallConj2 = new Conjunction();
         Conjunction overallConj12 = new Conjunction();
         ruleBase.getRuleBase().forEach((id, ruleFromBase) -> {
             //Rules Present in R_1 and R_2
@@ -46,7 +41,6 @@ public class ConsistencyEncoding {
                 ruleClauseBase2.add(headNeg2);
                 ruleClauseBaseBoth.add(headNegBoth);
             }
-
             ruleFromBase.getBody().forEach(literal ->{
                 String literalString1 = "x_1." + literal.atomName();
                 String literalString2 = "x_2." + literal.atomName();
@@ -63,16 +57,14 @@ public class ConsistencyEncoding {
                     ruleClauseBaseBoth.add(bodyAtomBoth);
                 }
             });
-            overallClause1.add(presentNegation1, ruleClauseBase1);
-            overallClause2.add(presentNegation2, ruleClauseBase2);
-            overallClause12.add(eitherPresent, ruleClauseBaseBoth);
-            overallConj1.add(overallClause1);
-            overallConj2.add(overallClause2);
-            overallConj12.add(overallClause12);
+            Disjunction ruleDisjBase1 = new Disjunction(presentNegation1, ruleClauseBase1);
+            Disjunction ruleDisjBase2 = new Disjunction(presentNegation2, ruleClauseBase2);
+            Disjunction ruleDisjBase12 = new Disjunction(eitherPresent, ruleClauseBaseBoth);
+            beliefSet.add(ruleDisjBase1,ruleDisjBase2);
+            overallConj12.add(ruleDisjBase12);
 
         });
 
-        beliefSet.add(overallConj1,overallConj2);
         //beliefSet.add(new Negation(overallConj12));
     }
 }
