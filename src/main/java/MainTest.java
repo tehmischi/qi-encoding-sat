@@ -18,11 +18,8 @@
          */
 
         import java.io.IOException;
-
-
         import org.tweetyproject.commons.ParserException;
         import org.tweetyproject.logics.pl.sat.CmdLineSatSolver;
-        import org.tweetyproject.logics.pl.sat.DimacsSatSolver;
         import org.tweetyproject.logics.pl.sat.Sat4jSolver;
         import org.tweetyproject.logics.pl.sat.SatSolver;
         import org.tweetyproject.logics.pl.syntax.*;
@@ -58,12 +55,14 @@ public class MainTest {
         activationEncoding.addActivationConstraints(kb1);
         //kb1.add(new Negation(new Proposition("x_(r1.a)")));
         //kb1.add(new Proposition("r_(1.1)"));
-
         System.out.println("Input: " + kb1);
         System.out.println("CNF: " + kb1.toCnf() + "\n");
+        OutputStringFormatter formatter = new OutputStringFormatter();
+        //for outputting all return values and not just X1,X2,R1,R2
+        //formatter.setDebugMode(true);
 
-        String re = DimacsSatSolver.convertToDimacs(kb1);
-        System.out.println(re);
+        //String re = DimacsSatSolver.convertToDimacs(kb1);
+        //System.out.println(re);
 
         if (unixOS) {
             // Using the SAT solver Lingeling
@@ -72,6 +71,9 @@ public class MainTest {
             lingelingSolver.addOption("--reduce");
             System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
             System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
+            String lingelingWitnessString = lingelingSolver.getWitness(kb1).toString();
+            System.out.println("Lingeling : \n");
+            System.out.println(formatter.parse(lingelingWitnessString));
 
             // Using the SAT solver Kissat
             CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
@@ -80,11 +82,18 @@ public class MainTest {
             kissatSolver.addOption("--default");
             System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
             System.out.println("Witness: " + kissatSolver.getWitness(kb1));
+            String kissatWitnessString = kissatSolver.getWitness(kb1).toString();
+            System.out.println("Kissat : \n");
+            System.out.println(formatter.parse(kissatWitnessString));
         } else {
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();
             System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
             System.out.println("Witness: " + defaultSolver.getWitness(kb1));
+            String witnessString = defaultSolver.getWitness(kb1).toString();
+            System.out.println("Default Solver: \n");
+            System.out.println(formatter.parse(witnessString));
+
         }
     }
 }

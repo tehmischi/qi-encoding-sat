@@ -65,6 +65,6 @@ public class ConsistencyEncoding {
 
         });
 
-        //beliefSet.add(new Negation(overallConj12));
+        beliefSet.add(new Negation(overallConj12));
     }
 }
