@@ -25,8 +25,6 @@ public class Rule {
         headString = head + " -> ";
         body.forEach(x -> bodyString.append(x+ " & "));
         int bodySize = bodyString.length();
-        //Todo checken ob richtig deleted wird..
-        bodyString.delete(bodySize - 4, bodySize -1);
-        return headString + bodyString;
+        return headString + bodyString.substring(0,bodySize-2);
     }
 }

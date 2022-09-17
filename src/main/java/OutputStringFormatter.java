@@ -4,9 +4,11 @@ import java.util.*;
 public class OutputStringFormatter {
 
     private boolean debugMode = false;
+    private boolean fullRules = true;
+    private final RuleBase ruleBase;
 
-    public OutputStringFormatter () {
-
+    public OutputStringFormatter (RuleBase ruleBase) {
+        this.ruleBase = ruleBase;
     }
 
     public String parse (String inputString) {
@@ -19,19 +21,19 @@ public class OutputStringFormatter {
         String[] seperated = inputString.split(",");
         for (String value : seperated){
             value = value.trim();
-            System.out.println("Value ist: " + value);
             String id = value.substring(0,3);
             String item = value.substring(3);
             item = item.trim().replaceAll("[\\[\\]\\.]","");
-            System.out.println("ID ist: " + id);//removes all brackets, points, etc..
             if (id.equals("x_1")) {
                 returnList.get("X1").add(item);
             } else if (id.equals("x_2")){
                 returnList.get("X2").add(item);
             } else if (id.equals("r_1")){
-                returnList.get("R1").add("r" + item);
+                String rule = ruleBase.getRuleBase().get(item).toString();
+                returnList.get("R1").add(rule);
             } else if (id.equals("r_2")){
-                returnList.get("R2").add("r" + item);
+                String rule = ruleBase.getRuleBase().get(item).toString();
+                returnList.get("R2").add(rule);
             } else {
                 returnList.get("debug").add(value.trim().replaceAll("[\\[\\]]",""));
             }
@@ -44,13 +46,18 @@ public class OutputStringFormatter {
         if (debugMode){
             formatLine("debug", returnList.get("debug"), line);
         }
-        return line.toString();
+        String result = line.toString();
+        return result;
     }
 
     private void formatLine (String id, TreeSet<String> tree, StringBuilder line) {
         line.append(id + ": {");
         tree.forEach(value ->{
-            line.append(value + ", ");
+            if (id.startsWith("X")) {
+                line.append(value + ", ");
+            } else {
+                line.append(value + "; ");
+            }
         });
         line.setLength(line.length() - 2);
         line.append("}" + "\n");
@@ -59,4 +66,10 @@ public class OutputStringFormatter {
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
     }
+
+    public void setFullRules(boolean fullRules) {
+        this.fullRules = fullRules;
+    }
+
+
 }

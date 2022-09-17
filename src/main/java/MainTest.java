@@ -57,7 +57,7 @@ public class MainTest {
         //kb1.add(new Proposition("r_(1.1)"));
         System.out.println("Input: " + kb1);
         System.out.println("CNF: " + kb1.toCnf() + "\n");
-        OutputStringFormatter formatter = new OutputStringFormatter();
+        OutputStringFormatter formatter = new OutputStringFormatter(base);
         //for outputting all return values and not just X1,X2,R1,R2
         //formatter.setDebugMode(true);
 
