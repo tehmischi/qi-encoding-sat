@@ -40,7 +40,7 @@ public class MainTest {
             MainTest.lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
             MainTest.kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
         } else {
-            parser = new BusinessRuleFileParser("C:\\sat\\RuleBase.txt");
+            parser = new BusinessRuleFileParser("C:\\sat\\RuleBase2.txt");
             MainTest.lingeling_path = "C:/sat/lingeling/lingeling.exe";
             MainTest.kissat_path = "C:/sat/kissat/build/kissat.exe";
         }
@@ -67,10 +67,9 @@ public class MainTest {
             CmdLineSatSolver lingelingSolver = new CmdLineSatSolver(lingeling_path);
             // add a cmd line parameter
             lingelingSolver.addOption("--reduce");
-            System.out.println("\n" + "Lingeling: " + lingelingSolver.isSatisfiable(kb1));
-            System.out.println("Witness: " + lingelingSolver.getWitness(kb1));
             String lingelingWitnessString = lingelingSolver.getWitness(kb1).toString();
             System.out.println("Lingeling : \n");
+            System.out.println("Witness: " + lingelingWitnessString);
             System.out.println(formatter.parse(lingelingWitnessString));
 
             // Using the SAT solver Kissat
@@ -78,20 +77,18 @@ public class MainTest {
             // add a cmd line parameter
             //kissatSolver.addOption("--unsat");
             kissatSolver.addOption("--default");
-            System.out.println("\n" + "Kissat: " + kissatSolver.isSatisfiable(kb1));
-            System.out.println("Witness: " + kissatSolver.getWitness(kb1));
             String kissatWitnessString = kissatSolver.getWitness(kb1).toString();
             System.out.println("Kissat : \n");
+            System.out.println("Witness: " + kissatWitnessString);
             System.out.println(formatter.parse(kissatWitnessString));
         } else {
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();
-            System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
-            System.out.println("Witness: " + defaultSolver.getWitness(kb1));
             String witnessString = defaultSolver.getWitness(kb1).toString();
+            //System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
             System.out.println("Default Solver: \n");
+            System.out.println("Witness: " + witnessString);
             System.out.println(formatter.parse(witnessString));
-
         }
     }
 }
