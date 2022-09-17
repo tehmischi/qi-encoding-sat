@@ -36,7 +36,7 @@ public class MainTest {
         boolean unixOS = !os.contains("Windows");
         BusinessRuleFileParser parser;
         if (unixOS) {
-            parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase.txt");
+            parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase2.txt");
             MainTest.lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
             MainTest.kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
         } else {
@@ -57,7 +57,7 @@ public class MainTest {
         OutputStringFormatter formatter = new OutputStringFormatter(base);
 
         //for outputting all return values and not just X1,X2,R1,R2
-        formatter.setDebugMode(false);
+        formatter.setDebugMode(true);
 
         //String re = DimacsSatSolver.convertToDimacs(kb1);
         //System.out.println(re);

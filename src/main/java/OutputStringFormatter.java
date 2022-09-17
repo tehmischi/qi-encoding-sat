@@ -18,7 +18,7 @@ public class OutputStringFormatter {
         returnList.put("debug", new TreeSet<>());
         String[] seperated = inputString.split(",");
         for (String value : seperated){
-            value = value.trim();
+            value = value.trim().replaceAll("[\\[\\]]", "");
             String id = value.substring(0,3);
             String item = value.substring(3);
             item = item.trim().replaceAll("[\\[\\].]","");
@@ -33,7 +33,7 @@ public class OutputStringFormatter {
                     String rule = ruleBase.getRuleBase().get(item).toString();
                     returnList.get("R2").add(rule);
                 }
-                default -> returnList.get("debug").add(value.trim().replaceAll("[\\[\\]]", ""));
+                default -> returnList.get("debug").add(value);
             }
         }
         StringBuilder line = new StringBuilder();
