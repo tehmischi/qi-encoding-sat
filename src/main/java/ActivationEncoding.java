@@ -48,7 +48,6 @@ public class ActivationEncoding {
             Disjunction activationDisj2 = new Disjunction(activationEq2, presentNegation2);
             overallConj.add(activationDisj2, activationDisj1);
             //Act Sets können nur aktiviert werden wenn rules dafür vorhanden sind.
-            //TODO hier zur overall Conj hinzufügen richtig?? Ich glaube nicht..?
             heads.forEach((name,list) -> {
                 if (!name.equals(headString)) {
                     overallConj.add(new Negation(new Proposition(name + "_Act(R1."+ id + ")")));
