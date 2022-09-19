@@ -19,8 +19,8 @@ public class OutputStringFormatter {
         String[] seperated = inputString.split(",");
         for (String value : seperated){
             value = value.trim().replaceAll("[\\[\\]]", "");
-            String id = value.substring(0,3);
-            String item = value.substring(3);
+            String id = (value.length()>3)? value.substring(0,3):"";
+            String item = (value.length()>3)? value.substring(3):"";
             item = item.trim().replaceAll("[\\[\\].]","");
             switch (id) {
                 case "x_1" -> returnList.get("X1").add(item);

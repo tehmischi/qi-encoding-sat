@@ -28,33 +28,30 @@ public class ConsistencyEncoding {
             String headString2 = "x_2." + headAtom.atomName();
             Proposition head1 = new Proposition(headString1);
             Proposition head2 = new Proposition(headString2);
-            Disjunction headBoth = new Disjunction(head1, head2);
             Negation headNeg1 = new Negation(head1);
             Negation headNeg2 = new Negation(head2);
-            Negation headNegBoth = new Negation(headBoth);
             if (!headAtom.negated()) {
                 ruleClauseBase1.add(head1);
                 ruleClauseBase2.add(head2);
-                ruleClauseBaseBoth.add(headBoth);
+                ruleClauseBaseBoth.add(head2);
             } else {
                 ruleClauseBase1.add(headNeg1);
                 ruleClauseBase2.add(headNeg2);
-                ruleClauseBaseBoth.add(headNegBoth);
+                ruleClauseBaseBoth.add(headNeg2);
             }
             ruleFromBase.body().forEach(literal ->{
                 String literalString1 = "x_1." + literal.atomName();
                 String literalString2 = "x_2." + literal.atomName();
                 Proposition bodyAtom1 = new Proposition(literalString1);
                 Proposition bodyAtom2 = new Proposition(literalString2);
-                Disjunction bodyAtomBoth = new Disjunction(bodyAtom1, bodyAtom2);
                 if (!literal.negated()) {
                     ruleClauseBase1.add(new Negation(bodyAtom1));
                     ruleClauseBase2.add(new Negation(bodyAtom2));
-                    ruleClauseBaseBoth.add(new Negation(bodyAtomBoth));
+                    ruleClauseBaseBoth.add(new Negation(bodyAtom2));
                 } else {
                     ruleClauseBase1.add(bodyAtom1);
                     ruleClauseBase2.add(bodyAtom2);
-                    ruleClauseBaseBoth.add(bodyAtomBoth);
+                    ruleClauseBaseBoth.add(bodyAtom2);
                 }
             });
             Disjunction ruleDisjBase1 = new Disjunction(presentNegation1, ruleClauseBase1);
@@ -62,7 +59,6 @@ public class ConsistencyEncoding {
             Disjunction ruleDisjBase12 = new Disjunction(eitherPresent, ruleClauseBaseBoth);
             beliefSet.add(ruleDisjBase1,ruleDisjBase2);
             overallConj12.add(ruleDisjBase12);
-
         });
 
         beliefSet.add(new Negation(overallConj12));

@@ -54,7 +54,7 @@ public class MainTest {
             MainTest.lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
             MainTest.kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
         } else {
-            autoFilePath= "C:\\sat\\RuleBase2.txt";
+            autoFilePath= "C:\\sat\\RuleBase.txt";
             MainTest.lingeling_path = "C:/sat/lingeling/lingeling.exe";
             MainTest.kissat_path = "C:/sat/kissat/build/kissat.exe";
         }
@@ -76,8 +76,8 @@ public class MainTest {
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
         ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        consistencyEncoding.addConsistencyRestraints(kb1);
-        setInclusion.addSetInclusionConstraints(kb1);
+        //consistencyEncoding.addConsistencyRestraints(kb1);
+        //setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
         System.out.println("Input: " + kb1);
         //System.out.println("CNF: " + kb1.toCnf() + "\n");
@@ -129,9 +129,11 @@ public class MainTest {
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();
             Object witness = defaultSolver.getWitness(kb1);
-            String witnessString = "not satisfiable";
+            String witnessString = "UNSAT";
             if (witness != null){
-                witnessString = formatter.parse(witness.toString());;
+                if (!witness.toString().equals("[]")){
+                    witnessString = formatter.parse(witness.toString());;
+                }
             }
             //String witnessString = defaultSolver.getWitness(kb1).toString();
             //System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
