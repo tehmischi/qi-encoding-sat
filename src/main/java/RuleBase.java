@@ -32,4 +32,11 @@ public class RuleBase {
     }
 
     public HashSet<String> getHeads(){return heads;}
+
+    @Override
+    public String toString(){
+        StringBuilder returnString = new StringBuilder();
+        rules.forEach((id, rule) -> returnString.append("Rule ").append(id).append(": ").append(rule.toString()).append("\n"));
+        return returnString.toString();
+    }
 }

@@ -23,22 +23,17 @@
         import org.tweetyproject.logics.pl.sat.SatSolver;
         import org.tweetyproject.logics.pl.syntax.*;
 
-        import java.io.File;
-        import java.io.FileNotFoundException;
+        import java.io.*;
 
         /**
  *
  */
-public class MainTest {
+public class QiSatEncoding {
 
-    private static String lingeling_path;
-    private static String kissat_path;
-
-    public static void main(String[] args) throws ParserException, FileNotFoundException {
+    public static void main(String[] args) throws ParserException, IOException {
         //TODO argument handling, for now just for -f File parameter..
         String manualFilePath = null;
         if (args.length > 1) {
-            System.out.println(args[0]);
             if (args[0].equals("-f")) {
                 manualFilePath = args[1];
             }
@@ -48,14 +43,16 @@ public class MainTest {
         BusinessRuleFileParser parser;
         String autoFilePath;
         String filePath = null;
-        if (unixOS) {
+        String lingeling_path;
+                String kissat_path;
+                if (unixOS) {
             autoFilePath= "/home/michael/satSolvers/RuleBase.txt";
-            MainTest.lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
-            MainTest.kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
+            lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
+            kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
         } else {
             autoFilePath= "C:\\sat\\RuleBase.txt";
-            MainTest.lingeling_path = "C:/sat/lingeling/lingeling.exe";
-            MainTest.kissat_path = "C:/sat/kissat/build/kissat.exe";
+            lingeling_path = "C:/sat/lingeling/lingeling.exe";
+            kissat_path = "C:/sat/kissat/build/kissat.exe";
         }
         if (manualFilePath != null) {
             if (new File(manualFilePath).isFile()){
@@ -71,23 +68,25 @@ public class MainTest {
         }
         parser = new BusinessRuleFileParser(filePath);
         RuleBase base = parser.readFile();
-        PlBeliefSet kb1 = new PlBeliefSet();
+        PlBeliefSet satFormula = new PlBeliefSet();
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
         ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        activationEncoding.setMinimal(true);
-        consistencyEncoding.addConsistencyRestraints(kb1);
-        setInclusion.addSetInclusionConstraints(kb1);
-        activationEncoding.addActivationConstraints(kb1);
-        System.out.println("Input: " + kb1);
-        //System.out.println("CNF: " + kb1.toCnf() + "\n");
+        activationEncoding.setMinimal(false);
+        consistencyEncoding.addConsistencyRestraints(satFormula);
+        setInclusion.addSetInclusionConstraints(satFormula);
+        activationEncoding.addActivationConstraints(satFormula);
+        System.out.println("Input: " + satFormula + "\n");
+        //System.out.println("CNF: " + satFormula.toCnf() + "\n");
         OutputStringFormatter formatter = new OutputStringFormatter(base);
 
         //for outputting all return values and not just X1,X2,R1,R2
         formatter.setDebugMode(true);
 
-        //String re = DimacsSatSolver.convertToDimacs(kb1);
+        //String re = DimacsSatSolver.convertToDimacs(satFormula);
         //System.out.println(re);
+        System.out.println("Running Quasi-Inconsistency detection for rule base:");
+        System.out.println(base);
 
         if (unixOS) {
             // Using the SAT solver Lingeling
@@ -97,13 +96,13 @@ public class MainTest {
             String lingelingWitnessString = null;
             //Todo make this null safe..
             try{
-                lingelingWitnessString = lingelingSolver.getWitness(kb1).toString();
+                lingelingWitnessString = lingelingSolver.getWitness(satFormula).toString();
             } catch (NullPointerException e){
                 System.out.println("Lingeling: not satisfiable");
             }
             if (lingelingWitnessString != null){
-                System.out.println("Lingeling : \n");
-                System.out.println("Witness: " + lingelingWitnessString);
+                System.out.println("Lingeling :");
+                //System.out.println("Witness: " + lingelingWitnessString);
                 System.out.println(formatter.parse(lingelingWitnessString));
             }
 
@@ -115,29 +114,28 @@ public class MainTest {
             kissatSolver.addOption("--default");
             String kissatWitnessString = null;
             try {
-                kissatWitnessString = kissatSolver.getWitness(kb1).toString();
+                kissatWitnessString = kissatSolver.getWitness(satFormula).toString();
             } catch (NullPointerException e) {
                 System.out.println("Kissat: not satisfiable");
             }
             if (kissatWitnessString != null){
-                System.out.println("Kissat : \n");
-                System.out.println("Witness: " + kissatWitnessString);
+                System.out.println("Kissat :");
+                //System.out.println("Witness: " + kissatWitnessString);
                 System.out.println(formatter.parse(kissatWitnessString));
             }
         } else {
             //Witnesses are not working for Windows OS?
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();
-            Object witness = defaultSolver.getWitness(kb1);
+            Object witness = defaultSolver.getWitness(satFormula);
             String witnessString = "UNSAT";
             if (witness != null){
                 if (!witness.toString().equals("[]")){
-                    witnessString = formatter.parse(witness.toString());;
+                    witnessString = formatter.parse(witness.toString());
                 }
             }
-            //String witnessString = defaultSolver.getWitness(kb1).toString();
-            //System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
-            CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
+            //String witnessString = defaultSolver.getWitness(satFormula).toString();
+            //System.out.println("\n" + defaultSolver.isSatisfiable(satFormula));
             System.out.println("Default Solver: " + defaultSolver.getClass());
             System.out.println("Witness:\n" + witnessString);
         }

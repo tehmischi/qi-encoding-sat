@@ -45,7 +45,7 @@ public class ActivationEncoding {
             rule.body().forEach(bodyLiteral ->{
                 Proposition e = new Proposition("x_1." + bodyLiteral);
                 Proposition f = new Proposition("x_2." + bodyLiteral);
-                if (heads.containsKey(bodyLiteral)){
+                if (heads.containsKey(bodyLiteral.toString())){
                     Proposition g = new Proposition(bodyLiteral + "_Act(R1)");
                     Proposition h = new Proposition(bodyLiteral + "_Act(R2)");
                     if (minimal) {
@@ -81,7 +81,7 @@ public class ActivationEncoding {
             Disjunction activationDisj2 = new Disjunction(activationEq2, presentNegation2);
             if (minimal){
                 Equivalence minEq1 = new Equivalence(minimalRuleBody1, b);
-                Equivalence minEq2 = new Equivalence(minimalRuleBody1, d);
+                Equivalence minEq2 = new Equivalence(minimalRuleBody2, d);
                 Disjunction minActDis1= new Disjunction(minEq1, presentNegation1);
                 Disjunction minActDis2= new Disjunction(minEq2, presentNegation2);
                 minimalConj1.add(minActDis1);
@@ -102,21 +102,22 @@ public class ActivationEncoding {
             Disjunction atLeastOne1 = new Disjunction();
             Disjunction atLeastOne2 = new Disjunction();
             HashSet<String> alreadyIncluded = new HashSet<>();
-            for (String possibleAtom : ruleBase.getPossibleAtoms()) {
-                Proposition firstItem1 = new Proposition("xm_1." + possibleAtom);
-                Proposition firstItem2 = new Proposition("xm_2." + possibleAtom);
+            for (String outerLoopAtom : ruleBase.getPossibleAtoms()) {
+                Proposition firstItem1 = new Proposition("xm_1." + outerLoopAtom);
+                Proposition firstItem2 = new Proposition("xm_2." + outerLoopAtom);
                 atLeastOne1.add(firstItem1);
                 atLeastOne2.add(firstItem2);
-                for (String possibleAtom2 : ruleBase.getPossibleAtoms()){
-                    boolean same = possibleAtom.equals(possibleAtom2);
-                    String identifier = possibleAtom + "." + possibleAtom2;
-                    String identifier2 = possibleAtom2 + "." +  possibleAtom2;
+                for (String innerLoopAtom : ruleBase.getPossibleAtoms()){
+                    boolean same = outerLoopAtom.equals(innerLoopAtom);
+                    String identifier = outerLoopAtom + "." + innerLoopAtom;
+                    String identifier2 = innerLoopAtom + "." +  innerLoopAtom;
+                    //TODO warum checkt das hier nicht richtig
                     boolean alreadyDone = alreadyIncluded.contains(identifier) || alreadyIncluded.contains(identifier2);
                     if (!same && !alreadyDone){
                         alreadyIncluded.add(identifier);
                         alreadyIncluded.add(identifier2);
-                        Negation secondItem1 = new Negation (new Proposition("xm_1." + possibleAtom2));
-                        Negation secondItem2 = new Negation (new Proposition("xm_2." + possibleAtom2));
+                        Negation secondItem1 = new Negation (new Proposition("xm_1." + innerLoopAtom));
+                        Negation secondItem2 = new Negation (new Proposition("xm_2." + innerLoopAtom));
                         Disjunction item1 = new Disjunction(new Negation(firstItem1), secondItem1);
                         Disjunction item2 = new Disjunction(new Negation(firstItem2), secondItem2);
                         atMostOne1.add(item1);
@@ -124,18 +125,17 @@ public class ActivationEncoding {
                     }
                 }
             }
-            //TODO exactlyOne richtig kodieren.. Wo negiere ich ?
+            //TODO Wo/wie negiere ich richtig..?
             Conjunction exactlyOne1 = new Conjunction(atLeastOne1,atMostOne1);
             Conjunction exactlyOne2 = new Conjunction(atLeastOne2,atMostOne2);
-            Negation negMinAct1 = new Negation(minimalConj1);
-            Negation negMinAct2 = new Negation(minimalConj2);
-            //Conjunction notMinimal1 = new Conjunction(negMinAct1, exactlyOne1);
-            //Conjunction notMinimal2 = new Conjunction(negMinAct2, exactlyOne2);
-            //Negation isMinimal1 = new Negation(notMinimal1);
-            //Negation isMinimal2 = new Negation(notMinimal2);
+            //Negation negMinAct1 = new Negation(minimalConj1);
+            //Negation negMinAct2 = new Negation(minimalConj2);
+            Conjunction notMinimal1 = new Conjunction(minimalConj1, exactlyOne1);
+            Conjunction notMinimal2 = new Conjunction(minimalConj2, exactlyOne2);
+            Negation isMinimal1 = new Negation(notMinimal1);
+            Negation isMinimal2 = new Negation(notMinimal2);
 
-            beliefSet.add(negMinAct1,exactlyOne1);
-            beliefSet.add(negMinAct2,exactlyOne2);
+            beliefSet.add(isMinimal1,isMinimal2);
 
         }
         // c_Act(1) -> Disj (alle c_Act(1,i))
