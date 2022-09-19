@@ -124,18 +124,19 @@ public class ActivationEncoding {
                     }
                 }
             }
+            //TODO exactlyOne richtig kodieren.. Wo negiere ich ?
             Conjunction exactlyOne1 = new Conjunction(atLeastOne1,atMostOne1);
             Conjunction exactlyOne2 = new Conjunction(atLeastOne2,atMostOne2);
             Negation negMinAct1 = new Negation(minimalConj1);
             Negation negMinAct2 = new Negation(minimalConj2);
-            Conjunction notMinimal1 = new Conjunction(negMinAct1, exactlyOne1);
-            Conjunction notMinimal2 = new Conjunction(negMinAct2, exactlyOne2);
-            Negation isMinimal1 = new Negation(notMinimal1);
-            Negation isMinimal2 = new Negation(notMinimal2);
+            //Conjunction notMinimal1 = new Conjunction(negMinAct1, exactlyOne1);
+            //Conjunction notMinimal2 = new Conjunction(negMinAct2, exactlyOne2);
+            //Negation isMinimal1 = new Negation(notMinimal1);
+            //Negation isMinimal2 = new Negation(notMinimal2);
 
-            beliefSet.add(isMinimal1);
-            beliefSet.add(isMinimal2);
-            //TODO exactlyOne kodieren..
+            beliefSet.add(negMinAct1,exactlyOne1);
+            beliefSet.add(negMinAct2,exactlyOne2);
+
         }
         // c_Act(1) -> Disj (alle c_Act(1,i))
         heads.forEach((id, list) -> {

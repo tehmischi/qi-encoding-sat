@@ -32,7 +32,10 @@ public class BusinessRuleFileParser implements InputFileParser {
             String rule = scanner.next();
             rule = rule.replace("\n", "").replace("\r", "");
             if (!rule.trim().isEmpty()){
-                rules.add(rule);
+                boolean isComment = rule.startsWith("//");
+                if(!isComment){
+                    rules.add(rule);
+                }
             }
         }
         return rules;
