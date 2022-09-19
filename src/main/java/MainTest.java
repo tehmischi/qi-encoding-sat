@@ -23,7 +23,10 @@
         import org.tweetyproject.logics.pl.sat.SatSolver;
         import org.tweetyproject.logics.pl.syntax.*;
 
-/**
+        import java.io.File;
+        import java.io.FileNotFoundException;
+
+        /**
  *
  */
 public class MainTest {
@@ -31,19 +34,43 @@ public class MainTest {
     private static String lingeling_path;
     private static String kissat_path;
 
-    public static void main(String[] args) throws ParserException {
+    public static void main(String[] args) throws ParserException, FileNotFoundException {
+        //TODO argument handling, for now just for -f File parameter..
+        System.out.println(args.length);
+        String manualFilePath = null;
+        if (args.length > 1) {
+            System.out.println(args[0]);
+            if (args[0].equals("-f")) {
+                manualFilePath = args[1];
+            }
+        }
         String os = System.getProperty("os.name");
         boolean unixOS = !os.contains("Windows");
         BusinessRuleFileParser parser;
+        String autoFilePath;
+        String filePath = null;
         if (unixOS) {
-            parser = new BusinessRuleFileParser("/home/michael/satSolvers/RuleBase1.txt");
+            autoFilePath= "/home/michael/satSolvers/RuleBase.txt";
             MainTest.lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
             MainTest.kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
         } else {
-            parser = new BusinessRuleFileParser("C:\\sat\\RuleBase2.txt");
+            autoFilePath= "C:\\sat\\RuleBase2.txt";
             MainTest.lingeling_path = "C:/sat/lingeling/lingeling.exe";
             MainTest.kissat_path = "C:/sat/kissat/build/kissat.exe";
         }
+        if (manualFilePath != null) {
+            if (new File(manualFilePath).isFile()){
+                filePath = manualFilePath;
+            } else {
+                System.err.println("The file path that was supplied with argument -f is not correct.");
+                System.err.println(manualFilePath);
+            }
+        } else if (new File(autoFilePath).isFile()) {
+            filePath = autoFilePath;
+        } else {
+            throw new FileNotFoundException("No input File Path was specified with argument -f and the automatic path is not correct: " + autoFilePath);
+        }
+        parser = new BusinessRuleFileParser(filePath);
         RuleBase base = parser.readFile();
         PlBeliefSet kb1 = new PlBeliefSet();
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
@@ -101,13 +128,16 @@ public class MainTest {
             //Witnesses are not working for Windows OS?
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();
+            //TODO warum wird das hier manchmal (je nach RuleBase) null??
             String witnessString = defaultSolver.getWitness(kb1).toString();
             //System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
             CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
             System.out.println("\n" + kissatSolver.isSatisfiable(kb1));
-            System.out.println("Default Solver: \n");
+            System.out.println("Default Solver: " + defaultSolver.getClass());
             System.out.println("Witness: " + witnessString);
-            System.out.println(formatter.parse(witnessString));
+            if (!witnessString.equals("[]")){
+                System.out.println(formatter.parse(witnessString));
+            }
         }
     }
 }
