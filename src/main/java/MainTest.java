@@ -128,16 +128,16 @@ public class MainTest {
             //Witnesses are not working for Windows OS?
             SatSolver.setDefaultSolver(new Sat4jSolver());
             SatSolver defaultSolver = SatSolver.getDefaultSolver();
-            //TODO warum wird das hier manchmal (je nach RuleBase) null??
-            String witnessString = defaultSolver.getWitness(kb1).toString();
+            Object witness = defaultSolver.getWitness(kb1);
+            String witnessString = "not satisfiable";
+            if (witness != null){
+                witnessString = formatter.parse(witness.toString());;
+            }
+            //String witnessString = defaultSolver.getWitness(kb1).toString();
             //System.out.println("\n" + defaultSolver.isSatisfiable(kb1));
             CmdLineSatSolver kissatSolver = new CmdLineSatSolver(kissat_path);
-            System.out.println("\n" + kissatSolver.isSatisfiable(kb1));
             System.out.println("Default Solver: " + defaultSolver.getClass());
-            System.out.println("Witness: " + witnessString);
-            if (!witnessString.equals("[]")){
-                System.out.println(formatter.parse(witnessString));
-            }
+            System.out.println("Witness:\n" + witnessString);
         }
     }
 }
