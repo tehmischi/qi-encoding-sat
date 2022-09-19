@@ -36,7 +36,6 @@ public class MainTest {
 
     public static void main(String[] args) throws ParserException, FileNotFoundException {
         //TODO argument handling, for now just for -f File parameter..
-        System.out.println(args.length);
         String manualFilePath = null;
         if (args.length > 1) {
             System.out.println(args[0]);

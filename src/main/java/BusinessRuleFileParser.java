@@ -41,9 +41,7 @@ public class BusinessRuleFileParser implements InputFileParser {
     }
 
     private Rule generateRuleFromString (String ruleString) {
-        System.out.println("Rule generation " + ruleString);
         String[] seperated = ruleString.split(",");
-        System.out.println("Seperated length: " + seperated.length);
         if (seperated.length > 2){
             System.err.println("Variables and / or rule bodies cannot have a comma (,) in them or they will not be parsed correctly!");
         }
