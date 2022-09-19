@@ -15,7 +15,7 @@ public class ActivationEncoding {
         //
         Conjunction overallConj = new Conjunction();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> alle c_Act(1,i)
-        ruleBase.getPossibleAtoms().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
+        ruleBase.getHeads().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.head().toString();
             heads.get(headString).add(id);
@@ -37,10 +37,15 @@ public class ActivationEncoding {
             rule.body().forEach(bodyLiteral ->{
                 Proposition e = new Proposition("x_1." + bodyLiteral);
                 Proposition f = new Proposition("x_2." + bodyLiteral);
-                Proposition g = new Proposition(bodyLiteral + "_Act(R1)");
-                Proposition h = new Proposition(bodyLiteral + "_Act(R2)");
-                activationRuleBody1.add(new Disjunction(e,g));
-                activationRuleBody2.add(new Disjunction(f,h));
+                if (heads.containsKey(bodyLiteral)){
+                    Proposition g = new Proposition(bodyLiteral + "_Act(R1)");
+                    Proposition h = new Proposition(bodyLiteral + "_Act(R2)");
+                    activationRuleBody1.add(new Disjunction(e,g));
+                    activationRuleBody2.add(new Disjunction(f,h));
+                } else {
+                    activationRuleBody1.add(e);
+                    activationRuleBody2.add(f);
+                }
             });
             Equivalence activationEq1 = new Equivalence(activationRuleBody1, b);
             Equivalence activationEq2 = new Equivalence(activationRuleBody2, d);
@@ -57,6 +62,7 @@ public class ActivationEncoding {
         });
         // c_Act(1) -> Disj (alle c_Act(1,i))
         heads.forEach((id, list) -> {
+            System.out.println("head: " + id);
             Proposition activator1 = new Proposition(id + "_Act(R1)");
             Proposition activator2 = new Proposition(id + "_Act(R2)");
             Disjunction activationList1 = new Disjunction();
@@ -68,9 +74,6 @@ public class ActivationEncoding {
             if (!activationList1.isEmpty()){
                 overallConj.add(new Implication(activator1, activationList1));
                 overallConj.add(new Implication(activator2, activationList2));
-            } else {
-                overallConj.add(new Negation(activator1));
-                overallConj.add(new Negation(activator2));
             }
         });
         beliefSet.add(overallConj);

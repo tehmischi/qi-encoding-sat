@@ -4,6 +4,7 @@ public class RuleBase {
 
     private final HashMap<String, Rule> rules;
     private final HashSet<String> possibleAtoms = new HashSet<>();
+    private final HashSet<String> heads = new HashSet<>();
 
     private int maxIndex;
 
@@ -15,7 +16,9 @@ public class RuleBase {
     public void addRuleToBase (Rule newRule){
         maxIndex++;
         rules.put(String.valueOf(maxIndex), newRule);
-        possibleAtoms.add(newRule.head().toString());
+        String headString = newRule.head().toString();
+        possibleAtoms.add(headString);
+        heads.add(headString);
         List<Literal> ruleBody = newRule.body();
         ruleBody.forEach(literal -> possibleAtoms.add(literal.toString()));
     }
@@ -27,4 +30,6 @@ public class RuleBase {
     public HashSet<String> getPossibleAtoms() {
         return possibleAtoms;
     }
+
+    public HashSet<String> getHeads(){return heads;}
 }
