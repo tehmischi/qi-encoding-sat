@@ -76,8 +76,9 @@ public class MainTest {
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
         ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        //consistencyEncoding.addConsistencyRestraints(kb1);
-        //setInclusion.addSetInclusionConstraints(kb1);
+        activationEncoding.setMinimal(true);
+        consistencyEncoding.addConsistencyRestraints(kb1);
+        setInclusion.addSetInclusionConstraints(kb1);
         activationEncoding.addActivationConstraints(kb1);
         System.out.println("Input: " + kb1);
         //System.out.println("CNF: " + kb1.toCnf() + "\n");
