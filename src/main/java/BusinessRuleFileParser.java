@@ -30,19 +30,23 @@ public class BusinessRuleFileParser implements InputFileParser {
         ArrayList<String> rules = new ArrayList<>();
         while(scanner.hasNext()){
             String rule = scanner.next();
+            //Remove comments and newlines
+            rule = rule.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","");
             rule = rule.replace("\n", "").replace("\r", "");
             if (!rule.trim().isEmpty()){
-                boolean isComment = rule.startsWith("//");
-                if(!isComment){
-                    rules.add(rule);
-                }
+                rules.add(rule);
             }
         }
         return rules;
     }
 
     private Rule generateRuleFromString (String ruleString) {
+        System.out.println("Rule generation " + ruleString);
         String[] seperated = ruleString.split(",");
+        System.out.println("Seperated length: " + seperated.length);
+        if (seperated.length > 2){
+            System.err.println("Variables and / or rule bodies cannot have a comma (,) in them or they will not be parsed correctly!");
+        }
         String headString = seperated[0];
         String bodyString = seperated[1];
         headString = headString.trim();
