@@ -76,7 +76,10 @@ public class QiSatEncoding {
         consistencyEncoding.addConsistencyRestraints(satFormula);
         setInclusion.addSetInclusionConstraints(satFormula);
         activationEncoding.addActivationConstraints(satFormula);
-        System.out.println("Input: " + satFormula + "\n");
+        String inputString = satFormula.toString();
+        System.out.println("Input: " + inputString + "\n");
+        String ngString = new LogicNGParser().parse(inputString);
+
         //System.out.println("CNF: " + satFormula.toCnf() + "\n");
         OutputStringFormatter formatter = new OutputStringFormatter(base);
 
