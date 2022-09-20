@@ -1,96 +1,82 @@
-        /*
-         *  This file is part of "TweetyProject", a collection of Java libraries for
-         *  logical aspects of artificial intelligence and knowledge representation.
-         *
-         *  TweetyProject is free software: you can redistribute it and/or modify
-         *  it under the terms of the GNU Lesser General Public License version 3 as
-         *  published by the Free Software Foundation.
-         *
-         *  This program is distributed in the hope that it will be useful,
-         *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-         *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-         *  GNU Lesser General Public License for more details.
-         *
-         *  You should have received a copy of the GNU Lesser General Public License
-         *  along with this program. If not, see <http://www.gnu.org/licenses/>.
-         *
-         *  Copyright 2016 The TweetyProject Team <http://tweetyproject.org/contact/>
-         */
 
-        import org.tweetyproject.commons.ParserException;
-        import org.tweetyproject.logics.pl.sat.CmdLineSatSolver;
-        import org.tweetyproject.logics.pl.sat.Sat4jSolver;
-        import org.tweetyproject.logics.pl.sat.SatSolver;
+        import org.logicng.formulas.Formula;
+        import org.logicng.formulas.FormulaFactory;
+        import org.logicng.io.parsers.PropositionalParser;
+        import org.logicng.io.parsers.ParserException;
+        import org.logicng.solvers.MiniSat;
+        import org.logicng.solvers.SATSolver;
+        import org.logicng.solvers.sat.MiniSatConfig;
         import org.tweetyproject.logics.pl.syntax.*;
-
         import java.io.*;
 
-        /**
- *
- */
 public class QiSatEncoding {
 
     public static void main(String[] args) throws ParserException, IOException {
-        //TODO argument handling, for now just for -f File parameter..
-        String manualFilePath = null;
-        if (args.length > 1) {
-            if (args[0].equals("-f")) {
-                manualFilePath = args[1];
-            }
-        }
-        String os = System.getProperty("os.name");
-        boolean unixOS = !os.contains("Windows");
+        QiSatConfiguration config = new QiSatConfiguration(args);
         BusinessRuleFileParser parser;
-        String autoFilePath;
-        String filePath = null;
-        String lingeling_path;
-                String kissat_path;
-                if (unixOS) {
-            autoFilePath= "/home/michael/satSolvers/RuleBase.txt";
-            lingeling_path = "/home/michael/satSolvers/lingeling/lingeling";
-            kissat_path = "/home/michael/satSolvers/kissat/build/kissat";
-        } else {
-            autoFilePath= "C:\\sat\\RuleBase.txt";
-            lingeling_path = "C:/sat/lingeling/lingeling.exe";
-            kissat_path = "C:/sat/kissat/build/kissat.exe";
-        }
-        if (manualFilePath != null) {
-            if (new File(manualFilePath).isFile()){
-                filePath = manualFilePath;
-            } else {
-                System.err.println("The file path that was supplied with argument -f is not correct.");
-                System.err.println(manualFilePath);
-            }
-        } else if (new File(autoFilePath).isFile()) {
-            filePath = autoFilePath;
-        } else {
-            throw new FileNotFoundException("No input File Path was specified with argument -f and the automatic path is not correct: " + autoFilePath);
-        }
-        parser = new BusinessRuleFileParser(filePath);
+        parser = new BusinessRuleFileParser(config.getFilePath());
         RuleBase base = parser.readFile();
         PlBeliefSet satFormula = new PlBeliefSet();
         SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
         ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
         ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        activationEncoding.setMinimal(false);
+        activationEncoding.setMinimal(config.isMinimalSearchActive());
         consistencyEncoding.addConsistencyRestraints(satFormula);
         setInclusion.addSetInclusionConstraints(satFormula);
         activationEncoding.addActivationConstraints(satFormula);
         String inputString = satFormula.toString();
         System.out.println("Input: " + inputString + "\n");
         String ngString = new LogicNGParser().parse(inputString);
-
+        //System.out.println(ngString);
         //System.out.println("CNF: " + satFormula.toCnf() + "\n");
         OutputStringFormatter formatter = new OutputStringFormatter(base);
+        FormulaFactory f = new FormulaFactory();
+        PropositionalParser p = new PropositionalParser(f);
+        Formula formula = null;
+        try{
+            formula = p.parse(ngString);
+        } catch (org.logicng.io.parsers.ParserException e) {
+            System.err.println("Not a valid LogicNG formula");
+        }
+        //System.out.println(formula);
+        System.out.println("Running Quasi-Inconsistency detection for rule base:");
+        System.out.println(base);
+        formatter.setDebugMode(true);
+        SATSolver glucose = MiniSat.glucose(f);
+        glucose.add(formula);
+        glucose.sat();
+        System.out.println("Glucose: ");
+        System.out.println(formatter.parse(glucose.model().toString()));
+        MiniSatConfig miniSatConfig = MiniSatConfig.builder().proofGeneration(true).build();
+        SATSolver solver = MiniSat.miniSat(f, miniSatConfig);
+        solver.add(formula);
+        solver.sat();
+        /*
+        List<Assignment> models;
+
+        models = solver.enumerateAllModels();
+        LinkedList<String> modelStrings = new LinkedList<>();
+        models.forEach(model ->{
+            String modelString = formatter.parse(model.toString());
+            modelStrings.add(modelString);
+            System.out.println("MiniSat (all models): ");
+            System.out.println(modelStrings);
+        });
+
+         */
+        System.out.println("MiniSat: \n");
+        String miniSatOutput = solver.model().toString();
+        String output = formatter.parse(miniSatOutput);
+        System.out.println(miniSatOutput);
+        System.out.println(output);
 
         //for outputting all return values and not just X1,X2,R1,R2
-        formatter.setDebugMode(true);
+
 
         //String re = DimacsSatSolver.convertToDimacs(satFormula);
         //System.out.println(re);
-        System.out.println("Running Quasi-Inconsistency detection for rule base:");
-        System.out.println(base);
 
+        /*
         if (unixOS) {
             // Using the SAT solver Lingeling
             CmdLineSatSolver lingelingSolver = new CmdLineSatSolver(lingeling_path);
@@ -142,5 +128,7 @@ public class QiSatEncoding {
             System.out.println("Default Solver: " + defaultSolver.getClass());
             System.out.println("Witness:\n" + witnessString);
         }
+
+         */
     }
 }

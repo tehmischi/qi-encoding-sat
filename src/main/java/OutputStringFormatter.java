@@ -16,6 +16,14 @@ public class OutputStringFormatter {
         returnList.put("R1", new TreeSet<>());
         returnList.put("R2", new TreeSet<>());
         returnList.put("debug", new TreeSet<>());
+        inputString = inputString
+                .replaceAll("Assignment", "")
+                .replaceAll("}", "")
+                .replaceAll("\\{", "")
+                .replaceAll("pos", "")
+                .replaceAll("neg", "")
+                .replaceAll("=","");
+
         String[] seperated = inputString.split(",");
         for (String value : seperated){
             value = value.trim().replaceAll("[\\[\\]]", "");
