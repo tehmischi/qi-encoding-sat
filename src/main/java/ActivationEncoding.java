@@ -102,9 +102,19 @@ public class ActivationEncoding {
             Disjunction atLeastOne1 = new Disjunction();
             Disjunction atLeastOne2 = new Disjunction();
             HashSet<String> alreadyIncluded = new HashSet<>();
+            Disjunction valueMustChange1 = new Disjunction();
+            Disjunction valueMustChange2 = new Disjunction();
             for (String outerLoopAtom : ruleBase.getPossibleAtoms()) {
                 Proposition firstItem1 = new Proposition("xm_1." + outerLoopAtom);
                 Proposition firstItem2 = new Proposition("xm_2." + outerLoopAtom);
+
+                Proposition normalItem1 = new Proposition("x_1" + outerLoopAtom);
+                Proposition normalItem2 = new Proposition("x_2" + outerLoopAtom);
+                valueMustChange1.add(new Conjunction(normalItem1, firstItem1));
+                valueMustChange2.add(new Conjunction(normalItem2, firstItem2));
+
+
+
                 atLeastOne1.add(firstItem1);
                 atLeastOne2.add(firstItem2);
                 for (String innerLoopAtom : ruleBase.getPossibleAtoms()){
@@ -126,17 +136,12 @@ public class ActivationEncoding {
                     }
                 }
             }
-            //TODO Wo/wie negiere ich richtig..?
+            //TODO wie funktioniert das hier richtig??
             Conjunction exactlyOne1 = new Conjunction(atLeastOne1,atMostOne1);
             Conjunction exactlyOne2 = new Conjunction(atLeastOne2,atMostOne2);
-            //Negation negMinAct1 = new Negation(minimalConj1);
-            //Negation negMinAct2 = new Negation(minimalConj2);
-            Conjunction notMinimal1 = new Conjunction(minimalConj1, exactlyOne1);
-            Conjunction notMinimal2 = new Conjunction(minimalConj2, exactlyOne2);
-            Negation isMinimal1 = new Negation(notMinimal1);
-            Negation isMinimal2 = new Negation(notMinimal2);
-
-            beliefSet.add(isMinimal1,isMinimal2);
+            Conjunction forceValueChange1 = new Conjunction(exactlyOne1,valueMustChange1);
+            Conjunction forceValueChange2 = new Conjunction(exactlyOne2,valueMustChange2);
+            beliefSet.add(minimalConj1,minimalConj2, forceValueChange1,forceValueChange2);
 
         }
         // c_Act(1) -> Disj (alle c_Act(1,i))

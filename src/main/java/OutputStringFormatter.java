@@ -29,7 +29,9 @@ public class OutputStringFormatter {
             value = value.trim().replaceAll("[\\[\\]]", "");
             String id = (value.length()>3)? value.substring(0,3):"";
             String item = (value.length()>3)? value.substring(3):"";
-            item = item.trim().replaceAll("[\\[\\].]","");
+            item = item.trim()
+                    .replaceAll("[\\[\\].]","")
+                    .replaceAll("n", "-");
             switch (id) {
                 case "x_1" -> returnList.get("X1").add(item);
                 case "x_2" -> returnList.get("X2").add(item);
