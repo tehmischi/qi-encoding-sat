@@ -72,6 +72,20 @@ public class OutputStringFormatter {
         }
         line.append("}" + "\n");
     }
+    public List<String> getMins(String inputString){
+        LinkedList<String> returnList = new LinkedList<>();
+        String[] seperated = inputString.split(",");
+        for (String value : seperated){
+            if (value.trim().startsWith("xm")){
+                value = value   .replaceAll("]", "")
+                                .replaceAll("\\[", "")
+                                .trim()
+                ;
+                returnList.add(value);
+            }
+        }
+        return returnList;
+    }
 
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;

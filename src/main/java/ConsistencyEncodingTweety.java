@@ -1,11 +1,11 @@
 import org.tweetyproject.logics.pl.syntax.*;
 
-public class ConsistencyEncoding {
+public class ConsistencyEncodingTweety {
 
     private final RuleBase ruleBase;
 
 
-    public ConsistencyEncoding(RuleBase ruleBase) {
+    public ConsistencyEncodingTweety(RuleBase ruleBase) {
         this.ruleBase = ruleBase;
     }
 

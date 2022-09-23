@@ -1,15 +1,15 @@
+import org.logicng.formulas.FormulaFactory;
 import org.tweetyproject.logics.pl.syntax.*;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 
-public class ActivationEncoding {
+public class ActivationEncodingTweety {
 
     private final RuleBase ruleBase;
     private boolean minimal;
 
-    public ActivationEncoding (RuleBase ruleBase) {
+    public ActivationEncodingTweety(RuleBase ruleBase) {
         this.ruleBase = ruleBase;
         this.minimal = false;
     }
@@ -20,14 +20,14 @@ public class ActivationEncoding {
         Conjunction overallConj = new Conjunction();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> alle c_Act(1,i)
         ruleBase.getHeads().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
-        Conjunction minimalConj1 = new Conjunction();
-        Conjunction minimalConj2 = new Conjunction();
+        //Conjunction minimalConj1 = new Conjunction();
+        //Conjunction minimalConj2 = new Conjunction();
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.head().toString();
             heads.get(headString).add(id);
-            Proposition rulePresent1 = new Proposition("r_1." + id);
+            Proposition rulePresent1 = new Proposition("r_1" + id);
             Negation presentNegation1 = new Negation(rulePresent1);
-            Proposition rulePresent2 = new Proposition("r_2." + id);
+            Proposition rulePresent2 = new Proposition("r_2" + id);
             Negation presentNegation2 = new Negation(rulePresent2);
             Proposition a = new Proposition(headString + "_ActR1");
             Proposition b = new Proposition(headString + "_ActR1." + id + "");
@@ -48,6 +48,7 @@ public class ActivationEncoding {
                 if (heads.containsKey(bodyLiteral.toString())){
                     Proposition g = new Proposition(bodyLiteral + "_ActR1");
                     Proposition h = new Proposition(bodyLiteral + "_ActR2");
+                    /*
                     if (minimal) {
                         Proposition p1 = new Proposition("xm_1." + bodyLiteral);
                         Proposition p2 = new Proposition("xm_2." + bodyLiteral);
@@ -58,11 +59,14 @@ public class ActivationEncoding {
                         minimalRuleBody1.add(new Disjunction(c1,g));
                         minimalRuleBody2.add(new Disjunction(c2,h));
                     }
+
+                     */
                     activationRuleBody1.add(new Disjunction(e,g));
                     activationRuleBody2.add(new Disjunction(f,h));
                 } else {
                     activationRuleBody1.add(e);
                     activationRuleBody2.add(f);
+                    /*
                     if (minimal) {
                         Proposition p1 = new Proposition("xm_1." + bodyLiteral);
                         Proposition p2 = new Proposition("xm_2." + bodyLiteral);
@@ -73,12 +77,15 @@ public class ActivationEncoding {
                         minimalRuleBody1.add(c1);
                         minimalRuleBody2.add(c2);
                     }
+
+                     */
                 }
             });
             Equivalence activationEq1 = new Equivalence(activationRuleBody1, b);
             Equivalence activationEq2 = new Equivalence(activationRuleBody2, d);
             Disjunction activationDisj1 = new Disjunction(activationEq1, presentNegation1);
             Disjunction activationDisj2 = new Disjunction(activationEq2, presentNegation2);
+            /*
             if (minimal){
                 Equivalence minEq1 = new Equivalence(minimalRuleBody1, b);
                 Equivalence minEq2 = new Equivalence(minimalRuleBody2, d);
@@ -87,6 +94,8 @@ public class ActivationEncoding {
                 minimalConj1.add(minActDis1);
                 minimalConj2.add(minActDis2);
             }
+
+             */
             overallConj.add(activationDisj2, activationDisj1);
             //Act Sets können nur aktiviert werden wenn rules dafür vorhanden sind.
             heads.forEach((name,list) -> {
@@ -96,23 +105,23 @@ public class ActivationEncoding {
                 }
             });
         });
+        /*
         if (minimal){
             Conjunction atMostOne1 = new Conjunction();
             Conjunction atMostOne2 = new Conjunction();
             Disjunction atLeastOne1 = new Disjunction();
             Disjunction atLeastOne2 = new Disjunction();
             HashSet<String> alreadyIncluded = new HashSet<>();
-            Disjunction valueMustChange1 = new Disjunction();
-            Disjunction valueMustChange2 = new Disjunction();
+            Conjunction valueMustChange1 = new Conjunction();
+            Conjunction valueMustChange2 = new Conjunction();
             for (String outerLoopAtom : ruleBase.getPossibleAtoms()) {
                 Proposition firstItem1 = new Proposition("xm_1." + outerLoopAtom);
                 Proposition firstItem2 = new Proposition("xm_2." + outerLoopAtom);
 
                 Proposition normalItem1 = new Proposition("x_1" + outerLoopAtom);
                 Proposition normalItem2 = new Proposition("x_2" + outerLoopAtom);
-                valueMustChange1.add(new Conjunction(normalItem1, firstItem1));
-                valueMustChange2.add(new Conjunction(normalItem2, firstItem2));
-
+                beliefSet.add(new Negation(new Conjunction(normalItem1, firstItem1)));
+                beliefSet.add(new Negation(new Conjunction(normalItem2, firstItem2)));
 
 
                 atLeastOne1.add(firstItem1);
@@ -141,9 +150,14 @@ public class ActivationEncoding {
             Conjunction exactlyOne2 = new Conjunction(atLeastOne2,atMostOne2);
             Conjunction forceValueChange1 = new Conjunction(exactlyOne1,valueMustChange1);
             Conjunction forceValueChange2 = new Conjunction(exactlyOne2,valueMustChange2);
-            beliefSet.add(minimalConj1,minimalConj2, forceValueChange1,forceValueChange2);
+            Disjunction test1 = new Disjunction();
+            Disjunction test2 = new Disjunction();
+            test1.add(new Negation(exactlyOne1), new Negation(minimalConj1), new Negation(valueMustChange1));
+            test2.add(new Negation(exactlyOne2), new Negation(minimalConj2), new Negation(valueMustChange2));
+            beliefSet.add(test1,test2);
 
         }
+         */
         // c_Act(1) -> Disj (alle c_Act(1,i))
         heads.forEach((id, list) -> {
             Proposition activator1 = new Proposition(id + "_ActR1");

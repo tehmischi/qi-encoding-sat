@@ -1,49 +1,42 @@
 
-        import org.logicng.datastructures.Assignment;
         import org.logicng.formulas.Formula;
         import org.logicng.formulas.FormulaFactory;
-        import org.logicng.io.parsers.PropositionalParser;
         import org.logicng.io.parsers.ParserException;
         import org.logicng.solvers.MiniSat;
         import org.logicng.solvers.SATSolver;
-        import org.logicng.solvers.sat.MiniSatConfig;
-        import org.tweetyproject.logics.pl.syntax.*;
+
         import java.io.*;
         import java.util.LinkedList;
-        import java.util.List;
 
         public class QiSatEncoding {
 
-    public static void main(String[] args) throws ParserException, IOException {
+    public static void main(String[] args) throws IOException {
+        FormulaFactory formulaFactory = new FormulaFactory();
+        LinkedList<Formula> constraints = new LinkedList<>();
         QiSatConfiguration config = new QiSatConfiguration(args);
         BusinessRuleFileParser parser;
         parser = new BusinessRuleFileParser(config.getFilePath());
         RuleBase base = parser.readFile();
-        PlBeliefSet satFormula = new PlBeliefSet();
-        SetInclusionEncoding setInclusion = new SetInclusionEncoding(base);
-        ConsistencyEncoding consistencyEncoding = new ConsistencyEncoding(base);
-        ActivationEncoding activationEncoding = new ActivationEncoding(base);
-        activationEncoding.setMinimal(config.isMinimalSearchActive());
-        consistencyEncoding.addConsistencyRestraints(satFormula);
-        setInclusion.addSetInclusionConstraints(satFormula);
-        activationEncoding.addActivationConstraints(satFormula);
-        String inputString = satFormula.toString();
-        String ngString = new LogicNGParser().parse(inputString);
-        System.out.println("Input: " + ngString + "\n");
+
+        SetInclusionEncodingNG setInclusion = new SetInclusionEncodingNG(base);
+        ConsistencyEncodingNG consistencyEncodingNG = new ConsistencyEncodingNG(base);
+        ActivationEncodingNG activationEncoding = new ActivationEncodingNG(formulaFactory, base);
+
+
+        constraints.addAll(setInclusion.getSetInclusionConstraints(formulaFactory));
+        constraints.addAll(consistencyEncodingNG.getConsistencyRestraints(formulaFactory));
+        constraints.addAll(activationEncoding.encode());
+
+
+        Formula satEncoding = formulaFactory.and(constraints);
+        System.out.println("Input: " + satEncoding + "\n");
         OutputStringFormatter formatter = new OutputStringFormatter(base);
-        FormulaFactory f = new FormulaFactory();
-        PropositionalParser p = new PropositionalParser(f);
-        Formula formula = null;
-        try{
-            formula = p.parse(ngString);
-        } catch (org.logicng.io.parsers.ParserException e) {
-            System.err.println("Not a valid LogicNG formula");
-        }
+
         System.out.println("Running Quasi-Inconsistency detection for rule base:");
         System.out.println(base);
         formatter.setDebugMode(true);
-        SATSolver glucose = MiniSat.glucose(f);
-        glucose.add(formula);
+        SATSolver glucose = MiniSat.glucose(formulaFactory);
+        glucose.add(satEncoding);
         glucose.sat();
         System.out.println("Glucose: ");
         if (!glucose.sat().toString().equals("FALSE")){
@@ -51,11 +44,12 @@
         } else {
             System.out.println("UNSAT");
         }
+        /*
         MiniSatConfig miniSatConfig = MiniSatConfig.builder().proofGeneration(true).build();
         SATSolver solver = MiniSat.miniSat(f, miniSatConfig);
         solver.add(formula);
         solver.sat();
-        /*
+
         List<Assignment> models;
 
         models = solver.enumerateAllModels();
@@ -69,7 +63,7 @@
             System.out.println(modelStrings);
         });
 
-         */
+
         System.out.println("MiniSat:");
         if (!solver.sat().toString().equals("FALSE")){
             String miniSatOutput = solver.model().toString();
@@ -79,5 +73,7 @@
         } else {
             System.out.println("UNSAT");
         }
+
+        */
     }
 }

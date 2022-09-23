@@ -2,11 +2,11 @@ import org.tweetyproject.logics.pl.syntax.*;
 
 import java.util.HashSet;
 
-public class SetInclusionEncoding {
+public class SetInclusionEncodingTweety {
 
     private final RuleBase ruleBase;
 
-    public SetInclusionEncoding (RuleBase rulebase){
+    public SetInclusionEncodingTweety (RuleBase rulebase){
         this.ruleBase = rulebase;
     }
 

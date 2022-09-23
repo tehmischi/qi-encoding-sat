@@ -4,7 +4,7 @@ public record Literal(String atomName, boolean negated) {
     public String toString() {
         String returnString;
         if (negated) {
-            returnString = "-" + atomName;
+            returnString = "n" + atomName;
         } else {
             returnString = atomName;
         }
