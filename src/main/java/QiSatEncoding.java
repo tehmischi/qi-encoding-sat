@@ -1,7 +1,6 @@
 
         import org.logicng.formulas.Formula;
         import org.logicng.formulas.FormulaFactory;
-        import org.logicng.io.parsers.ParserException;
         import org.logicng.solvers.MiniSat;
         import org.logicng.solvers.SATSolver;
 
@@ -23,9 +22,9 @@
         ActivationEncodingNG activationEncoding = new ActivationEncodingNG(formulaFactory, base);
 
 
-        constraints.addAll(setInclusion.getSetInclusionConstraints(formulaFactory));
+        //constraints.addAll(setInclusion.getSetInclusionConstraints(formulaFactory));
         constraints.addAll(consistencyEncodingNG.getConsistencyRestraints(formulaFactory));
-        constraints.addAll(activationEncoding.encode());
+        //constraints.addAll(activationEncoding.encode());
 
 
         Formula satEncoding = formulaFactory.and(constraints);
@@ -37,7 +36,7 @@
         formatter.setDebugMode(true);
         SATSolver glucose = MiniSat.glucose(formulaFactory);
         glucose.add(satEncoding);
-        glucose.sat();
+        System.out.println(glucose.sat());
         System.out.println("Glucose: ");
         if (!glucose.sat().toString().equals("FALSE")){
             System.out.println(formatter.parse(glucose.model().toString()));

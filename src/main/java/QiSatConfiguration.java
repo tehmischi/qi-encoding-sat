@@ -20,7 +20,7 @@ public class QiSatConfiguration {
         if (unixOS) {
             autoFilePath= "/home/michael/satSolvers/RuleBase.txt";
         } else {
-            autoFilePath= "C:\\sat\\RuleBase.txt";
+            autoFilePath= "C:\\sat\\RuleBase2.txt";
         }
         if (manualFilePath != null) {
             if (new File(manualFilePath).isFile()){

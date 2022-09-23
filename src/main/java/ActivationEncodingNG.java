@@ -1,5 +1,6 @@
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
+import org.logicng.formulas.Literal;
 import org.logicng.formulas.Variable;
 
 import java.util.HashMap;
@@ -77,14 +78,20 @@ public class ActivationEncodingNG implements SatEncoding{
                 activationList1.add(formulaFactory.variable(id + "_ActR1" + listItem));
                 activationList2.add(formulaFactory.variable(id + "_ActR2" + listItem));
             });
+            Formula activator1 = formulaFactory.variable(id + "_ActR1");
+            Formula activator2 = formulaFactory.variable(id + "_ActR2");
             if (!activationList1.isEmpty()){
                 Formula activationList1Disj = formulaFactory.or(activationList1);
                 Formula activationList2Disj = formulaFactory.or(activationList2);
-                Formula activator1 = formulaFactory.variable(id + "_ActR1");
-                Formula activator2 = formulaFactory.variable(id + "_ActR2");
+
                 returnConj.add(formulaFactory.implication(activator1, activationList1Disj));
                 returnConj.add(formulaFactory.implication(activator2, activationList2Disj));
             }
+            //Consistency with Act
+            Literal actConsistency1 = formulaFactory.literal("x_1" + id, false);
+            Literal actConsistency2 = formulaFactory.literal("x_2" + id, false);
+            returnConj.add(formulaFactory.implication(activator1,actConsistency1));
+            returnConj.add(formulaFactory.implication(activator2,actConsistency2));
         });
         return returnConj;
     }

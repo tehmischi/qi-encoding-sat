@@ -26,15 +26,16 @@ public class ConsistencyEncodingNG {
             LinkedList<Formula> ruleClauseBaseDisj1 = new LinkedList<>();
             LinkedList<Formula> ruleClauseBaseDisj2 = new LinkedList<>();
             Literal headAtom = ruleFromBase.head();
-            String headString1 = "x_1" + headAtom.toString().replaceAll("-", "n");
-            String headString2 = "x_2" + headAtom.toString().replaceAll("-", "n");
+            String headString1 = "x_1" + headAtom;
+            String headString2 = "x_2" + headAtom;
             Formula head1 = formulaFactory.variable(headString1);
             Formula head2 = formulaFactory.variable(headString2);
             ruleClauseBaseDisj1.add(head1);
             ruleClauseBaseDisj2.add(head2);
             ruleFromBase.body().forEach(literal ->{
-                String literalString1 = "x_1" + literal.toString().replaceAll("-", "n");
-                String literalString2 = "x_2" + literal.toString().replaceAll("-", "n");
+                String literalString1 = literal.negated()?"x_1" + literal.toString().replaceAll("n", ""):"x_1n" + literal;
+                String literalString2 = literal.negated()?"x_2" + literal.toString().replaceAll("n", ""):"x_1n" + literal;
+                //TODO stimmt das so, oder "n" umdrehen?
                 Formula bodyAtom1 = formulaFactory.variable(literalString1);
                 Formula bodyAtom2 = formulaFactory.variable(literalString2);
                 ruleClauseBaseDisj1.add(bodyAtom1);
@@ -46,8 +47,8 @@ public class ConsistencyEncodingNG {
             Formula ruleDisjBase2 = formulaFactory.or(presentNegation2, ruleBase2);
             Formula ruleDisjBase12 = formulaFactory.or(eitherPresent, ruleBase2);
 
-            returnFormulas.add(ruleDisjBase1);
-            returnFormulas.add(ruleDisjBase2);
+            //returnFormulas.add(ruleDisjBase1);
+            //returnFormulas.add(ruleDisjBase2);
             overallConj12.add(ruleDisjBase12);
         });
         Formula conjunction12 = formulaFactory.and(overallConj12);
