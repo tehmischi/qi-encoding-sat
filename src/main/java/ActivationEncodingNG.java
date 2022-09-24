@@ -22,7 +22,7 @@ public class ActivationEncodingNG implements SatEncoding{
         LinkedList<Formula> inconsistencyActivation = new LinkedList<>();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> Disjunction alle c_Act(1,i)
         ruleBase.getHeads().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
-        
+
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.head().toString();
             heads.get(headString).add(id);
