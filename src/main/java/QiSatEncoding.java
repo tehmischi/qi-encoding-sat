@@ -1,5 +1,4 @@
 
-        import org.logicng.datastructures.Assignment;
         import org.logicng.formulas.Formula;
         import org.logicng.formulas.FormulaFactory;
         import org.logicng.solvers.MiniSat;
@@ -8,8 +7,6 @@
 
         import java.io.*;
         import java.util.LinkedList;
-        import java.util.List;
-
         public class QiSatEncoding {
 
     public static void main(String[] args) throws IOException {
@@ -62,7 +59,7 @@
             System.out.println("UNSAT");
         }
 
-
+            /*
         solver.sat();
 
         List<Assignment> models;
@@ -77,7 +74,7 @@
             System.out.println("MiniSat (all models): ");
             System.out.println(modelStrings);
         });
-
+    */
 
 
 

@@ -21,9 +21,9 @@ public class SetInclusionEncodingNG {
                 Variable b = formulaFactory.variable("x_2" + atom);
                 Variable c;
                 Variable d;
-                if (atom.startsWith("-")){
-                    c = formulaFactory.variable("x_1" + atom.replaceFirst("-", ""));
-                    d = formulaFactory.variable("x_2" + atom.replaceFirst("-", ""));
+                if (atom.startsWith("n")){
+                    c = formulaFactory.variable("x_1" + atom.replaceFirst("n", ""));
+                    d = formulaFactory.variable("x_2" + atom.replaceFirst("n", ""));
                 } else {
                     c = formulaFactory.variable("x_1n" + atom);
                     d = formulaFactory.variable("x_2n" + atom);

@@ -47,7 +47,6 @@ public class ActivationEncodingNG implements SatEncoding{
             rule.body().forEach(bodyLiteral ->{
                 Variable bodyRule1 = formulaFactory.variable("x_1" + bodyLiteral); //e
                 Variable bodyRule2 = formulaFactory.variable("x_2" + bodyLiteral); //f
-
                 if (heads.containsKey(bodyLiteral.toString())){
                     Variable bodyInAct1 = formulaFactory.variable(bodyLiteral + "_ActR1"); //g
                     Variable bodyInAct2 = formulaFactory.variable(bodyLiteral + "_ActR2");//h
@@ -67,7 +66,7 @@ public class ActivationEncodingNG implements SatEncoding{
             Formula activationConj2 = formulaFactory.and(ruleBodyConjunction2, rulePresent2);
             Formula ruleActivation1 = formulaFactory.equivalence(activationConj1,varInAct1Id);
             Formula ruleActivation2 = formulaFactory.equivalence(activationConj2,varInAct2Id);
-            
+
             //TODO in ARbeit schreiben!
             Formula ruleBodyConjunction5 = formulaFactory.and(activationRuleBodyBoth);
             Formula activationConj5 = formulaFactory.and(ruleBodyConjunction5, formulaFactory.or(rulePresent1,rulePresent2));
