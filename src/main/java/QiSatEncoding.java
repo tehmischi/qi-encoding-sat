@@ -1,11 +1,14 @@
 
+        import org.logicng.datastructures.Assignment;
         import org.logicng.formulas.Formula;
         import org.logicng.formulas.FormulaFactory;
         import org.logicng.solvers.MiniSat;
         import org.logicng.solvers.SATSolver;
+        import org.logicng.solvers.sat.MiniSatConfig;
 
         import java.io.*;
         import java.util.LinkedList;
+        import java.util.List;
 
         public class QiSatEncoding {
 
@@ -18,13 +21,13 @@
         RuleBase base = parser.readFile();
 
         SetInclusionEncodingNG setInclusion = new SetInclusionEncodingNG(base);
-        ConsistencyEncodingNG consistencyEncodingNG = new ConsistencyEncodingNG(base);
+        //ConsistencyEncodingNG consistencyEncodingNG = new ConsistencyEncodingNG(base);
         ActivationEncodingNG activationEncoding = new ActivationEncodingNG(formulaFactory, base);
 
 
-        //constraints.addAll(setInclusion.getSetInclusionConstraints(formulaFactory));
-        constraints.addAll(consistencyEncodingNG.getConsistencyRestraints(formulaFactory));
-        //constraints.addAll(activationEncoding.encode());
+        constraints.addAll(setInclusion.getSetInclusionConstraints(formulaFactory));
+        //constraints.addAll(consistencyEncodingNG.getConsistencyRestraints(formulaFactory));
+        constraints.addAll(activationEncoding.encode());
 
 
         Formula satEncoding = formulaFactory.and(constraints);
@@ -40,13 +43,26 @@
         System.out.println("Glucose: ");
         if (!glucose.sat().toString().equals("FALSE")){
             System.out.println(formatter.parse(glucose.model().toString()));
+            System.out.println(glucose.model());
         } else {
             System.out.println("UNSAT");
         }
-        /*
+
         MiniSatConfig miniSatConfig = MiniSatConfig.builder().proofGeneration(true).build();
-        SATSolver solver = MiniSat.miniSat(f, miniSatConfig);
-        solver.add(formula);
+        SATSolver solver = MiniSat.miniSat(formulaFactory, miniSatConfig);
+        solver.add(satEncoding);
+
+        System.out.println("MiniSat:");
+        if (!solver.sat().toString().equals("FALSE")){
+            String miniSatOutput = solver.model().toString();
+            String output = formatter.parse(miniSatOutput);
+            System.out.println(miniSatOutput);
+            System.out.println(output);
+        } else {
+            System.out.println("UNSAT");
+        }
+
+
         solver.sat();
 
         List<Assignment> models;
@@ -63,16 +79,8 @@
         });
 
 
-        System.out.println("MiniSat:");
-        if (!solver.sat().toString().equals("FALSE")){
-            String miniSatOutput = solver.model().toString();
-            String output = formatter.parse(miniSatOutput);
-            System.out.println(miniSatOutput);
-            System.out.println(output);
-        } else {
-            System.out.println("UNSAT");
-        }
 
-        */
+
+
     }
 }
