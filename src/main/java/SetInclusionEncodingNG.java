@@ -3,15 +3,17 @@ import org.logicng.formulas.*;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class SetInclusionEncodingNG {
+public class SetInclusionEncodingNG implements SatEncoding{
 
     private final RuleBase ruleBase;
+    private final FormulaFactory formulaFactory;
 
     public SetInclusionEncodingNG(RuleBase rulebase){
         this.ruleBase = rulebase;
+        this.formulaFactory = Application.getFormulaFactory();
     }
 
-    public LinkedList<Formula> getSetInclusionConstraints (FormulaFactory formulaFactory){
+    public LinkedList encode (){
         HashSet<String> atomsInBase = ruleBase.getPossibleAtoms();
         HashSet<String> keepTrackOfDoubles = new HashSet<>();
         LinkedList<Formula> returnList = new LinkedList<>();

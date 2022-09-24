@@ -11,8 +11,8 @@ public class ActivationEncodingNG implements SatEncoding{
     private final FormulaFactory formulaFactory;
     private final RuleBase ruleBase;
 
-    public ActivationEncodingNG (FormulaFactory formulaFactory, RuleBase ruleBase){
-        this.formulaFactory = formulaFactory;
+    public ActivationEncodingNG (RuleBase ruleBase){
+        this.formulaFactory = Application.getFormulaFactory();
         this.ruleBase = ruleBase;
     }
 
@@ -22,6 +22,7 @@ public class ActivationEncodingNG implements SatEncoding{
         LinkedList<Formula> inconsistencyActivation = new LinkedList<>();
         HashMap<String, LinkedList<String>> heads = new HashMap<>(); //HashMap für "letzte Regel" c_Act(1) -> Disjunction alle c_Act(1,i)
         ruleBase.getHeads().forEach(literalString -> heads.put(literalString, new LinkedList<>()));
+        
         ruleBase.getRuleBase().forEach((id, rule) -> {
             String headString = rule.head().toString();
             heads.get(headString).add(id);
@@ -42,11 +43,15 @@ public class ActivationEncodingNG implements SatEncoding{
             returnConj.add(formulaFactory.equivalence(varInActBothId,formulaFactory.or(rulePresent1,rulePresent2)));
             //Hauptregel für Hinzufügen von Activation Sets
             LinkedList<Formula> activationRuleBody1 = new LinkedList<>(); //conj
+            LinkedList<Formula> minimalActivationBody1 = new LinkedList<>();
+            LinkedList<Formula> minimalActivationBody2 = new LinkedList<>();
             LinkedList<Formula> activationRuleBody2 = new LinkedList<>(); //conj
             LinkedList<Formula> activationRuleBodyBoth = new LinkedList<>(); //conj
             rule.body().forEach(bodyLiteral ->{
                 Variable bodyRule1 = formulaFactory.variable("x_1" + bodyLiteral); //e
                 Variable bodyRule2 = formulaFactory.variable("x_2" + bodyLiteral); //f
+                //TODO brauche ich atLeastOne überhaupt? Nein?
+                //hier ist min..
                 if (heads.containsKey(bodyLiteral.toString())){
                     Variable bodyInAct1 = formulaFactory.variable(bodyLiteral + "_ActR1"); //g
                     Variable bodyInAct2 = formulaFactory.variable(bodyLiteral + "_ActR2");//h
@@ -71,10 +76,7 @@ public class ActivationEncodingNG implements SatEncoding{
             Formula ruleBodyConjunction5 = formulaFactory.and(activationRuleBodyBoth);
             Formula activationConj5 = formulaFactory.and(ruleBodyConjunction5, formulaFactory.or(rulePresent1,rulePresent2));
             Formula ruleActivation5 = formulaFactory.equivalence(activationConj5,varInActBothId);
-            //das hier müsste stimmen..
-            //Formula activationBodyToHeadBoth = formulaFactory.equivalence(varInActBothId,test2);
 
-            //Formula activationDisj12 = formulaFactory.or(activationBodyToHeadBoth, bothNegation);
             inconsistencyActivation.add(ruleActivation5);
             returnConj.add(ruleActivation1);
             returnConj.add(ruleActivation2);
@@ -86,7 +88,6 @@ public class ActivationEncodingNG implements SatEncoding{
                 }
             });
         });
-
 
         LinkedList<Formula> inconsistencyDisj = new LinkedList<>();//disj
         // c_Act(1) -> Disj (alle c_Act(1,i))

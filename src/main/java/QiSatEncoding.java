@@ -10,22 +10,20 @@
         public class QiSatEncoding {
 
     public static void main(String[] args) throws IOException {
-        FormulaFactory formulaFactory = new FormulaFactory();
+        FormulaFactory formulaFactory = Application.getFormulaFactory();
         LinkedList<Formula> constraints = new LinkedList<>();
         QiSatConfiguration config = new QiSatConfiguration(args);
         BusinessRuleFileParser parser;
         parser = new BusinessRuleFileParser(config.getFilePath());
         RuleBase base = parser.readFile();
 
-        SetInclusionEncodingNG setInclusion = new SetInclusionEncodingNG(base);
-        //ConsistencyEncodingNG consistencyEncodingNG = new ConsistencyEncodingNG(base);
-        ActivationEncodingNG activationEncoding = new ActivationEncodingNG(formulaFactory, base);
+        SatEncoding setInclusion = new SetInclusionEncodingNG(base);
+        SatEncoding activationEncoding = new ActivationEncodingNG(base);
+        SatEncoding minimalActivation = new MinimalActivationEncodingNG(base);
 
-
-        constraints.addAll(setInclusion.getSetInclusionConstraints(formulaFactory));
-        //constraints.addAll(consistencyEncodingNG.getConsistencyRestraints(formulaFactory));
+        constraints.addAll(setInclusion.encode());
         constraints.addAll(activationEncoding.encode());
-
+        constraints.addAll(minimalActivation.encode());
 
         Formula satEncoding = formulaFactory.and(constraints);
         System.out.println("Input: " + satEncoding + "\n");
