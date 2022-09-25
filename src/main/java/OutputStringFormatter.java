@@ -22,16 +22,17 @@ public class OutputStringFormatter {
                 .replaceAll("\\{", "")
                 .replaceAll("pos", "")
                 .replaceAll("neg", "")
-                .replaceAll("=","");
+                .replaceAll("=","")
+                .replaceAll("[\\[\\]]", "");
 
         String[] seperated = inputString.split(",");
         for (String value : seperated){
-            value = value.trim().replaceAll("[\\[\\]]", "");
+            value = value.trim();
             String id = (value.length()>3)? value.substring(0,3):"";
-            String item = (value.length()>3)? value.substring(3):"";
-            item = item.trim()
-                    .replaceAll("[\\[\\].]","")
-                    .replaceAll("n", "-");
+            String item = (value.length()>3)? value.substring(3).trim():"";
+            if (item.startsWith("n")) {
+                item = item.replaceFirst("n", "-");
+            }
             switch (id) {
                 case "x_1" -> returnList.get("X1").add(item);
                 case "x_2" -> returnList.get("X2").add(item);
@@ -71,20 +72,6 @@ public class OutputStringFormatter {
             line.setLength(line.length() - 2);
         }
         line.append("}" + "\n");
-    }
-    public List<String> getMins(String inputString){
-        LinkedList<String> returnList = new LinkedList<>();
-        String[] seperated = inputString.split(",");
-        for (String value : seperated){
-            if (value.trim().startsWith("xm")){
-                value = value   .replaceAll("]", "")
-                                .replaceAll("\\[", "")
-                                .trim()
-                ;
-                returnList.add(value);
-            }
-        }
-        return returnList;
     }
 
     public void setDebugMode(boolean debugMode) {
