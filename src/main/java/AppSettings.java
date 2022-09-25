@@ -1,11 +1,11 @@
 import org.logicng.formulas.FormulaFactory;
 
-public class Application {
+public class AppSettings {
 
     private static FormulaFactory threadSafeFormulaFactory;
     private final static String negativeSign = "_neg_";
 
-    private Application(){}
+    private AppSettings(){}
 
     public static synchronized FormulaFactory getFormulaFactory(){
         if(threadSafeFormulaFactory == null){

@@ -10,7 +10,7 @@ public class SetInclusionEncodingNG implements SatEncoding{
 
     public SetInclusionEncodingNG(RuleBase rulebase){
         this.ruleBase = rulebase;
-        this.formulaFactory = Application.getFormulaFactory();
+        this.formulaFactory = AppSettings.getFormulaFactory();
     }
 
     public LinkedList encode (){

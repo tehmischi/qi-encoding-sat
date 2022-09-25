@@ -14,7 +14,7 @@ public class MinimalActivationEncodingNG implements  SatEncoding {
 
     public MinimalActivationEncodingNG(RuleBase ruleBase) {
         this.ruleBase = ruleBase;
-        this.formulaFactory = Application.getFormulaFactory();
+        this.formulaFactory = AppSettings.getFormulaFactory();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class ActivationEncodingNG implements SatEncoding{
     private final RuleBase ruleBase;
 
     public ActivationEncodingNG (RuleBase ruleBase){
-        this.formulaFactory = Application.getFormulaFactory();
+        this.formulaFactory = AppSettings.getFormulaFactory();
         this.ruleBase = ruleBase;
     }
 

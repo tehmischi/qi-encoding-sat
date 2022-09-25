@@ -7,10 +7,10 @@
         import java.io.*;
         import java.util.LinkedList;
 
-        public class QiSatEncoding {
+        public class MainQiSat {
 
     public static void main(String[] args) throws IOException {
-        FormulaFactory formulaFactory = Application.getFormulaFactory();
+        FormulaFactory formulaFactory = AppSettings.getFormulaFactory();
         LinkedList<Formula> constraints = new LinkedList<>();
         QiSatConfiguration config = new QiSatConfiguration(args);
         BusinessRuleFileParser parser;
