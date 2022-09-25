@@ -43,15 +43,11 @@ public class ActivationEncodingNG implements SatEncoding{
             returnConj.add(formulaFactory.equivalence(varInActBothId,formulaFactory.or(rulePresent1,rulePresent2)));
             //Hauptregel für Hinzufügen von Activation Sets
             LinkedList<Formula> activationRuleBody1 = new LinkedList<>(); //conj
-            LinkedList<Formula> minimalActivationBody1 = new LinkedList<>();
-            LinkedList<Formula> minimalActivationBody2 = new LinkedList<>();
             LinkedList<Formula> activationRuleBody2 = new LinkedList<>(); //conj
             LinkedList<Formula> activationRuleBodyBoth = new LinkedList<>(); //conj
             rule.body().forEach(bodyLiteral ->{
                 Variable bodyRule1 = formulaFactory.variable("x_1" + bodyLiteral); //e
                 Variable bodyRule2 = formulaFactory.variable("x_2" + bodyLiteral); //f
-                //TODO brauche ich atLeastOne überhaupt? Nein?
-                //hier ist min..
                 if (heads.containsKey(bodyLiteral.toString())){
                     Variable bodyInAct1 = formulaFactory.variable(bodyLiteral + "_ActR1"); //g
                     Variable bodyInAct2 = formulaFactory.variable(bodyLiteral + "_ActR2");//h
@@ -106,7 +102,9 @@ public class ActivationEncodingNG implements SatEncoding{
             Formula activatorB = formulaFactory.variable(id + "_ActR5");
             boolean isNegative = id.startsWith("n");
             String newId = isNegative?id.replaceAll("n", ""):"n" + id;
-            Formula inconsistencyActDisj = formulaFactory.or(formulaFactory.variable("x_2" + newId), formulaFactory.variable(newId + "_ActR2"));
+            boolean canBeActivated = heads.containsKey(newId);
+            Formula activationId = canBeActivated?formulaFactory.variable(newId + "_ActR2"):formulaFactory.falsum();
+            Formula inconsistencyActDisj = formulaFactory.or(formulaFactory.variable("x_2" + newId), activationId);
             Formula inconsistencyActConj = formulaFactory.and(inconsistencyActDisj, activatorB);
             inconsistencyDisj.add(inconsistencyActConj);
             if (!activationList1.isEmpty()){

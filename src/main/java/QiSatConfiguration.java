@@ -4,11 +4,9 @@ import java.io.FileNotFoundException;
 public class QiSatConfiguration {
 
     private String filePath;
-    private boolean minimalSearchActive;
 
     public QiSatConfiguration(String[] args) throws FileNotFoundException {
         //TODO argument handling, for now just for -f File parameter..
-        minimalSearchActive = true;
         boolean unixOS = !System.getProperty("os.name").contains("Windows");
         String manualFilePath = null;
         String autoFilePath;
@@ -20,7 +18,7 @@ public class QiSatConfiguration {
         if (unixOS) {
             autoFilePath= "/home/michael/satSolvers/RuleBase.txt";
         } else {
-            autoFilePath= "C:\\sat\\RuleBase2.txt";
+            autoFilePath= "C:\\sat\\RuleBase.txt";
         }
         if (manualFilePath != null) {
             if (new File(manualFilePath).isFile()){
@@ -38,13 +36,5 @@ public class QiSatConfiguration {
 
     public String getFilePath() {
         return filePath;
-    }
-
-    public boolean isMinimalSearchActive() {
-        return minimalSearchActive;
-    }
-
-    public void setMinimalSearchActive(boolean active){
-        this.minimalSearchActive = active;
     }
 }
