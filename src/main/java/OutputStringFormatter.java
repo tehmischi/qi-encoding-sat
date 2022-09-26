@@ -7,7 +7,7 @@ public class OutputStringFormatter {
 
     public OutputStringFormatter (RuleBase ruleBase) {
         this.ruleBase = ruleBase;
-        this.debugMode = AppSettings.isDebugMode();
+        this.debugMode = AppSettings.getConfig().isDebugMode();
     }
 
     public String parse (String inputString) {

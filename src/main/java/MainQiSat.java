@@ -8,8 +8,9 @@
 
         public class MainQiSat {
 
-    public static void main(String[] args) throws IOException {
-        QiSatConfiguration config = new QiSatConfiguration(args);
+    public static void main(String[] args) {
+        new ArgumentHandler(args);
+        QiSatConfiguration config = AppSettings.getConfig();
         FormulaFactory formulaFactory = AppSettings.getFormulaFactory();
         LinkedList<Formula> constraints = new LinkedList<>();
         BusinessRuleFileParser parser = new BusinessRuleFileParser(config.getFilePath());

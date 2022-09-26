@@ -5,7 +5,7 @@ public class AppSettings {
     private static FormulaFactory threadSafeFormulaFactory;
     //TODO Implement negativeSign
     private final static String negativeSign = "_neg_";
-    private static final boolean debugMode = false;
+    private static final QiSatConfiguration config = new QiSatConfiguration();
 
     private AppSettings(){}
 
@@ -20,7 +20,7 @@ public class AppSettings {
         return negativeSign;
     }
 
-    public static boolean isDebugMode() {
-        return debugMode;
+    public static QiSatConfiguration getConfig(){
+        return config;
     }
 }
