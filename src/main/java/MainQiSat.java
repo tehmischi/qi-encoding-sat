@@ -15,6 +15,13 @@
         LinkedList<Formula> constraints = new LinkedList<>();
         BusinessRuleFileParser parser = new BusinessRuleFileParser(config.getFilePath());
         RuleBase base = parser.readFile();
+
+        DeclareModelParser declareParser = new DeclareModelParser();
+        try{
+            base = declareParser.parseCSV("examples/PrepaidTravelCost.csv");
+        } catch (Exception e) {
+            System.err.println("Not a valid CSV file!");
+        }
         SatEncoding setInclusion = new SetInclusionEncodingNG(base);
         SatEncoding activationEncoding = new ActivationEncodingNG(base);
         SatEncoding minimalActivation = new MinimalActivationEncodingNG(base);
@@ -26,6 +33,9 @@
 
         SATSolver satSolver = config.getSolver();
         satSolver.add(satEncoding);
+        if (config.isDebugMode()){
+            System.out.println(satEncoding);
+        }
         System.out.println("Running Quasi-Inconsistency detection with " + config.getSolverName() + " for rule base:");
         System.out.println(base);
 
