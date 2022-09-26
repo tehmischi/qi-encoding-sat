@@ -3,7 +3,9 @@ import org.logicng.formulas.FormulaFactory;
 public class AppSettings {
 
     private static FormulaFactory threadSafeFormulaFactory;
+    //TODO Implement negativeSign
     private final static String negativeSign = "_neg_";
+    private static final boolean debugMode = false;
 
     private AppSettings(){}
 
@@ -16,5 +18,9 @@ public class AppSettings {
 
     public static String getNegativeSign(){
         return negativeSign;
+    }
+
+    public static boolean isDebugMode() {
+        return debugMode;
     }
 }

@@ -2,11 +2,12 @@ import java.util.*;
 
 public class OutputStringFormatter {
 
-    private boolean debugMode = false;
+    private final boolean debugMode;
     private final RuleBase ruleBase;
 
     public OutputStringFormatter (RuleBase ruleBase) {
         this.ruleBase = ruleBase;
+        this.debugMode = AppSettings.isDebugMode();
     }
 
     public String parse (String inputString) {
@@ -73,9 +74,4 @@ public class OutputStringFormatter {
         }
         line.append("}" + "\n");
     }
-
-    public void setDebugMode(boolean debugMode) {
-        this.debugMode = debugMode;
-    }
-
 }

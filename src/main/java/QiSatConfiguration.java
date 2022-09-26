@@ -1,13 +1,19 @@
+import org.logicng.solvers.MiniSat;
+import org.logicng.solvers.SATSolver;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class QiSatConfiguration {
 
     private String filePath;
+    private final String solver;
 
     public QiSatConfiguration(String[] args) throws FileNotFoundException {
         //TODO argument handling, for now just for -f File parameter..
         boolean unixOS = !System.getProperty("os.name").contains("Windows");
+        //TODO hier Option einfügen auch upper lowercase entfernen
+        this.solver = "glucose";
         String manualFilePath = null;
         String autoFilePath;
         if (args.length > 1) {
@@ -18,7 +24,7 @@ public class QiSatConfiguration {
         if (unixOS) {
             autoFilePath= "/home/michael/satSolvers/RuleBase.txt";
         } else {
-            autoFilePath= "C:\\sat\\RuleBase2.txt";
+            autoFilePath= "C:\\sat\\RuleBase.txt";
         }
         if (manualFilePath != null) {
             if (new File(manualFilePath).isFile()){
@@ -36,5 +42,27 @@ public class QiSatConfiguration {
 
     public String getFilePath() {
         return filePath;
+    }
+
+    public SATSolver getSolver() {
+        SATSolver satSolver;
+        switch (solver) {
+            case "glucose" -> satSolver = MiniSat.glucose(AppSettings.getFormulaFactory());
+            case "minisat" -> satSolver = MiniSat.miniSat(AppSettings.getFormulaFactory());
+            case "minicard" -> satSolver = MiniSat.miniCard(AppSettings.getFormulaFactory());
+            default -> satSolver = MiniSat.glucose(AppSettings.getFormulaFactory());
+        }
+        return satSolver;
+    }
+
+    public String getSolverName() {
+        String solverName;
+        switch (solver) {
+            case "glucose" -> solverName = "Glucose";
+            case "minisat" -> solverName = "MiniSat";
+            case "minicard" -> solverName = "MiniCARD";
+            default -> solverName = "Glucose";
+        }
+        return solverName;
     }
 }
