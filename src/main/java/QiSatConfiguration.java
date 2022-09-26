@@ -8,6 +8,9 @@ public class QiSatConfiguration {
     private String solver;
     private boolean debugMode;
     private boolean csvMode;
+    private boolean cnfMode;
+
+    private String outputFilePath;
 
     public QiSatConfiguration(){
         //setting default values
@@ -15,6 +18,8 @@ public class QiSatConfiguration {
         this.solver = "glucose";
         this.debugMode = false;
         this.csvMode = false;
+        this.cnfMode = false;
+        this.outputFilePath = ("cnf.txt");
     }
 
     public String getFilePath() {
@@ -71,5 +76,21 @@ public class QiSatConfiguration {
 
     public void setCsvMode (boolean active){
         this.csvMode = active;
+    }
+
+    public void setCnfMode(boolean cnfMode) {
+        this.cnfMode = cnfMode;
+    }
+
+    public boolean isCnfMode(){
+        return cnfMode;
+    }
+
+    public void setOutputFilePath(String outputFilePath) {
+        this.outputFilePath = outputFilePath;
+    }
+
+    public String getOutputFilePath(){
+        return outputFilePath;
     }
 }

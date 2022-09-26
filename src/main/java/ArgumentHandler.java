@@ -17,6 +17,10 @@ public class ArgumentHandler {
                         i++;
                         handleFile(args[i]);
                     }
+                    case "-cnf" -> {
+                        i++;
+                        cnfGen(args[i]);
+                    }
                     case "-solver" -> {
                         i++;
                         handleSolver(args[i]);
@@ -41,7 +45,6 @@ public class ArgumentHandler {
 
     private void handleFile (String fileName){
         String fileExtension = getFileExtension(fileName).get();
-        System.out.println("File Extension: " + fileExtension);
         if (new File(fileName).isFile()){
             config.setFilePath(fileName);
             if (fileExtension.equals("csv")){
@@ -65,6 +68,11 @@ public class ArgumentHandler {
         return Optional.ofNullable(filename)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(filename.lastIndexOf(".") + 1));
+    }
+
+    private void cnfGen(String filename){
+        config.setCnfMode(true);
+        config.setOutputFilePath(filename);
     }
 
 
