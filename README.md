@@ -8,6 +8,7 @@ head1, body11 body12 body13 body14;<br>
 head2, body21 body22 body23 body24;<br>
 
 Rules are seperated by semicolons(;) and within the rules body and head are seperated by comma(,).
+Negated variables are prefixed with a minus (-) sign (e.g. -a means NOT a).
 
 The application will transform the rule base to a SAT encoding that can be checked for Quasi-Inconsistency.<br>
 By default it will call the SAT solvers Glucose and MiniSAT with their integration into LogicNG[^2] to print out an Issue if the rule base is Quasi-Inconsistent.
