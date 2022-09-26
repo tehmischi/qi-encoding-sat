@@ -3,7 +3,6 @@
         import org.logicng.formulas.FormulaFactory;
         import org.logicng.solvers.SATSolver;
 
-        import java.io.*;
         import java.util.LinkedList;
 
         public class MainQiSat {
@@ -13,15 +12,19 @@
         QiSatConfiguration config = AppSettings.getConfig();
         FormulaFactory formulaFactory = AppSettings.getFormulaFactory();
         LinkedList<Formula> constraints = new LinkedList<>();
+        InputFileParser parser = config.getFileParser();
+        RuleBase base = parser.parse();
+        /*
         BusinessRuleFileParser parser = new BusinessRuleFileParser(config.getFilePath());
-        RuleBase base = parser.readFile();
-
-        DeclareModelParser declareParser = new DeclareModelParser();
+        RuleBase base = parser.parse();
+        DeclareModelParser declareParser = new DeclareModelParser("examples/PrepaidTravelCost.csv");
         try{
-            base = declareParser.parseCSV("examples/PrepaidTravelCost.csv");
+            base = declareParser.parse();
         } catch (Exception e) {
             System.err.println("Not a valid CSV file!");
         }
+
+         */
         SatEncoding setInclusion = new SetInclusionEncodingNG(base);
         SatEncoding activationEncoding = new ActivationEncodingNG(base);
         SatEncoding minimalActivation = new MinimalActivationEncodingNG(base);

@@ -7,16 +7,28 @@ public class QiSatConfiguration {
     private String filePath;
     private String solver;
     private boolean debugMode;
+    private boolean csvMode;
 
     public QiSatConfiguration(){
         //setting default values
         this.filePath = "examples/RuleBase.txt";
         this.solver = "glucose";
         this.debugMode = false;
+        this.csvMode = false;
     }
 
     public String getFilePath() {
         return filePath;
+    }
+
+    public InputFileParser getFileParser(){
+        InputFileParser returnParser;
+        if (csvMode){
+            returnParser = new DeclareModelParser(filePath);
+        } else {
+            returnParser = new BusinessRuleFileParser(filePath);
+        }
+        return returnParser;
     }
 
     public void setFilePath(String filePath) {
@@ -55,5 +67,9 @@ public class QiSatConfiguration {
 
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
+    }
+
+    public void setCsvMode (boolean active){
+        this.csvMode = active;
     }
 }

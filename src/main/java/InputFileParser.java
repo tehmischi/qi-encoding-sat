@@ -1,4 +1,4 @@
 
 public interface InputFileParser {
-    RuleBase readFile ();
+    RuleBase parse ();
 }

@@ -10,7 +10,7 @@ public class BusinessRuleFileParser implements InputFileParser {
         this.inputFilePath = inputFilePath;
     }
     @Override
-    public RuleBase readFile() {
+    public RuleBase parse() {
         RuleBase returnBase = new RuleBase();
         try {
             ArrayList<String> ruleBaseStrings = getRuleStrings();

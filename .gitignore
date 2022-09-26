@@ -1,3 +1,8 @@
 /target/
 /.idea/artifacts/qi_encoding_sat_jar.xml
 /.idea/libraries/logicng.xml
+/examples/DomesticDeclarations.csv
+/examples/InternationalDeclarations.csv
+/examples/PermitLog.csv
+/examples/PrepaidTravelCost.csv
+/examples/RequestForPayment.csv

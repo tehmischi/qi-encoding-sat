@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.util.Optional;
 
 public class ArgumentHandler {
 
@@ -39,8 +40,13 @@ public class ArgumentHandler {
 
 
     private void handleFile (String fileName){
+        String fileExtension = getFileExtension(fileName).get();
+        System.out.println("File Extension: " + fileExtension);
         if (new File(fileName).isFile()){
             config.setFilePath(fileName);
+            if (fileExtension.equals("csv")){
+                config.setCsvMode(true);
+            }
         } else {
             System.err.println("The specified file path " + fileName + " does not exist. Reverting to default.");
         }
@@ -53,7 +59,12 @@ public class ArgumentHandler {
         } else {
             System.err.println("The specified solver " + solver + " does not exist. Reverting to default (Glucose).");
         }
+    }
 
+    private Optional<String> getFileExtension(String filename) {
+        return Optional.ofNullable(filename)
+                .filter(f -> f.contains("."))
+                .map(f -> f.substring(filename.lastIndexOf(".") + 1));
     }
 
 
