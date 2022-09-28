@@ -55,7 +55,7 @@
         System.out.println("Solver execution time in Miliseconds: " + (endSolver-solverStart));
         long start2 = System.currentTimeMillis();
         bruteForceLoop bruteForce = new bruteForceLoop(base);
-        System.out.println(bruteForce.checkBaseQI());
+        bruteForce.checkBaseQI();
         long end2 = System.currentTimeMillis();
         System.out.println("Program execution time in Miliseconds: " + (end2-start2));
     }
