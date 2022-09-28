@@ -8,7 +8,7 @@ public class ArgumentHandler {
 
     public ArgumentHandler (String[] args){
         if (args.length == 0) {
-            System.out.println("No arguments detected. Setting default settings");
+            System.out.println("No input arguments detected. Setting default settings");
         }
         else {
             for (int i = 0; i < args.length; i++){
@@ -17,7 +17,7 @@ public class ArgumentHandler {
                         i++;
                         handleFile(args[i]);
                     }
-                    case "-cnf" -> {
+                    case "-dimacs" -> {
                         i++;
                         cnfGen(args[i]);
                     }
@@ -28,7 +28,7 @@ public class ArgumentHandler {
                     case "--debug" -> AppSettings.getConfig().setDebugMode(true);
                     default -> {
                         System.err.println(args[i] + "is not a valid argument and was ignored!");
-                        System.err.println("Valid arguments are: -f FilePath, -solver SolverName, --debug");
+                        System.err.println("Valid arguments are: -f FilePath, -solver SolverName, --debug, -dimacs FilePath");
                     }
                 }
             }
@@ -74,8 +74,6 @@ public class ArgumentHandler {
         config.setCnfMode(true);
         config.setOutputFilePath(filename);
     }
-
-
 }
 
 

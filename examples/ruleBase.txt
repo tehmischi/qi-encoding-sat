@@ -1,8 +1,8 @@
 /*
-    Example rule base file for the rule base:
-    c <- a,b
-    not c <- a,d
-    d <- b
+Example rule base file for the rule base:
+c <- a,b
+not c <- a,d
+d <- b
 */
 
 c, a b;

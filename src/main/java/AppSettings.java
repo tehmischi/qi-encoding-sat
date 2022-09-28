@@ -4,7 +4,7 @@ public class AppSettings {
 
     private static FormulaFactory threadSafeFormulaFactory;
     //TODO Implement negativeSign
-    private final static String negativeSign = "_neg_";
+    private static final String negativeSign = "_neg_";
     private static final QiSatConfiguration config = new QiSatConfiguration();
 
     private AppSettings(){}

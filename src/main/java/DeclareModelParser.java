@@ -38,7 +38,6 @@ public class DeclareModelParser implements InputFileParser{
                 e.printStackTrace();
                 System.err.println(filePath + " not found.");
             }
-
         }
         return getRuleBase(usefulRules);
     }

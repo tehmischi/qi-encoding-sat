@@ -6,3 +6,14 @@
 /examples/PermitLog.csv
 /examples/PrepaidTravelCost.csv
 /examples/RequestForPayment.csv
+/lib/checker-qual-3.12.0.jar
+/lib/error_prone_annotations-2.11.0.jar
+/lib/failureaccess-1.0.1.jar
+/.idea/libraries/google_guava.xml
+/lib/guava-31.1-jre.jar
+/lib/j2objc-annotations-1.3.jar
+/lib/jsr305-3.0.2.jar
+/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+/.idea/libraries/logicngg.xml
+/test.cnf
+/test.map
