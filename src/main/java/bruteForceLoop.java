@@ -21,18 +21,29 @@ public class bruteForceLoop {
         });
         Set<Set<Literal>> powerSetFacts = Sets.powerSet(facts);
         Set<Set<Rule>> powerSetRules = Sets.powerSet(rules);
+        int i = 0;
         for (Set<Literal> x1 : powerSetFacts){
             for (Set<Literal> x2 : powerSetFacts){
                 for (Set<Rule> r1 :powerSetRules){
+                    /*
+                    for (Set<Rule> r2 :powerSetRules){
+                        i++;
+                        System.out.println(issueString(x1,x2,r1,r2));
+                    }
+                    */
                     powerSetRules.parallelStream().forEach(r2 ->{
                         if (bruteForcer.isQI(x1,x2,r1,r2)){
-                            System.out.println(issueString(x1,x2,r1,r2));
+                            //System.out.println(issueString(x1,x2,r1,r2));
+                            System.out.println(System.currentTimeMillis());
                         }
                     });
+
+
                 }
             }
         }
         System.out.println("Not Quasi-Inconsistent!");
+        System.out.println("Number of Tries: " + i);
     }
 
     private String issueString (Set<Literal> x1, Set<Literal> x2, Set<Rule> r1, Set<Rule> r2){

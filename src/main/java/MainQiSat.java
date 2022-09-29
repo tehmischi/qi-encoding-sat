@@ -3,6 +3,8 @@
         import org.logicng.formulas.FormulaFactory;
         import org.logicng.io.writers.FormulaDimacsFileWriter;
         import org.logicng.solvers.SATSolver;
+
+        import java.util.HashSet;
         import java.util.LinkedList;
 
         public class MainQiSat {
@@ -52,11 +54,23 @@
             }
         }
         long endSolver = System.currentTimeMillis();
+        /*
+        HashSet<String> allModels = new HashSet<>();
+        satSolver.enumerateAllModels().forEach(model ->{
+            allModels.add(formatter.parse(model.toString()));
+        });
+        allModels.forEach(string ->{
+            System.out.println(string);
+        });
+        long modelEnd = System.currentTimeMillis();
+
+         */
         System.out.println("Solver execution time in Miliseconds: " + (endSolver-solverStart));
         long start2 = System.currentTimeMillis();
+        System.out.println("Start Time Brute Force: " + start2);
         bruteForceLoop bruteForce = new bruteForceLoop(base);
         bruteForce.checkBaseQI();
         long end2 = System.currentTimeMillis();
-        System.out.println("Program execution time in Miliseconds: " + (end2-start2));
+        System.out.println("Brute Force execution time in Miliseconds: " + (end2-start2));
     }
 }
