@@ -9,6 +9,8 @@ public class QiSatConfiguration {
     private boolean debugMode;
     private boolean csvMode;
     private boolean cnfMode;
+    private boolean benchmarkMode;
+    private boolean timerMode;
 
     private String outputFilePath;
 
@@ -19,6 +21,8 @@ public class QiSatConfiguration {
         this.debugMode = false;
         this.csvMode = false;
         this.cnfMode = false;
+        this.benchmarkMode = false;
+        this.timerMode = false;
         this.outputFilePath = ("cnf.txt");
     }
 
@@ -92,5 +96,21 @@ public class QiSatConfiguration {
 
     public String getOutputFilePath(){
         return outputFilePath;
+    }
+
+    public boolean isBenchmarkMode() {
+        return benchmarkMode;
+    }
+
+    public void setBenchmarkMode(boolean benchmarkMode) {
+        this.benchmarkMode = benchmarkMode;
+    }
+
+    public boolean isTimerMode() {
+        return timerMode;
+    }
+
+    public void setTimerMode(boolean timerMode) {
+        this.timerMode = timerMode;
     }
 }

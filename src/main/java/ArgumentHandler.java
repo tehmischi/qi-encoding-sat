@@ -26,9 +26,11 @@ public class ArgumentHandler {
                         handleSolver(args[i]);
                     }
                     case "--debug" -> AppSettings.getConfig().setDebugMode(true);
+                    case "--timer" -> AppSettings.getConfig().setTimerMode(true);
+                    case "--benchmark" -> AppSettings.getConfig().setBenchmarkMode(true);
                     default -> {
                         System.err.println(args[i] + "is not a valid argument and was ignored!");
-                        System.err.println("Valid arguments are: -f FilePath, -solver SolverName, --debug, -dimacs FilePath");
+                        System.err.println("Valid arguments are: -f FilePath, -solver SolverName, -dimacs FilePath, --debug, --timer, --benchmark");
                     }
                 }
             }

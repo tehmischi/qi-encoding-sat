@@ -4,7 +4,6 @@
         import org.logicng.io.writers.FormulaDimacsFileWriter;
         import org.logicng.solvers.SATSolver;
 
-        import java.util.HashSet;
         import java.util.LinkedList;
 
         public class MainQiSat {
@@ -65,12 +64,15 @@
         long modelEnd = System.currentTimeMillis();
 
          */
-        System.out.println("Solver execution time in Miliseconds: " + (endSolver-solverStart));
-        long start2 = System.currentTimeMillis();
-        System.out.println("Start Time Brute Force: " + start2);
-        bruteForceLoop bruteForce = new bruteForceLoop(base);
-        bruteForce.checkBaseQI();
-        long end2 = System.currentTimeMillis();
-        System.out.println("Brute Force execution time in Miliseconds: " + (end2-start2));
+        if (config.isTimerMode() || config.isBenchmarkMode()) {
+            System.out.println("Solver execution time in Miliseconds: " + (endSolver-solverStart));
+        }
+        if (config.isBenchmarkMode()){
+            long startBruteForce = System.currentTimeMillis();
+            bruteForceLoop bruteForce = new bruteForceLoop(base);
+            bruteForce.checkBaseQI();
+            long endBruteForce = System.currentTimeMillis();
+            System.out.println("Brute Force execution time in Miliseconds: " + (endBruteForce-startBruteForce));
+        }
     }
 }
