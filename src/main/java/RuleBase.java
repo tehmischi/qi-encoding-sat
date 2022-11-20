@@ -36,7 +36,14 @@ public class RuleBase {
     @Override
     public String toString(){
         StringBuilder returnString = new StringBuilder();
-        rules.forEach((id, rule) -> returnString.append("Rule ").append(id).append(": ").append(rule.toString()).append("\n"));
+        //Necessary like this for lexicographic order
+        String[] ruleBaseArray = new String[rules.size()];
+        rules.forEach((id, rule)->{
+            ruleBaseArray[Integer.parseInt(id)-1] = rule.toString();
+        });
+        for (int i = 0; i < rules.size(); i++){
+            returnString.append("Rule ").append(i+1).append(": ").append(ruleBaseArray[i]).append("\n");
+        }
         return returnString.toString();
     }
 }

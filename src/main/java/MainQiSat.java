@@ -10,12 +10,10 @@
 
     public static void main(String[] args) {
         long programStart = System.currentTimeMillis();
-
         new ArgumentHandler(args);
         QiSatConfiguration config = AppSettings.getConfig();
         FormulaFactory formulaFactory = AppSettings.getFormulaFactory();
         LinkedList<Formula> constraints = new LinkedList<>();
-        //config.setFilePath("examples/PrepaidTravelCost.csv");
         InputFileParser parser = config.getFileParser();
         RuleBase base = parser.parse();
         long encodingStart = System.currentTimeMillis();
@@ -28,6 +26,9 @@
         Formula satEncoding = formulaFactory.and(constraints);
         OutputStringFormatter formatter = new OutputStringFormatter(base);
         long solverStart = System.currentTimeMillis();
+        if (config.isTimerMode() || config.isBenchmarkMode()) {
+            System.out.println("Encoding execution time in Miliseconds: " + (encodingStart-programStart));
+        }
         SATSolver satSolver = config.getSolver();
         satSolver.add(satEncoding);
         if (config.isDebugMode()){
@@ -43,6 +44,18 @@
             } else {
                 System.out.println("Rule base is not Quasi-Inconsistent!");
             }
+            long endSolver = System.currentTimeMillis();
+            if (config.isTimerMode() || config.isBenchmarkMode()) {
+                System.out.println("Solver execution time in Miliseconds: " + (endSolver-solverStart));
+            }
+            //Brute Force Approach
+            if (config.isBenchmarkMode()){
+                long startBruteForce = System.currentTimeMillis();
+                bruteForceLoop bruteForce = new bruteForceLoop(base);
+                bruteForce.checkBaseQI();
+                long endBruteForce = System.currentTimeMillis();
+                System.out.println("Brute Force execution time in Miliseconds: " + (endBruteForce-startBruteForce));
+            }
         } else {
             Formula cnf = satEncoding.cnf();
             try {
@@ -52,27 +65,10 @@
                 System.out.println("I hate checked exceptions!");
             }
         }
-        long endSolver = System.currentTimeMillis();
-        /*
-        HashSet<String> allModels = new HashSet<>();
-        satSolver.enumerateAllModels().forEach(model ->{
-            allModels.add(formatter.parse(model.toString()));
-        });
-        allModels.forEach(string ->{
-            System.out.println(string);
-        });
-        long modelEnd = System.currentTimeMillis();
 
-         */
+        long programEnd = System.currentTimeMillis();
         if (config.isTimerMode() || config.isBenchmarkMode()) {
-            System.out.println("Solver execution time in Miliseconds: " + (endSolver-solverStart));
-        }
-        if (config.isBenchmarkMode()){
-            long startBruteForce = System.currentTimeMillis();
-            bruteForceLoop bruteForce = new bruteForceLoop(base);
-            bruteForce.checkBaseQI();
-            long endBruteForce = System.currentTimeMillis();
-            System.out.println("Brute Force execution time in Miliseconds: " + (endBruteForce-startBruteForce));
+            System.out.println("Program execution time in Milliseconds: " + (programEnd-programStart));
         }
     }
 }

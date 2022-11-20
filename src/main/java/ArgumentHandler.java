@@ -18,8 +18,15 @@ public class ArgumentHandler {
                         handleFile(args[i]);
                     }
                     case "-dimacs" -> {
-                        i++;
-                        cnfGen(args[i]);
+                        String standardPath = System.getProperty("user.dir") + "/dimacs";
+                        if (args.length <= i + 1){
+                            cnfGen(standardPath);
+                        } else if (args[i+1].startsWith("-")){
+                            cnfGen(standardPath);
+                        } else {
+                            i++;
+                            cnfGen(args[i]);
+                        }
                     }
                     case "-solver" -> {
                         i++;

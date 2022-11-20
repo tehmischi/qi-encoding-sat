@@ -15,11 +15,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.sat4j</groupId>
-            <artifactId>org.sat4j.core</artifactId>
-            <version>2.3.1</version>
-        </dependency>
 
         <dependency>
             <groupId>org.logicng</groupId>
