@@ -44,21 +44,37 @@ public class DeclareModelParser implements InputFileParser{
 
     private boolean matches (String template){
         return template.equals("'NotResponse'" ) || template.equals("'Response'");
+        //return template.equals("'RespondedExistence'" ) || template.equals("'NotResponse'");
     }
 
     private RuleBase getRuleBase (HashSet<DeclareBusinessRule> usefulRules){
         RuleBase returnBase = new RuleBase();
         usefulRules.forEach(declareRule -> {
             boolean isResponse = declareRule.template().equals("'Response'");
-            Literal body = new Literal(declareRule.body(), false);
+            //boolean isResponse = declareRule.template().equals("'RespondedExistence'");
+            Literal body;
+            if (declareRule.body().contains("DECLINED")){
+                body = new Literal(declareRule.body().replaceAll("REJECTED", "APPROVED"), true);
+            } else {
+                body = new Literal(declareRule.body(), false);
+            }
             LinkedList<Literal> bodyList = new LinkedList<>();
             bodyList.add(body);
             Literal head;
+            if (declareRule.head().contains("DECLINED")){
+                head = new Literal(declareRule.head().replaceAll("REJECTED", "APPROVED"), true);
+                System.out.println("blub");
+            } else {
+                head = new Literal(declareRule.head(), false);
+            }
+            /*
             if (isResponse) {
                 head = new Literal(declareRule.head(), false);
             } else {
                 head = new Literal(declareRule.head(), true);
             }
+
+             */
             Rule ruleToAdd = new Rule(head, bodyList);
             returnBase.addRuleToBase(ruleToAdd);
         });

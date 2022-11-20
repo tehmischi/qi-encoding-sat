@@ -51,7 +51,7 @@
             //Brute Force Approach
             if (config.isBenchmarkMode()){
                 long startBruteForce = System.currentTimeMillis();
-                bruteForceLoop bruteForce = new bruteForceLoop(base);
+                BruteForceLoop bruteForce = new BruteForceLoop(base);
                 bruteForce.checkBaseQI();
                 long endBruteForce = System.currentTimeMillis();
                 System.out.println("Brute Force execution time in Miliseconds: " + (endBruteForce-startBruteForce));

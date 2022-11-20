@@ -1,10 +1,10 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class checkBruteForce {
+public class CheckBruteForce {
 
 
-    public checkBruteForce() {
+    public CheckBruteForce() {
     }
 
     public boolean isQI(Set<Literal> x1i, Set<Literal> x2i, Set<Rule> r1i, Set<Rule> r2i){

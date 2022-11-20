@@ -2,17 +2,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.collect.*;
-public class bruteForceLoop {
+public class BruteForceLoop {
 
     private final RuleBase ruleBase;
 
-    public bruteForceLoop(RuleBase ruleBase){
+    public BruteForceLoop(RuleBase ruleBase){
         this.ruleBase = ruleBase;
     }
 
     public void checkBaseQI(){
         long startTime = System.currentTimeMillis();
-        checkBruteForce bruteForcer = new checkBruteForce();
+        CheckBruteForce bruteForcer = new CheckBruteForce();
         HashSet<Literal> facts = new HashSet<>();
         HashSet<Rule> rules = new HashSet<>();
         ruleBase.getRuleBase().forEach((id, rule) ->{
@@ -25,12 +25,6 @@ public class bruteForceLoop {
         for (Set<Literal> x1 : powerSetFacts){
             for (Set<Literal> x2 : powerSetFacts){
                 for (Set<Rule> r1 :powerSetRules){
-                    /*
-                    for (Set<Rule> r2 :powerSetRules){
-                        i++;
-                        System.out.println(issueString(x1,x2,r1,r2));
-                    }
-                    */
                     powerSetRules.parallelStream().forEach(r2 ->{
                         if (bruteForcer.isQI(x1,x2,r1,r2)){
                             //System.out.println(issueString(x1,x2,r1,r2));
@@ -43,8 +37,6 @@ public class bruteForceLoop {
                 }
             }
         }
-        //System.out.println("Not Quasi-Inconsistent!");
-        //System.out.println("Number of Tries: " + i);
     }
 
     private String issueString (Set<Literal> x1, Set<Literal> x2, Set<Rule> r1, Set<Rule> r2){
