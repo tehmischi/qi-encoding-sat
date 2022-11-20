@@ -1,0 +1,20 @@
+/*
+Example rule base file for the rule base:
+d <- a
+e <- b
+f <- c
+j <- d,e,f
+g <- a
+h <- b
+i <- c
+not j <- g,h,i
+*/
+
+d, a;
+e, b;
+f, c;
+j, d e f;
+g, a;
+h, b;
+i, c;
+-j, g h i;

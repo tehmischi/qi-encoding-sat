@@ -1,10 +1,8 @@
 /*
 Example rule base file for the rule base:
-b <- a
-c <- b
-not c <- a
+c <- a
+not c <- a,b
 */
 
-b, a;
-c, b;
--c, a;
+c, a;
+-c, a b;
