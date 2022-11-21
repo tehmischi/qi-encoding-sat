@@ -1,0 +1,151 @@
+'Constraint';'Template';'Activation';'Target';'Support';'Confidence level';'Interest factor'
+'AtMost3(Declaration APPROVED by ADMINISTRATION)';'AtMost3';'Declaration APPROVED by ADMINISTRATION';;1.000;0.763;0.582
+'Response(Declaration APPROVED by ADMINISTRATION, Declaration FINAL_APPROVED by SUPERVISOR)';'Response';'Declaration APPROVED by ADMINISTRATION';'Declaration FINAL_APPROVED by SUPERVISOR';0.964;0.735;0.680
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';1.000;0.763;0.754
+'RespondedExistence(Declaration APPROVED by ADMINISTRATION, End trip)';'RespondedExistence';'Declaration APPROVED by ADMINISTRATION';'End trip';1.000;0.763;0.763
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, End trip)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'End trip';0.993;0.757;0.757
+'Response(Declaration APPROVED by ADMINISTRATION, Payment Handled)';'Response';'Declaration APPROVED by ADMINISTRATION';'Payment Handled';0.996;0.759;0.729
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Payment Handled)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Payment Handled';1.000;0.763;0.732
+'NotSuccession(Declaration APPROVED by ADMINISTRATION, Permit APPROVED by ADMINISTRATION)';'NotSuccession';'Declaration APPROVED by ADMINISTRATION';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.560
+'NotSuccession(Declaration APPROVED by ADMINISTRATION, Permit FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Declaration APPROVED by ADMINISTRATION';'Permit FINAL_APPROVED by SUPERVISOR';1.000;0.763;0.635
+'NotSuccession(Declaration APPROVED by ADMINISTRATION, Permit SUBMITTED by EMPLOYEE)';'NotSuccession';'Declaration APPROVED by ADMINISTRATION';'Permit SUBMITTED by EMPLOYEE';1.000;0.763;0.710
+'Response(Declaration APPROVED by ADMINISTRATION, Request Payment)';'Response';'Declaration APPROVED by ADMINISTRATION';'Request Payment';0.995;0.759;0.727
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Request Payment)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Request Payment';1.000;0.763;0.731
+'RespondedExistence(Declaration APPROVED by ADMINISTRATION, Start trip)';'RespondedExistence';'Declaration APPROVED by ADMINISTRATION';'Start trip';1.000;0.763;0.763
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Start trip)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Start trip';0.999;0.762;0.762
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration APPROVED by ADMINISTRATION)';'AlternatePrecedence';'Declaration APPROVED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.754
+'AlternatePrecedence(Declaration APPROVED by ADMINISTRATION, Declaration APPROVED by BUDGET OWNER)';'AlternatePrecedence';'Declaration APPROVED by BUDGET OWNER';'Declaration APPROVED by ADMINISTRATION';1.000;0.763;0.215
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration APPROVED by BUDGET OWNER)';'AlternatePrecedence';'Declaration APPROVED by BUDGET OWNER';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.279
+'AtMost3(Declaration FINAL_APPROVED by SUPERVISOR)';'AtMost3';'Declaration FINAL_APPROVED by SUPERVISOR';;1.000;0.924;0.854
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Declaration APPROVED by ADMINISTRATION';1.000;0.763;0.705
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Declaration SUBMITTED by EMPLOYEE';1.000;0.924;0.914
+'RespondedExistence(Declaration FINAL_APPROVED by SUPERVISOR, End trip)';'RespondedExistence';'Declaration FINAL_APPROVED by SUPERVISOR';'End trip';1.000;0.924;0.924
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, End trip)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'End trip';0.998;0.923;0.923
+'Response(Declaration FINAL_APPROVED by SUPERVISOR, Payment Handled)';'Response';'Declaration FINAL_APPROVED by SUPERVISOR';'Payment Handled';0.997;0.922;0.884
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Payment Handled)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Payment Handled';0.999;0.924;0.886
+'NotSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Permit APPROVED by ADMINISTRATION)';'NotSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.679
+'NotSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Permit FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Permit FINAL_APPROVED by SUPERVISOR';1.000;0.832;0.769
+'NotSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Permit SUBMITTED by EMPLOYEE)';'NotSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Permit SUBMITTED by EMPLOYEE';1.000;0.924;0.860
+'Response(Declaration FINAL_APPROVED by SUPERVISOR, Request Payment)';'Response';'Declaration FINAL_APPROVED by SUPERVISOR';'Request Payment';0.997;0.921;0.883
+'RespondedExistence(Declaration FINAL_APPROVED by SUPERVISOR, Start trip)';'RespondedExistence';'Declaration FINAL_APPROVED by SUPERVISOR';'Start trip';1.000;0.924;0.924
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Start trip)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Start trip';0.999;0.923;0.923
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration FINAL_APPROVED by SUPERVISOR)';'AlternatePrecedence';'Declaration FINAL_APPROVED by SUPERVISOR';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.914
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration REJECTED by ADMINISTRATION)';'AlternatePrecedence';'Declaration REJECTED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.197
+'Precedence(Permit SUBMITTED by EMPLOYEE, Declaration REJECTED by ADMINISTRATION)';'Precedence';'Declaration REJECTED by ADMINISTRATION';'Permit SUBMITTED by EMPLOYEE';0.953;0.887;0.177
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration REJECTED by EMPLOYEE)';'AlternatePrecedence';'Declaration REJECTED by EMPLOYEE';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.227
+'AtLeast1(Declaration SUBMITTED by EMPLOYEE)';'AtLeast1';'Declaration SUBMITTED by EMPLOYEE';;0.989;0.977;0.966
+'AtMost3(Declaration SUBMITTED by EMPLOYEE)';'AtMost3';'Declaration SUBMITTED by EMPLOYEE';;0.994;0.982;0.971
+'RespondedExistence(Declaration SUBMITTED by EMPLOYEE, End trip)';'RespondedExistence';'Declaration SUBMITTED by EMPLOYEE';'End trip';1.000;0.989;0.989
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, End trip)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'End trip';0.992;0.981;0.981
+'Response(Declaration SUBMITTED by EMPLOYEE, Payment Handled)';'Response';'Declaration SUBMITTED by EMPLOYEE';'Payment Handled';0.974;0.963;0.924
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Payment Handled)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Payment Handled';1.000;0.959;0.948
+'NotSuccession(Declaration SUBMITTED by EMPLOYEE, Permit APPROVED by ADMINISTRATION)';'NotSuccession';'Declaration SUBMITTED by EMPLOYEE';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.726
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Permit FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Permit FINAL_APPROVED by SUPERVISOR';1.000;0.832;0.823
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Permit SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Permit SUBMITTED by EMPLOYEE';1.000;0.931;0.920
+'Response(Declaration SUBMITTED by EMPLOYEE, Request Payment)';'Response';'Declaration SUBMITTED by EMPLOYEE';'Request Payment';0.973;0.962;0.922
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Request Payment)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Request Payment';1.000;0.959;0.948
+'RespondedExistence(Declaration SUBMITTED by EMPLOYEE, Start trip)';'RespondedExistence';'Declaration SUBMITTED by EMPLOYEE';'Start trip';1.000;0.989;0.989
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Start trip)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Start trip';0.989;0.978;0.978
+'AtLeast1(End trip)';'AtLeast1';'End trip';;1.000;1.000;1.000
+'AtMost1(End trip)';'AtMost1';'End trip';;1.000;1.000;1.000
+'NotChainSuccession(End trip, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'End trip';'Declaration APPROVED by ADMINISTRATION';0.986;0.752;0.752
+'NotChainSuccession(End trip, Declaration FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'End trip';'Declaration FINAL_APPROVED by SUPERVISOR';0.993;0.918;0.918
+'RespondedExistence(End trip, Declaration SUBMITTED by EMPLOYEE)';'RespondedExistence';'End trip';'Declaration SUBMITTED by EMPLOYEE';0.989;0.989;0.977
+'RespondedExistence(End trip, Payment Handled)';'RespondedExistence';'End trip';'Payment Handled';0.959;0.959;0.920
+'NotChainSuccession(End trip, Payment Handled)';'NotChainSuccession';'End trip';'Payment Handled';0.998;0.957;0.957
+'NotChainSuccession(End trip, Permit APPROVED by ADMINISTRATION)';'NotChainSuccession';'End trip';'Permit APPROVED by ADMINISTRATION';0.999;0.734;0.734
+'NotChainSuccession(End trip, Permit FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'End trip';'Permit FINAL_APPROVED by SUPERVISOR';0.974;0.810;0.810
+'RespondedExistence(End trip, Request Payment)';'RespondedExistence';'End trip';'Request Payment';0.959;0.959;0.919
+'NotChainSuccession(End trip, Request Payment)';'NotChainSuccession';'End trip';'Request Payment';0.998;0.957;0.957
+'CoExistence(End trip, Start trip)';'CoExistence';'End trip';'Start trip';1.000;1.000;1.000
+'NotSuccession(End trip, Start trip)';'NotSuccession';'End trip';'Start trip';1.000;1.000;1.000
+'AtLeast1(Payment Handled)';'AtLeast1';'Payment Handled';;0.959;0.920;0.883
+'AtMost1(Payment Handled)';'AtMost1';'Payment Handled';;1.000;0.959;0.920
+'AlternatePrecedence(Declaration FINAL_APPROVED by SUPERVISOR, Payment Handled)';'AlternatePrecedence';'Payment Handled';'Declaration FINAL_APPROVED by SUPERVISOR';0.961;0.888;0.852
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Payment Handled)';'AlternatePrecedence';'Payment Handled';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.948
+'NotSuccession(Payment Handled, Declaration APPROVED by ADMINISTRATION)';'NotSuccession';'Payment Handled';'Declaration APPROVED by ADMINISTRATION';1.000;0.763;0.732
+'NotSuccession(Payment Handled, Declaration FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Payment Handled';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.924;0.887
+'NotSuccession(Payment Handled, Declaration SUBMITTED by EMPLOYEE)';'NotSuccession';'Payment Handled';'Declaration SUBMITTED by EMPLOYEE';1.000;0.959;0.948
+'RespondedExistence(Payment Handled, End trip)';'RespondedExistence';'Payment Handled';'End trip';1.000;0.959;0.959
+'NotChainSuccession(Payment Handled, End trip)';'NotChainSuccession';'Payment Handled';'End trip';0.981;0.941;0.941
+'NotSuccession(Payment Handled, Permit APPROVED by ADMINISTRATION)';'NotSuccession';'Payment Handled';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.705
+'NotSuccession(Payment Handled, Permit FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Payment Handled';'Permit FINAL_APPROVED by SUPERVISOR';1.000;0.832;0.798
+'NotSuccession(Payment Handled, Permit SUBMITTED by EMPLOYEE)';'NotSuccession';'Payment Handled';'Permit SUBMITTED by EMPLOYEE';1.000;0.931;0.893
+'RespondedExistence(Payment Handled, Request Payment)';'RespondedExistence';'Payment Handled';'Request Payment';0.999;0.959;0.919
+'NotSuccession(Payment Handled, Request Payment)';'NotSuccession';'Payment Handled';'Request Payment';1.000;0.958;0.919
+'RespondedExistence(Payment Handled, Start trip)';'RespondedExistence';'Payment Handled';'Start trip';1.000;0.959;0.959
+'AtMost3(Permit APPROVED by ADMINISTRATION)';'AtMost3';'Permit APPROVED by ADMINISTRATION';;1.000;0.735;0.540
+'Response(Permit APPROVED by ADMINISTRATION, Declaration APPROVED by ADMINISTRATION)';'Response';'Permit APPROVED by ADMINISTRATION';'Declaration APPROVED by ADMINISTRATION';0.963;0.708;0.540
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Declaration APPROVED by ADMINISTRATION';1.000;0.735;0.560
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Declaration FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.735;0.679
+'Response(Permit APPROVED by ADMINISTRATION, Declaration SUBMITTED by EMPLOYEE)';'Response';'Permit APPROVED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';0.989;0.727;0.718
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';1.000;0.735;0.726
+'RespondedExistence(Permit APPROVED by ADMINISTRATION, End trip)';'RespondedExistence';'Permit APPROVED by ADMINISTRATION';'End trip';1.000;0.735;0.735
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, End trip)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'End trip';0.996;0.731;0.731
+'Response(Permit APPROVED by ADMINISTRATION, Payment Handled)';'Response';'Permit APPROVED by ADMINISTRATION';'Payment Handled';0.959;0.705;0.676
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Payment Handled)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Payment Handled';1.000;0.735;0.705
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Permit SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Permit SUBMITTED by EMPLOYEE';1.000;0.735;0.684
+'Response(Permit APPROVED by ADMINISTRATION, Request Payment)';'Response';'Permit APPROVED by ADMINISTRATION';'Request Payment';0.958;0.704;0.675
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Request Payment)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Request Payment';1.000;0.735;0.704
+'RespondedExistence(Permit APPROVED by ADMINISTRATION, Start trip)';'RespondedExistence';'Permit APPROVED by ADMINISTRATION';'Start trip';1.000;0.735;0.735
+'NotChainSuccession(Permit APPROVED by ADMINISTRATION, Start trip)';'NotChainSuccession';'Permit APPROVED by ADMINISTRATION';'Start trip';0.956;0.702;0.702
+'AlternatePrecedence(Permit SUBMITTED by EMPLOYEE, Permit APPROVED by ADMINISTRATION)';'AlternatePrecedence';'Permit APPROVED by ADMINISTRATION';'Permit SUBMITTED by EMPLOYEE';1.000;0.931;0.684
+'AlternatePrecedence(Permit APPROVED by ADMINISTRATION, Permit APPROVED by BUDGET OWNER)';'AlternatePrecedence';'Permit APPROVED by BUDGET OWNER';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.199
+'AlternatePrecedence(Permit SUBMITTED by EMPLOYEE, Permit APPROVED by BUDGET OWNER)';'AlternatePrecedence';'Permit APPROVED by BUDGET OWNER';'Permit SUBMITTED by EMPLOYEE';1.000;0.931;0.251
+'AtMost3(Permit FINAL_APPROVED by SUPERVISOR)';'AtMost3';'Permit FINAL_APPROVED by SUPERVISOR';;1.000;0.832;0.693
+'NotChainSuccession(Permit FINAL_APPROVED by SUPERVISOR, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'Declaration APPROVED by ADMINISTRATION';1.000;0.763;0.635
+'Response(Permit FINAL_APPROVED by SUPERVISOR, Declaration FINAL_APPROVED by SUPERVISOR)';'Response';'Permit FINAL_APPROVED by SUPERVISOR';'Declaration FINAL_APPROVED by SUPERVISOR';0.959;0.799;0.738
+'NotChainSuccession(Permit FINAL_APPROVED by SUPERVISOR, Declaration FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.832;0.769
+'RespondedExistence(Permit FINAL_APPROVED by SUPERVISOR, Declaration SUBMITTED by EMPLOYEE)';'RespondedExistence';'Permit FINAL_APPROVED by SUPERVISOR';'Declaration SUBMITTED by EMPLOYEE';0.990;0.824;0.814
+'RespondedExistence(Permit FINAL_APPROVED by SUPERVISOR, End trip)';'RespondedExistence';'Permit FINAL_APPROVED by SUPERVISOR';'End trip';1.000;0.832;0.832
+'NotChainSuccession(Permit FINAL_APPROVED by SUPERVISOR, End trip)';'NotChainSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'End trip';0.954;0.794;0.794
+'Response(Permit FINAL_APPROVED by SUPERVISOR, Payment Handled)';'Response';'Permit FINAL_APPROVED by SUPERVISOR';'Payment Handled';0.960;0.799;0.767
+'NotChainSuccession(Permit FINAL_APPROVED by SUPERVISOR, Payment Handled)';'NotChainSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'Payment Handled';1.000;0.832;0.798
+'NotSuccession(Permit FINAL_APPROVED by SUPERVISOR, Permit APPROVED by ADMINISTRATION)';'NotSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.611
+'NotChainSuccession(Permit FINAL_APPROVED by SUPERVISOR, Permit SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'Permit SUBMITTED by EMPLOYEE';1.000;0.832;0.774
+'Response(Permit FINAL_APPROVED by SUPERVISOR, Request Payment)';'Response';'Permit FINAL_APPROVED by SUPERVISOR';'Request Payment';0.960;0.799;0.766
+'NotChainSuccession(Permit FINAL_APPROVED by SUPERVISOR, Request Payment)';'NotChainSuccession';'Permit FINAL_APPROVED by SUPERVISOR';'Request Payment';1.000;0.832;0.798
+'RespondedExistence(Permit FINAL_APPROVED by SUPERVISOR, Start trip)';'RespondedExistence';'Permit FINAL_APPROVED by SUPERVISOR';'Start trip';1.000;0.832;0.832
+'AlternatePrecedence(Permit SUBMITTED by EMPLOYEE, Permit FINAL_APPROVED by SUPERVISOR)';'AlternatePrecedence';'Permit FINAL_APPROVED by SUPERVISOR';'Permit SUBMITTED by EMPLOYEE';1.000;0.931;0.774
+'AtMost3(Permit SUBMITTED by EMPLOYEE)';'AtMost3';'Permit SUBMITTED by EMPLOYEE';;1.000;0.930;0.866
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'Declaration APPROVED by ADMINISTRATION';1.000;0.763;0.710
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, Declaration FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.924;0.860
+'RespondedExistence(Permit SUBMITTED by EMPLOYEE, Declaration SUBMITTED by EMPLOYEE)';'RespondedExistence';'Permit SUBMITTED by EMPLOYEE';'Declaration SUBMITTED by EMPLOYEE';0.990;0.921;0.910
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'Declaration SUBMITTED by EMPLOYEE';1.000;0.931;0.920
+'RespondedExistence(Permit SUBMITTED by EMPLOYEE, End trip)';'RespondedExistence';'Permit SUBMITTED by EMPLOYEE';'End trip';1.000;0.931;0.931
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, End trip)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'End trip';1.000;0.930;0.930
+'Response(Permit SUBMITTED by EMPLOYEE, Payment Handled)';'Response';'Permit SUBMITTED by EMPLOYEE';'Payment Handled';0.961;0.894;0.858
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, Payment Handled)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'Payment Handled';1.000;0.931;0.893
+'Response(Permit SUBMITTED by EMPLOYEE, Request Payment)';'Response';'Permit SUBMITTED by EMPLOYEE';'Request Payment';0.960;0.894;0.857
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, Request Payment)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'Request Payment';1.000;0.931;0.892
+'RespondedExistence(Permit SUBMITTED by EMPLOYEE, Start trip)';'RespondedExistence';'Permit SUBMITTED by EMPLOYEE';'Start trip';1.000;0.931;0.931
+'NotChainSuccession(Permit SUBMITTED by EMPLOYEE, Start trip)';'NotChainSuccession';'Permit SUBMITTED by EMPLOYEE';'Start trip';0.998;0.928;0.928
+'AtLeast1(Request Payment)';'AtLeast1';'Request Payment';;0.959;0.919;0.881
+'AtMost1(Request Payment)';'AtMost1';'Request Payment';;1.000;0.959;0.919
+'AlternatePrecedence(Declaration FINAL_APPROVED by SUPERVISOR, Request Payment)';'AlternatePrecedence';'Request Payment';'Declaration FINAL_APPROVED by SUPERVISOR';0.961;0.888;0.851
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Request Payment)';'AlternatePrecedence';'Request Payment';'Declaration SUBMITTED by EMPLOYEE';1.000;0.989;0.948
+'NotSuccession(Request Payment, Declaration APPROVED by ADMINISTRATION)';'NotSuccession';'Request Payment';'Declaration APPROVED by ADMINISTRATION';1.000;0.763;0.731
+'NotSuccession(Request Payment, Declaration FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Request Payment';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.924;0.886
+'NotSuccession(Request Payment, Declaration SUBMITTED by EMPLOYEE)';'NotSuccession';'Request Payment';'Declaration SUBMITTED by EMPLOYEE';1.000;0.959;0.948
+'RespondedExistence(Request Payment, End trip)';'RespondedExistence';'Request Payment';'End trip';1.000;0.959;0.959
+'NotChainSuccession(Request Payment, End trip)';'NotChainSuccession';'Request Payment';'End trip';0.998;0.957;0.957
+'RespondedExistence(Request Payment, Payment Handled)';'RespondedExistence';'Request Payment';'Payment Handled';1.000;0.959;0.920
+'NotSuccession(Request Payment, Permit APPROVED by ADMINISTRATION)';'NotSuccession';'Request Payment';'Permit APPROVED by ADMINISTRATION';1.000;0.735;0.704
+'NotSuccession(Request Payment, Permit FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Request Payment';'Permit FINAL_APPROVED by SUPERVISOR';1.000;0.832;0.798
+'NotSuccession(Request Payment, Permit SUBMITTED by EMPLOYEE)';'NotSuccession';'Request Payment';'Permit SUBMITTED by EMPLOYEE';1.000;0.931;0.892
+'RespondedExistence(Request Payment, Start trip)';'RespondedExistence';'Request Payment';'Start trip';1.000;0.959;0.959
+'NotChainSuccession(Request Payment, Start trip)';'NotChainSuccession';'Request Payment';'Start trip';0.999;0.958;0.958
+'AtLeast1(Start trip)';'AtLeast1';'Start trip';;1.000;1.000;1.000
+'AtMost1(Start trip)';'AtMost1';'Start trip';;1.000;1.000;1.000
+'NotChainSuccession(Start trip, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'Start trip';'Declaration APPROVED by ADMINISTRATION';0.999;0.762;0.762
+'NotChainSuccession(Start trip, Declaration FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'Start trip';'Declaration FINAL_APPROVED by SUPERVISOR';0.999;0.923;0.923
+'RespondedExistence(Start trip, Declaration SUBMITTED by EMPLOYEE)';'RespondedExistence';'Start trip';'Declaration SUBMITTED by EMPLOYEE';0.989;0.989;0.977
+'NotChainSuccession(Start trip, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Start trip';'Declaration SUBMITTED by EMPLOYEE';0.981;0.970;0.970
+'AlternateSuccession(Start trip, End trip)';'AlternateSuccession';'Start trip';'End trip';1.000;1.000;1.000
+'RespondedExistence(Start trip, Payment Handled)';'RespondedExistence';'Start trip';'Payment Handled';0.959;0.959;0.920
+'NotChainSuccession(Start trip, Payment Handled)';'NotChainSuccession';'Start trip';'Payment Handled';0.999;0.958;0.958
+'NotChainSuccession(Start trip, Permit APPROVED by ADMINISTRATION)';'NotChainSuccession';'Start trip';'Permit APPROVED by ADMINISTRATION';0.999;0.734;0.734
+'NotChainSuccession(Start trip, Permit FINAL_APPROVED by SUPERVISOR)';'NotChainSuccession';'Start trip';'Permit FINAL_APPROVED by SUPERVISOR';0.970;0.807;0.807
+'NotChainSuccession(Start trip, Permit SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Start trip';'Permit SUBMITTED by EMPLOYEE';0.965;0.898;0.898
+'RespondedExistence(Start trip, Request Payment)';'RespondedExistence';'Start trip';'Request Payment';0.959;0.959;0.919
+'NotChainSuccession(Start trip, Request Payment)';'NotChainSuccession';'Start trip';'Request Payment';0.999;0.958;0.958

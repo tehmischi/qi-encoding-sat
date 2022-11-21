@@ -1,0 +1,1 @@
+Mined with MINERful with -s 0.95 -c 0.5 -i 0.125

@@ -1,0 +1,43 @@
+'Constraint';'Template';'Activation';'Target';'Support';'Confidence level';'Interest factor'
+'AtMost3(Declaration APPROVED by ADMINISTRATION)';'AtMost3';'Declaration APPROVED by ADMINISTRATION';;1.000;0.760;0.578
+'Response(Declaration APPROVED by ADMINISTRATION, Declaration FINAL_APPROVED by SUPERVISOR)';'Response';'Declaration APPROVED by ADMINISTRATION';'Declaration FINAL_APPROVED by SUPERVISOR';0.992;0.754;0.723
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';1.000;0.760;0.751
+'Response(Declaration APPROVED by ADMINISTRATION, Payment Handled)';'Response';'Declaration APPROVED by ADMINISTRATION';'Payment Handled';0.992;0.754;0.722
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Payment Handled)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Payment Handled';1.000;0.760;0.727
+'Response(Declaration APPROVED by ADMINISTRATION, Request Payment)';'Response';'Declaration APPROVED by ADMINISTRATION';'Request Payment';0.991;0.754;0.721
+'NotChainSuccession(Declaration APPROVED by ADMINISTRATION, Request Payment)';'NotChainSuccession';'Declaration APPROVED by ADMINISTRATION';'Request Payment';1.000;0.760;0.727
+'ChainPrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration APPROVED by ADMINISTRATION)';'ChainPrecedence';'Declaration APPROVED by ADMINISTRATION';'Declaration SUBMITTED by EMPLOYEE';1.000;0.987;0.751
+'ChainPrecedence(Declaration APPROVED by ADMINISTRATION, Declaration APPROVED by BUDGET OWNER)';'ChainPrecedence';'Declaration APPROVED by BUDGET OWNER';'Declaration APPROVED by ADMINISTRATION';1.000;0.760;0.203
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration APPROVED by BUDGET OWNER)';'AlternatePrecedence';'Declaration APPROVED by BUDGET OWNER';'Declaration SUBMITTED by EMPLOYEE';1.000;0.987;0.264
+'AtLeast1(Declaration FINAL_APPROVED by SUPERVISOR)';'AtLeast1';'Declaration FINAL_APPROVED by SUPERVISOR';;0.959;0.920;0.882
+'AtMost3(Declaration FINAL_APPROVED by SUPERVISOR)';'AtMost3';'Declaration FINAL_APPROVED by SUPERVISOR';;1.000;0.959;0.920
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Declaration APPROVED by ADMINISTRATION)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Declaration APPROVED by ADMINISTRATION';1.000;0.760;0.729
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Declaration SUBMITTED by EMPLOYEE)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Declaration SUBMITTED by EMPLOYEE';1.000;0.959;0.947
+'Response(Declaration FINAL_APPROVED by SUPERVISOR, Payment Handled)';'Response';'Declaration FINAL_APPROVED by SUPERVISOR';'Payment Handled';0.997;0.956;0.915
+'NotChainSuccession(Declaration FINAL_APPROVED by SUPERVISOR, Payment Handled)';'NotChainSuccession';'Declaration FINAL_APPROVED by SUPERVISOR';'Payment Handled';0.999;0.956;0.917
+'Response(Declaration FINAL_APPROVED by SUPERVISOR, Request Payment)';'Response';'Declaration FINAL_APPROVED by SUPERVISOR';'Request Payment';0.997;0.956;0.914
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Declaration FINAL_APPROVED by SUPERVISOR)';'AlternatePrecedence';'Declaration FINAL_APPROVED by SUPERVISOR';'Declaration SUBMITTED by EMPLOYEE';1.000;0.987;0.947
+'AtMost3(Declaration SUBMITTED by EMPLOYEE)';'AtMost3';'Declaration SUBMITTED by EMPLOYEE';;0.999;0.986;0.973
+'Init(Declaration SUBMITTED by EMPLOYEE)';'Init';'Declaration SUBMITTED by EMPLOYEE';;0.987;0.974;0.962
+'Response(Declaration SUBMITTED by EMPLOYEE, Declaration FINAL_APPROVED by SUPERVISOR)';'Response';'Declaration SUBMITTED by EMPLOYEE';'Declaration FINAL_APPROVED by SUPERVISOR';0.971;0.958;0.919
+'Response(Declaration SUBMITTED by EMPLOYEE, Payment Handled)';'Response';'Declaration SUBMITTED by EMPLOYEE';'Payment Handled';0.968;0.956;0.914
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Payment Handled)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Payment Handled';1.000;0.957;0.944
+'Response(Declaration SUBMITTED by EMPLOYEE, Request Payment)';'Response';'Declaration SUBMITTED by EMPLOYEE';'Request Payment';0.968;0.955;0.913
+'NotChainSuccession(Declaration SUBMITTED by EMPLOYEE, Request Payment)';'NotChainSuccession';'Declaration SUBMITTED by EMPLOYEE';'Request Payment';1.000;0.956;0.944
+'AtLeast1(Payment Handled)';'AtLeast1';'Payment Handled';;0.957;0.915;0.875
+'AtMost1(Payment Handled)';'AtMost1';'Payment Handled';;1.000;0.957;0.915
+'AlternatePrecedence(Declaration FINAL_APPROVED by SUPERVISOR, Payment Handled)';'AlternatePrecedence';'Payment Handled';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.959;0.917
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Payment Handled)';'AlternatePrecedence';'Payment Handled';'Declaration SUBMITTED by EMPLOYEE';1.000;0.987;0.944
+'NotSuccession(Payment Handled, Declaration APPROVED by ADMINISTRATION)';'NotSuccession';'Payment Handled';'Declaration APPROVED by ADMINISTRATION';1.000;0.760;0.727
+'NotSuccession(Payment Handled, Declaration FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Payment Handled';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.957;0.917
+'NotSuccession(Payment Handled, Declaration SUBMITTED by EMPLOYEE)';'NotSuccession';'Payment Handled';'Declaration SUBMITTED by EMPLOYEE';1.000;0.957;0.944
+'NotSuccession(Payment Handled, Request Payment)';'NotSuccession';'Payment Handled';'Request Payment';1.000;0.956;0.915
+'ChainPrecedence(Request Payment, Payment Handled)';'ChainPrecedence';'Payment Handled';'Request Payment';0.999;0.956;0.914
+'AtLeast1(Request Payment)';'AtLeast1';'Request Payment';;0.956;0.914;0.874
+'AtMost1(Request Payment)';'AtMost1';'Request Payment';;1.000;0.956;0.914
+'ChainPrecedence(Declaration FINAL_APPROVED by SUPERVISOR, Request Payment)';'ChainPrecedence';'Request Payment';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.959;0.917
+'AlternatePrecedence(Declaration SUBMITTED by EMPLOYEE, Request Payment)';'AlternatePrecedence';'Request Payment';'Declaration SUBMITTED by EMPLOYEE';1.000;0.987;0.944
+'NotSuccession(Request Payment, Declaration APPROVED by ADMINISTRATION)';'NotSuccession';'Request Payment';'Declaration APPROVED by ADMINISTRATION';1.000;0.760;0.727
+'NotSuccession(Request Payment, Declaration FINAL_APPROVED by SUPERVISOR)';'NotSuccession';'Request Payment';'Declaration FINAL_APPROVED by SUPERVISOR';1.000;0.956;0.917
+'NotSuccession(Request Payment, Declaration SUBMITTED by EMPLOYEE)';'NotSuccession';'Request Payment';'Declaration SUBMITTED by EMPLOYEE';1.000;0.956;0.944
+'ChainResponse(Request Payment, Payment Handled)';'ChainResponse';'Request Payment';'Payment Handled';1.000;0.956;0.914
