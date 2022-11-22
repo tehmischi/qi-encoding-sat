@@ -20,8 +20,11 @@ public class ArgumentHandler {
                     case "-dimacs" -> {
                         String standardPath = System.getProperty("user.dir") + "/dimacs";
                         if (args.length <= i + 1){
+                            System.out.println("No input file specified. Using default: " + config.getFilePath());
+                            System.out.println("No location specified for DIMACS file output. Using default: " + standardPath + ".cnf");
                             cnfGen(standardPath);
                         } else if (args[i+1].startsWith("-")){
+                            System.out.println("No location specified for DIMACS file output. Using default: " + standardPath + ".cnf");
                             cnfGen(standardPath);
                         } else {
                             i++;
@@ -36,15 +39,14 @@ public class ArgumentHandler {
                     case "--timer" -> AppSettings.getConfig().setTimerMode(true);
                     case "--benchmark" -> AppSettings.getConfig().setBenchmarkMode(true);
                     default -> {
-                        System.err.println(args[i] + "is not a valid argument and was ignored!");
+                        System.err.println(args[i] + " is not a valid argument and was ignored!");
                         System.err.println("Valid arguments are: -f FilePath, -solver SolverName, -dimacs FilePath, --debug, --timer, --benchmark");
                     }
                 }
             }
 
         }
-        System.out.println("SAT solver: " + config.getSolverName());
-        System.out.println("File path: " + config.getFilePath());
+        System.out.println("Input File Path: " + config.getFilePath());
         if (config.isDebugMode()){
             System.out.println("Debug mode: " + config.isDebugMode());
         }

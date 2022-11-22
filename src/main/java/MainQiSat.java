@@ -25,19 +25,20 @@
         constraints.addAll(minimalActivation.encode());
         Formula satEncoding = formulaFactory.and(constraints);
         OutputStringFormatter formatter = new OutputStringFormatter(base);
+        System.out.println("Rule base:");
+        System.out.println(base);
         long solverStart = System.currentTimeMillis();
         if (config.isTimerMode() || config.isBenchmarkMode()) {
-            System.out.println("Encoding execution time in Miliseconds: " + (encodingStart-programStart));
+            System.out.println("Encoding execution time in Miliseconds: " + (encodingStart-programStart) +"\n");
         }
         SATSolver satSolver = config.getSolver();
         satSolver.add(satEncoding);
         if (config.isDebugMode()){
-            System.out.println(satEncoding);
+            System.out.println("SAT encoding: ");
+            System.out.println(satEncoding + "\n");
         }
         if (!config.isCnfMode()){
-            System.out.println("Running Quasi-Inconsistency detection with " + config.getSolverName() + " for rule base:");
-            System.out.println(base);
-
+            System.out.println("Running Quasi-Inconsistency detection with SAT solver " + config.getSolverName());
             if (!satSolver.sat().toString().equals("FALSE")){
                 System.out.println("The rule base is Quasi-Inconsistent with the following issue: ");
                 System.out.println(formatter.parse(satSolver.model().toString()));
@@ -60,7 +61,8 @@
             Formula cnf = satEncoding.cnf();
             try {
                 FormulaDimacsFileWriter.write(config.getOutputFilePath(), cnf, true);
-                System.out.println("Writing encoding in DIMACS Format to file: " + config.getOutputFilePath());
+                System.out.println("Writing encoding in DIMACS Format to file: " + config.getOutputFilePath() + ".cnf");
+                System.out.println("Writing DIMACS mapping file to: " + config.getOutputFilePath() + ".map");
             } catch (Exception e){
                 System.out.println("I hate checked exceptions!");
             }

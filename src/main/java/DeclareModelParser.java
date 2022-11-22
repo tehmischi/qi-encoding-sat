@@ -52,29 +52,15 @@ public class DeclareModelParser implements InputFileParser{
         usefulRules.forEach(declareRule -> {
             boolean isResponse = declareRule.template().equals("'Response'");
             //boolean isResponse = declareRule.template().equals("'RespondedExistence'");
-            Literal body;
-            if (declareRule.body().contains("DECLINED")){
-                body = new Literal(declareRule.body().replaceAll("REJECTED", "APPROVED"), true);
-            } else {
-                body = new Literal(declareRule.body(), false);
-            }
+            Literal body = new Literal(declareRule.body(), false);
             LinkedList<Literal> bodyList = new LinkedList<>();
             bodyList.add(body);
             Literal head;
-            if (declareRule.head().contains("DECLINED")){
-                head = new Literal(declareRule.head().replaceAll("REJECTED", "APPROVED"), true);
-                System.out.println("blub");
-            } else {
-                head = new Literal(declareRule.head(), false);
-            }
-            /*
             if (isResponse) {
                 head = new Literal(declareRule.head(), false);
             } else {
                 head = new Literal(declareRule.head(), true);
             }
-
-             */
             Rule ruleToAdd = new Rule(head, bodyList);
             returnBase.addRuleToBase(ruleToAdd);
         });

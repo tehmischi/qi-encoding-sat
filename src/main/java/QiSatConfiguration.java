@@ -16,7 +16,7 @@ public class QiSatConfiguration {
 
     public QiSatConfiguration(){
         //setting default values
-        this.filePath = "examples/RuleBase1.txt";
+        this.filePath = System.getProperty("user.dir") + "/examples/RuleBase1.txt";
         this.solver = "glucose";
         this.debugMode = false;
         this.csvMode = false;
